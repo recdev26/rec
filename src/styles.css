@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-heading: "Barlow", "Inter", ui-sans-serif, sans-serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+:root {
+  --color-primary: #0d6b65;
+  --color-primary-light: #0f7a73;
+  --color-accent: #128982;
+  --color-accent-hover: #0d6b65;
+  --color-accent-light: #e8f5f4;
+  --color-white: #ffffff;
+  --color-off-white: #f0f4f4;
+  --color-gray-light: #e2e8e8;
+  --color-gray-mid: #9a9a9a;
+  --color-gray-dark: #555555;
+  --color-text: #1a2e2d;
+  --bg-white: #ffffff;
+  --bg-off-white: #f0f4f4;
+  --bg-dark: #0d6b65;
+  --bg-accent-tint: #e8f5f4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  background-color: var(--bg-white);
+  background:
+    radial-gradient(960px 540px at -10% -12%, rgba(18, 137, 130, 0.12), transparent 60%),
+    radial-gradient(880px 520px at 112% -10%, rgba(13, 107, 101, 0.08), transparent 64%),
+    linear-gradient(180deg, #ffffff 0%, #f9fcfc 42%, #ffffff 100%);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-color: rgba(18, 137, 130, 0.35);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+code {
+  font-size: 0.9em;
+  border: 1px solid var(--color-gray-light);
+  background: var(--color-off-white);
+  border-radius: 7px;
+  padding: 2px 7px;
+}
+
+pre code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+.page-wrap {
+  width: min(1280px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.display-title {
+  font-family: var(--font-heading);
+}
+
+.island-shell {
+  border: 1px solid var(--color-gray-light);
+  background: white;
+  box-shadow: 0 20px 46px rgba(11, 46, 44, 0.08);
+}
+
+.feature-card {
+  background: white;
+  box-shadow: 0 18px 34px rgba(11, 46, 44, 0.08);
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(18, 137, 130, 0.35);
+}
+
+button,
+.island-shell,
+a {
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.island-kicker {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.69rem;
+  color: var(--color-accent);
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-gray-light);
+  background: var(--bg-dark);
+}
+
+.rise-in {
+  animation: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
