@@ -26,7 +26,7 @@ export default function ProjectSlideCard({
     <article className="group min-w-[82vw] sm:min-w-[28rem] lg:min-w-[31rem]">
       <a
         href="/contactos"
-        className="relative block h-[30rem] overflow-hidden rounded-[1.75rem] no-underline"
+        className="relative block h-[30rem] overflow-hidden rounded-md no-underline"
       >
         <div className={`absolute inset-0 ${toneClasses[tone]}`} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_62%_22%,rgba(255,255,255,0.55),transparent_22%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(21,36,38,0.18))]" />
@@ -39,10 +39,10 @@ export default function ProjectSlideCard({
           <p className="text-xs font-semibold tracking-[0.18em] text-white/82 uppercase">
             {category}
           </p>
-          <h3 className="mt-2 font-heading text-3xl leading-tight font-bold text-white">
+          <h3 className="mt-2 font-heading text-xl leading-tight font-bold text-white">
             {title}
           </h3>
-          <p className="mt-3 text-base leading-7 text-white/84">{location}</p>
+          <p className="mt-2 text-sm leading-7 text-white/84">{location}</p>
         </div>
       </a>
     </article>

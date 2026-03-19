@@ -64,7 +64,7 @@ export default function HomeProjectsSection() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <SectionLabel>Os Nossos Projectos</SectionLabel>
-            <h2 className="font-heading text-4xl leading-tight font-bold text-[var(--color-text)] sm:text-5xl lg:text-6xl">
+            <h2 className="font-heading text-4xl leading-tight font-bold text-[var(--color-text)]">
               Projectos conduzidos com visão,
               <span className="block text-[var(--color-accent)]">
                 método e confiança técnica

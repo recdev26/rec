@@ -39,7 +39,7 @@ function FooterLink({ label, href }: { label: string; href: string }) {
   return (
     <a
       href={href}
-      className="inline-flex items-center gap-3 text-lg text-white/66 no-underline transition hover:gap-4 hover:!text-white"
+      className="inline-flex items-center gap-2 text-sm text-white/66 no-underline transition hover:gap-4 hover:!text-white"
     >
       <ArrowRight size={18} strokeWidth={2} />
       {label}
@@ -60,16 +60,16 @@ function OfficeItem({
 }) {
   return (
     <div className="flex items-start gap-5">
-      <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-[var(--color-accent)]">
-        <Icon size={24} strokeWidth={2.1} />
+      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[var(--color-accent)]">
+        <Icon size={20} strokeWidth={2.1} />
       </span>
       <div>
-        <p className="m-0 text-xl text-white/68">{label}</p>
+        <p className="m-0 text-white/68">{label}</p>
         <a
           href={href}
           target={href.startsWith('https://') ? '_blank' : undefined}
           rel={href.startsWith('https://') ? 'noreferrer' : undefined}
-          className="mt-1 inline-block text-2xl font-semibold !text-white no-underline transition hover:!text-[var(--color-accent-light)]"
+          className="mt-1 inline-block font-semibold !text-white no-underline transition hover:!text-[var(--color-accent-light)]"
         >
           {value}
         </a>
@@ -89,9 +89,9 @@ export default function Footer() {
               alt="Logótipo da REC"
               width="198"
               height="107"
-              className="h-14 w-auto object-contain brightness-[1.18] saturate-0 invert"
+              className="h-14 w-auto object-contain"
             />
-            <p className="mt-8 max-w-md text-xl leading-10 text-white/62">
+            <p className="mt-8 max-w-md text-white/62">
               A REC, Lda. presta consultoria imobiliária com rigor técnico,
               proximidade e compromisso com decisões seguras e sustentadas.
             </p>
@@ -104,19 +104,19 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="inline-flex h-14 w-14 items-center justify-center bg-white text-[var(--color-accent)] no-underline transition hover:-translate-y-1 hover:bg-[var(--color-accent-light)]"
+                  className="inline-flex h-10 w-12 items-center justify-center bg-white text-[var(--color-accent)] no-underline transition hover:-translate-y-1 hover:bg-[var(--color-accent-light)]"
                 >
-                  <Icon size={24} strokeWidth={2.1} />
+                  <Icon size={20} strokeWidth={2.1} />
                 </a>
               ))}
             </div>
           </div>
 
           <div>
-            <h2 className="font-heading text-4xl font-bold text-white">
+            <h2 className="font-heading font-semibold text-white">
               Ligações Rápidas
             </h2>
-            <div className="mt-8 flex flex-col gap-6">
+            <div className="mt-8 flex flex-col gap-4">
               {quickLinks.map((link) => (
                 <FooterLink key={link.label} {...link} />
               ))}
@@ -124,7 +124,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h2 className="font-heading text-4xl font-bold text-white">
+            <h2 className="font-heading font-semibold text-white">
               Informações do Escritório
             </h2>
             <div className="mt-8 space-y-8">
@@ -135,7 +135,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 border-t border-white/10 pt-8 text-center text-xl text-white/78">
+        <div className="mt-16 border-t border-white/10 pt-8 text-center text-xs text-white/78">
           REC, Lda. © 2025. Todos os direitos reservados. | Grupo Meridian 32
         </div>
       </div>

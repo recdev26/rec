@@ -10,7 +10,7 @@ export default function DesktopNavigation() {
             <li key={item.label} className="group relative list-none">
               <button
                 type="button"
-                className="inline-flex items-center gap-1.5 border-none bg-transparent px-0 py-8 text-lg font-semibold text-[#1c2f35] transition hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
+                className="inline-flex items-center gap-1.5 border-none bg-transparent px-0 py-8 font-semibold text-[#1c2f35] transition hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
               >
                 {item.label}
                 <ChevronDown size={18} strokeWidth={2.2} />
@@ -35,7 +35,7 @@ export default function DesktopNavigation() {
           <li key={item.href} className="list-none">
             <a
               href={item.href}
-              className="inline-flex items-center py-8 text-lg font-semibold !text-[#1c2f35] no-underline transition hover:!text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
+              className="inline-flex items-center py-8 font-semibold !text-[#1c2f35] no-underline transition hover:!text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
             >
               {item.label}
             </a>
