@@ -1,0 +1,42 @@
+interface PageBreadcrumbProps {
+  label: string
+  title: string
+}
+
+export default function PageBreadcrumb({
+  label,
+  title,
+}: PageBreadcrumbProps) {
+  return (
+    <section className="relative isolate overflow-hidden bg-[var(--color-text)] py-24 text-white lg:py-28">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,26,28,0.84)_0%,rgba(10,26,28,0.74)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_78%,rgba(18,137,130,0.16),transparent_20%),linear-gradient(130deg,transparent_0%,transparent_58%,rgba(255,255,255,0.04)_58%,rgba(255,255,255,0.04)_64%,transparent_64%,transparent_100%)]" />
+      <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(90deg,rgba(0,0,0,0.28),rgba(0,0,0,0.12))]" />
+      <div className="absolute -left-6 bottom-0 h-64 w-56 bg-[rgba(18,137,130,0.2)] [clip-path:polygon(24%_0%,100%_0%,74%_100%,0%_100%)]" />
+      <div className="absolute left-16 bottom-0 h-72 w-20 bg-[rgba(18,137,130,0.16)] [clip-path:polygon(24%_0%,100%_0%,74%_100%,0%_100%)]" />
+      <div className="absolute right-0 bottom-0 h-40 w-56 rounded-tl-[6rem] bg-white lg:h-56 lg:w-80" />
+
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <div>
+          <p className="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent-light)] uppercase">
+            {label}
+          </p>
+          <h1 className="mt-5 font-heading text-3xl leading-none font-bold text-white">
+            {title}
+          </h1>
+        </div>
+
+        <div className="inline-flex w-fit items-center gap-3 bg-white px-8 py-5 font-semibold text-[var(--color-gray-mid)] shadow-[0_20px_42px_rgba(10,26,28,0.18)] lg:px-12">
+          <a
+            href="/"
+            className="!text-[var(--color-gray-mid)] no-underline transition hover:!text-[var(--color-accent)]"
+          >
+            Início
+          </a>
+          <span className="text-[var(--color-accent)]">/</span>
+          <span className="text-[var(--color-accent)]">{title}</span>
+        </div>
+      </div>
+    </section>
+  )
+}

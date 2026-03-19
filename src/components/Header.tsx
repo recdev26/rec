@@ -15,6 +15,7 @@ export default function Header() {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null)
 
   const isHomePage = pathname === '/'
+  const showTopBar = pathname !== '/contactos'
   const topBarVariant = isHomePage ? 'home' : 'inner'
 
   const activeDropdownLabel = useMemo(() => {
@@ -66,15 +67,17 @@ export default function Header() {
         Saltar para o conteúdo principal
       </a>
 
-      <div
-        className={`hidden overflow-hidden transition-all duration-300 ease-out lg:block ${
-          isScrolled
-            ? 'max-h-0 -translate-y-2 opacity-0'
-            : 'max-h-24 translate-y-0 opacity-100'
-        }`}
-      >
-        <TopBar variant={topBarVariant} />
-      </div>
+      {showTopBar ? (
+        <div
+          className={`hidden overflow-hidden transition-all duration-300 ease-out lg:block ${
+            isScrolled
+              ? 'max-h-0 -translate-y-2 opacity-0'
+              : 'max-h-24 translate-y-0 opacity-100'
+          }`}
+        >
+          <TopBar variant={topBarVariant} />
+        </div>
+      ) : null}
 
       <div className="border-b border-[var(--color-gray-light)] bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5 lg:px-8 lg:py-0">
