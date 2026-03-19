@@ -24,7 +24,7 @@ export default function HighlightCard({
           <Icon size={34} strokeWidth={1.9} />
         </div>
 
-        <h3 className="font-heading text-2xl leading-tight font-bold text-[var(--color-text)]">
+        <h3 className="font-heading text-xl leading-tight font-semibold text-[var(--color-text)]">
           {title}
         </h3>
 
