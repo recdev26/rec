@@ -80,7 +80,7 @@ export default function Header() {
       ) : null}
 
       <div className="border-b border-[var(--color-gray-light)] bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5 lg:px-8 lg:py-0">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3 md:py-5 lg:px-8 lg:py-0">
           <Link to="/" aria-label="REC - Real Estate Consulting" className="shrink-0 no-underline">
             <HeaderLogo />
           </Link>

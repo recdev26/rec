@@ -38,13 +38,13 @@ export default function HomeHighlightsSection() {
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-5xl text-center">
           <SectionLabel align="center">A Nossa Abordagem</SectionLabel>
-          <h2 className="font-heading text-4xl leading-tight font-bold text-[var(--color-text)]">
+          <h2 className="font-heading text-2xl md:text-4xl leading-tight font-bold text-[var(--color-text)]">
             Experiência, rigor técnico e uma visão clara para
             <span className="block text-[var(--color-accent)]">
               acrescentar valor em cada decisão imobiliária
             </span>
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-[var(--color-gray-dark)]">
+          <p className="mx-auto mt-5 max-w-3xl text-base md:text-lg leading-8 text-[var(--color-gray-dark)]">
             A REC combina proximidade, competência técnica e profundo
             conhecimento do mercado para apoiar investimentos, projectos e
             activos com confiança e responsabilidade.

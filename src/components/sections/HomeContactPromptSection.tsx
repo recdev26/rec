@@ -25,14 +25,14 @@ export default function HomeContactPromptSection() {
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.95fr)] lg:px-8">
         <div>
           <SectionLabel>Fale Connosco</SectionLabel>
-          <h2 className="font-heading text-3xl leading-tight font-bold text-[var(--color-text)]">
+          <h2 className="font-heading text-2xl md:text-3xl leading-tight font-bold text-[var(--color-text)]">
             Estamos prontos para ouvir o seu desafio e
             <span className="block text-[var(--color-accent)]">
               transformar necessidades em soluções
             </span>
           </h2>
 
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--color-gray-dark)]">
+          <p className="mt-6 max-w-3xl text-base md:text-lg leading-8 text-[var(--color-gray-dark)]">
             Partilhe connosco o seu projecto e descubra como podemos
             acrescentar valor ao seu investimento com uma abordagem técnica,
             personalizada e orientada para resultados.
@@ -63,18 +63,14 @@ export default function HomeContactPromptSection() {
         <div className="relative min-h-[30rem] lg:min-h-[44rem]">
           <div className="absolute right-0 top-0 h-32 w-20 rounded-bl-[4rem] bg-[var(--color-accent)] lg:h-60 lg:w-28" />
           <div className="absolute left-8 top-0 h-full w-[82%] overflow-hidden bg-[linear-gradient(160deg,#edf2f2_0%,#dfe9e9_42%,#cfdcdd_100%)] [border-top-left-radius:7rem] [border-bottom-right-radius:7rem]">
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(26,46,45,0.08))]" />
-            <div className="absolute left-[10%] top-[12%] h-[70%] w-[55%] rounded-[3rem] bg-[linear-gradient(160deg,#f7ede6_0%,#e8d8cc_100%)] shadow-[0_24px_60px_rgba(26,46,45,0.16)]" />
-            <div className="absolute left-[23%] top-[18%] h-[54%] w-[30%] rounded-[3rem] bg-[linear-gradient(180deg,#2f211a_0%,#131313_100%)]" />
-            <div className="absolute left-[18%] top-[16%] h-[9%] w-[40%] rounded-full bg-[rgba(255,255,255,0.5)] blur-md" />
-            <div className="absolute right-[10%] top-[20%] h-[48%] w-[28%] rounded-[2rem] bg-[linear-gradient(180deg,#f2f2f2_0%,#dbdbdb_100%)] shadow-[0_22px_50px_rgba(26,46,45,0.18)]" />
-            <div className="absolute bottom-[10%] right-[16%] h-[10%] w-[32%] rounded-full bg-[rgba(18,137,130,0.14)] blur-xl" />
-            <div className="absolute bottom-[6%] left-[10%] bg-[var(--color-accent)] px-10 py-8 text-white [border-top-left-radius:3.5rem] [border-top-right-radius:0.5rem] [border-bottom-right-radius:3.5rem] [border-bottom-left-radius:0.5rem]">
-              <p className="font-heading text-6xl leading-none font-bold">+20</p>
-              <p className="mt-3 text-sm font-semibold tracking-[0.14em] uppercase text-white/88">
-                anos de experiência
-              </p>
-            </div>
+            <img
+              src="/images/foto-de-baixo-angulo-de-modernos-arranha-ceus-de-vidro-contra-o-ceu-nublado.png"
+              alt="Arranha-céus modernos vistos de baixo"
+              width="1500"
+              height="1000"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(26,46,45,0.08))]" />
           </div>
         </div>
       </div>

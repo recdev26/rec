@@ -34,7 +34,7 @@ export default function HomeBlogSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <SectionLabel align="center">Notícias</SectionLabel>
-          <h2 className="font-heading text-4xl leading-tight font-bold text-[var(--color-text)]">
+          <h2 className="font-heading text-2xl md:text-4xl leading-tight font-bold text-[var(--color-text)]">
             Últimas Publicações
           </h2>
         </div>

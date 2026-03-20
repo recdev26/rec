@@ -9,6 +9,8 @@ interface HeroSlide {
   accent: string
   panelTitle: string
   panelText: string
+  imageSrc: string
+  imageAlt: string
 }
 
 const heroSlides: readonly HeroSlide[] = [
@@ -22,6 +24,8 @@ const heroSlides: readonly HeroSlide[] = [
     panelTitle: 'Decisões sustentadas por experiência',
     panelText:
       'Apoiamos investidores, promotores e instituições com análise técnica, visão estratégica e acompanhamento próximo.',
+    imageSrc: '/avaliacao_consultoria.png',
+    imageAlt: 'Consultores a analisar documentos de avaliação imobiliária',
   },
   {
     id: 2,
@@ -33,6 +37,8 @@ const heroSlides: readonly HeroSlide[] = [
     panelTitle: 'Planeamento que reduz risco',
     panelText:
       'Da avaliação inicial à execução do projecto, estruturamos cada etapa com critérios técnicos e objectivos mensuráveis.',
+    imageSrc: '/gestao_de_projectos.png',
+    imageAlt: 'Equipa em reunião de gestão de projectos e fiscalização',
   },
   {
     id: 3,
@@ -44,6 +50,8 @@ const heroSlides: readonly HeroSlide[] = [
     panelTitle: 'Solidez técnica para cada oportunidade',
     panelText:
       'Trabalhamos com uma abordagem orientada para desempenho, conformidade e maximização do valor dos activos.',
+    imageSrc: '/peritagens_tecnicas.png',
+    imageAlt: 'Profissionais a realizar peritagens técnicas e análise de obra',
   },
 ] as const
 
@@ -84,13 +92,13 @@ export default function HomeHero() {
                 <p className="mb-5 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">
                   {slide.eyebrow}
                 </p>
-                <h1 className="font-heading max-w-3xl text-5xl leading-[1.04] font-bold tracking-tight text-white">
+                <h1 className="font-heading max-w-3xl text-3xl md:text-5xl leading-[1.04] font-bold tracking-tight text-white">
                   {slide.title}
                 </h1>
-                <p className="mt-6 max-w-2xl text-lg leading-9 text-white/84 sm:text-xl">
+                <p className="mt-6 max-w-2xl text-base md:text-lg md:leading-9 text-white/84 sm:text-xl">
                   {slide.description}
                 </p>
-                <p className="mt-6 text-base font-semibold tracking-[0.08em] text-[var(--color-accent-light)] uppercase">
+                <p className="mt-6 text-sm md:text-base font-semibold tracking-[0.08em] text-[var(--color-accent-light)] uppercase">
                   {slide.accent}
                 </p>
 
@@ -130,23 +138,17 @@ export default function HomeHero() {
                 }`}
               >
                 <div className="absolute left-[12%] right-[8%] top-[12%] bottom-[3%] overflow-hidden bg-[linear-gradient(145deg,#faf7f2_0%,#edf4f4_52%,#dceaea_100%)] shadow-[0_24px_80px_rgba(4,15,16,0.34)] [clip-path:polygon(16%_0%,100%_0%,84%_100%,0%_100%)]">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_18%,rgba(255,255,255,0.92),transparent_22%),linear-gradient(140deg,rgba(18,137,130,0.16)_0%,transparent_35%,rgba(13,107,101,0.1)_62%,rgba(26,46,45,0.18)_100%)]" />
-                  <div className="absolute left-[8%] top-[12%] h-32 w-40 bg-white/80 shadow-[0_18px_36px_rgba(26,46,45,0.16)]" />
-                  <div className="absolute right-[12%] top-[18%] h-40 w-52 bg-[rgba(18,137,130,0.16)] shadow-[0_22px_40px_rgba(26,46,45,0.12)]" />
-                  <div className="absolute bottom-[13%] left-[14%] h-44 w-52 bg-[rgba(255,255,255,0.84)] shadow-[0_18px_36px_rgba(26,46,45,0.18)]" />
-                  <div className="absolute bottom-[10%] right-[10%] h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(18,137,130,0.18),transparent_72%)]" />
+                  <img
+                    src={slide.imageSrc}
+                    alt={slide.imageAlt}
+                    width="1024"
+                    height="1024"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),transparent_32%,rgba(26,46,45,0.22)_100%)]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_65%_18%,rgba(255,255,255,0.42),transparent_20%)]" />
 
-                  <div className="absolute bottom-10 left-10 max-w-xs bg-white/88 p-6 shadow-[0_14px_36px_rgba(26,46,45,0.16)] backdrop-blur-sm">
-                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--color-accent)]">
-                      REC
-                    </p>
-                    <h2 className="mt-3 font-heading text-3xl leading-tight font-bold text-[var(--color-text)]">
-                      {slide.panelTitle}
-                    </h2>
-                    <p className="mt-4 text-base leading-7 text-[var(--color-gray-dark)]">
-                      {slide.panelText}
-                    </p>
-                  </div>
+
                 </div>
               </div>
             )

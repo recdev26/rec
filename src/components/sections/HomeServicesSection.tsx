@@ -9,7 +9,8 @@ const services = [
     description:
       'Desenvolvemos avaliações criteriosas e independentes de imóveis e activos, seguindo padrões nacionais e internacionais para apoiar decisões seguras e fundamentadas.',
     href: '/servicos/avaliacao-e-consultoria',
-    tone: 'sand',
+    imageSrc: '/avaliacao_consultoria.png',
+    imageAlt: 'Consultores a analisar documentos de avaliação imobiliária',
   },
   {
     icon: HardHat,
@@ -17,7 +18,8 @@ const services = [
     description:
       'Coordenamos todas as fases do projecto, desde o planeamento inicial até à entrega final, assegurando prazos, orçamentos e padrões de qualidade.',
     href: '/servicos/gestao-de-projectos',
-    tone: 'stone',
+    imageSrc: '/gestao_de_projectos.png',
+    imageAlt: 'Equipa em reunião de gestão de projectos e fiscalização',
   },
   {
     icon: ClipboardCheck,
@@ -25,7 +27,8 @@ const services = [
     description:
       'Realizamos inspecções e relatórios técnicos detalhados que identificam riscos, patologias e necessidades de intervenção com rigor e clareza.',
     href: '/servicos/peritagens-tecnicas',
-    tone: 'mist',
+    imageSrc: '/peritagens_tecnicas.png',
+    imageAlt: 'Profissionais a realizar peritagens técnicas e análise de obra',
   },
 ] as const
 
@@ -38,13 +41,13 @@ export default function HomeServicesSection() {
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <SectionLabel align="center">Os Nossos Serviços</SectionLabel>
-          <h2 className="font-heading text-4xl leading-tight font-bold text-white">
+          <h2 className="font-heading text-xl md:text-4xl leading-tight font-bold text-white">
             Competência técnica para cada fase do
             <span className="block text-[var(--color-accent-light)]">
               seu investimento imobiliário
             </span>
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-lg text-white/74">
+          <p className="mx-auto mt-5 max-w-3xl text-base md:text-lg text-white/74">
             Da análise inicial à execução e verificação técnica, prestamos
             serviços especializados que reforçam a confiança, reduzem o risco e
             ajudam o cliente a decidir com segurança.

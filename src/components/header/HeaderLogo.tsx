@@ -6,7 +6,7 @@ export default function HeaderLogo() {
         alt="Logótipo da REC"
         width="198"
         height="107"
-        className="h-12 w-auto object-contain"
+        className="h-10 md:h-12 w-auto object-contain"
       />
     </span>
   )
