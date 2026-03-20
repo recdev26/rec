@@ -5,40 +5,48 @@ import ProjectSlideCard from '../ui/ProjectSlideCard'
 
 const projects = [
   {
+    company: 'Millennium bim',
     category: 'Avaliação',
     title: 'Projectos de valorização patrimonial',
     location: 'Maputo e principais centros urbanos',
-    tone: 'gold',
+    logoSrc: '/Millennium-Bim.png',
+    logoAlt: 'Logótipo do Millennium bim',
+    tone: 'teal',
   },
   {
+    company: 'Coordenação Técnica',
     category: 'Gestão',
     title: 'Coordenação técnica de empreendimentos',
     location: 'Planeamento, execução e controlo',
-    tone: 'light',
+    tone: 'mist',
   },
   {
+    company: 'Peritagens Técnicas',
     category: 'Peritagens',
     title: 'Análises técnicas para decisões seguras',
     location: 'Relatórios com rigor e clareza',
-    tone: 'amber',
+    tone: 'deep',
   },
   {
+    company: 'Consultoria Estratégica',
     category: 'Consultoria',
     title: 'Estudos e apoio estratégico ao investimento',
     location: 'Soluções ajustadas ao mercado moçambicano',
-    tone: 'steel',
+    tone: 'slate',
   },
   {
+    company: 'Fiscalização de Obras',
     category: 'Fiscalização',
     title: 'Acompanhamento técnico de obras e activos',
     location: 'Controlo de qualidade, prazo e conformidade',
-    tone: 'gold',
+    tone: 'teal',
   },
   {
+    company: 'Inteligência de Mercado',
     category: 'Mercado',
     title: 'Leituras estratégicas para decisões de investimento',
     location: 'Análise local com visão de longo prazo',
-    tone: 'light',
+    tone: 'mist',
   },
 ] as const
 

@@ -14,37 +14,45 @@ export default function AboutIntroSection() {
     <section className="bg-white py-14 lg:py-20">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:px-8">
         <div className="relative min-h-[34rem] lg:min-h-[46rem]">
-          <div className="absolute left-0 top-0 h-[72%] w-[70%] overflow-hidden rounded-[2.2rem] bg-[linear-gradient(145deg,#d8d4cf_0%,#f1ece7_42%,#9e886f_100%)] shadow-[0_24px_60px_rgba(20,38,39,0.16)]">
-            <div className="h-full w-full bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(26,46,45,0.14))]" />
+          <div className="absolute left-0 top-0 h-[72%] w-[70%] overflow-hidden rounded shadow-[0_24px_60px_rgba(20,38,39,0.16)]">
+            <img
+              src="/about_2.png"
+              alt="Equipa da REC em reunião de consultoria"
+              width="1366"
+              height="768"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(26,46,45,0.12))]" />
           </div>
           <div className="absolute left-[54%] top-[18%] h-40 w-40 bg-[linear-gradient(135deg,rgba(18,137,130,0.18),rgba(18,137,130,0.06))]" />
-          <div className="absolute right-0 bottom-0 h-[60%] w-[64%] overflow-hidden rounded-[2rem] bg-[linear-gradient(145deg,#d8e8f0_0%,#eff7fb_42%,#9db7c8_100%)] shadow-[0_24px_54px_rgba(20,38,39,0.14)]">
-            <div className="h-full w-full bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(26,46,45,0.12))]" />
-          </div>
-          <div className="absolute left-[44%] bottom-0 bg-[var(--color-accent)] px-8 py-7 text-white shadow-[0_24px_48px_rgba(18,137,130,0.24)] [border-top-left-radius:2.5rem] [border-top-right-radius:0.6rem] [border-bottom-right-radius:2.5rem] [border-bottom-left-radius:0.6rem]">
-            <p className="font-heading text-6xl leading-none font-bold">+20</p>
-            <p className="mt-3 text-sm font-semibold tracking-[0.14em] uppercase text-white/88">
-              anos de experiência
-            </p>
+          <div className="absolute right-0 bottom-0 h-[60%] w-[64%] overflow-hidden rounded shadow-[0_24px_54px_rgba(20,38,39,0.14)]">
+            <img
+              src="/about_1.png"
+              alt="Arranha-céus modernos representando o sector imobiliário"
+              width="1920"
+              height="1280"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(26,46,45,0.16))]" />
           </div>
         </div>
 
         <div>
           <SectionLabel>Sobre Nós</SectionLabel>
-          <h2 className="font-heading text-3xl leading-tight font-bold text-[var(--color-text)] ">
+          <h2 className="font-heading text-xl md:text-3xl leading-tight font-bold text-[var(--color-text)] ">
             Uma consultora imobiliária de confiança
             <span className="block text-[var(--color-accent)]">
               com visão técnica e padrões internacionais
             </span>
           </h2>
 
-          <p className="mt-6 leading-8 text-[var(--color-gray-dark)]">
+          <p className="mt-6 md:leading-8 text-[var(--color-gray-dark)]">
             A REC, Lda. — Real Estate Consulting, subsidiária do Grupo Meridian
             32, actua no mercado moçambicano desde 2000, prestando serviços de
             excelência nas áreas de consultoria, avaliação e gestão imobiliária.
           </p>
 
-          <p className="mt-2 leading-8 text-[var(--color-gray-dark)]">
+          <p className="mt-2 md:leading-8 text-[var(--color-gray-dark)]">
             Com uma equipa multidisciplinar altamente qualificada, trabalhamos
             com rigor, ética e responsabilidade para oferecer soluções completas,
             ajustadas às exigências de cada cliente e alinhadas com as melhores
@@ -59,7 +67,7 @@ export default function AboutIntroSection() {
                   strokeWidth={2.3}
                   className="mt-1 shrink-0 text-[var(--color-accent)]"
                 />
-                <p className="leading-9 font-medium text-[var(--color-text)]">
+                <p className="md:leading-9 font-medium text-[var(--color-text)]">
                   {item}
                 </p>
               </div>

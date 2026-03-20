@@ -64,7 +64,7 @@ export default function HomeContactPromptSection() {
           <div className="absolute right-0 top-0 h-32 w-20 rounded-bl-[4rem] bg-[var(--color-accent)] lg:h-60 lg:w-28" />
           <div className="absolute left-8 top-0 h-full w-[82%] overflow-hidden bg-[linear-gradient(160deg,#edf2f2_0%,#dfe9e9_42%,#cfdcdd_100%)] [border-top-left-radius:7rem] [border-bottom-right-radius:7rem]">
             <img
-              src="/images/foto-de-baixo-angulo-de-modernos-arranha-ceus-de-vidro-contra-o-ceu-nublado.png"
+              src="/contact_prompt.png"
               alt="Arranha-céus modernos vistos de baixo"
               width="1500"
               height="1000"

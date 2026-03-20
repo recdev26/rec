@@ -15,7 +15,8 @@ export default function Header() {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null)
 
   const isHomePage = pathname === '/'
-  const showTopBar = pathname !== '/contactos'
+  const isAboutPage = pathname === '/about' || pathname === '/sobre-nos'
+  const showTopBar = pathname !== '/contactos' && !isAboutPage
   const topBarVariant = isHomePage ? 'home' : 'inner'
 
   const activeDropdownLabel = useMemo(() => {
@@ -90,7 +91,7 @@ export default function Header() {
           <div className="hidden lg:block">
             <a
               href="/contactos"
-              className="inline-flex min-h-14 items-center justify-center bg-[var(--color-accent)] px-8 text-base font-semibold !text-white no-underline transition hover:bg-[var(--color-accent-hover)] hover:!text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
+              className="inline-flex min-h-12 items-center justify-center bg-[var(--color-accent)] px-8 text-sm font-semibold !text-white no-underline transition hover:bg-[var(--color-accent-hover)] hover:!text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
             >
               Contacte-nos
             </a>

@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import HomeBlogSection from '../components/sections/HomeBlogSection'
+import HomeClientsLogoSection from '../components/sections/HomeClientsLogoSection'
 import HomeContactPromptSection from '../components/sections/HomeContactPromptSection'
 import HomeHero from '../components/sections/HomeHero'
 import HomeHighlightsSection from '../components/sections/HomeHighlightsSection'
@@ -19,6 +20,7 @@ function App() {
       <HomeServicesSection />
       <HomeStatsCardsSection />
       {FEATURES.SHOW_PROJECTS_SECTION ? <HomeProjectsSection /> : null}
+      {FEATURES.SHOW_CLIENT_LOGOS_SECTION ? <HomeClientsLogoSection /> : null}
       {FEATURES.BLOG_ENABLED ? <HomeBlogSection /> : null}
     </>
   )
