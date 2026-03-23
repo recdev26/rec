@@ -8,7 +8,7 @@ const highlights = [
     title: 'Mais de duas décadas de experiência',
     description:
       'Desde 2000, actuamos no mercado moçambicano com profissionalismo e rigor, apoiando clientes institucionais, empresas e particulares na tomada de decisões estratégicas.',
-    href: '/about',
+    href: '/sobre-nos',
     linkLabel: 'Saiba mais',
   },
   {
@@ -16,7 +16,7 @@ const highlights = [
     title: 'Metodologias reconhecidas internacionalmente',
     description:
       'Aliamos experiência técnica, conhecimento do mercado e padrões internacionais para garantir resultados fiáveis, transparentes e ajustados às exigências de cada cliente.',
-    href: '/about',
+    href: '/sobre-nos',
     linkLabel: 'Conhecer a REC',
   },
   {

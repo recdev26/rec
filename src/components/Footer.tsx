@@ -2,7 +2,7 @@ import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from '
 
 const quickLinks = [
   { label: 'Início', href: '/' },
-  { label: 'Sobre Nós', href: '/about' },
+  { label: 'Sobre Nós', href: '/sobre-nos' },
   { label: 'Serviços', href: '/#servicos' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contactos', href: '/contactos' },

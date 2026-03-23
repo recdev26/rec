@@ -39,8 +39,8 @@ export const navigationItems: readonly NavigationItem[] = [
   },
   {
     label: 'Sobre Nós',
-    href: '/about',
-    match: (pathname) => pathname === '/about',
+    href: '/sobre-nos',
+    match: (pathname) => pathname === '/about' || pathname === '/sobre-nos',
   },
   {
     label: 'Serviços',

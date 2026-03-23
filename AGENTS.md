@@ -64,6 +64,7 @@ rec-website/
 │   │   ├── __root.tsx            ← Root layout: TopBar + Header + Footer
 │   │   ├── index.tsx             ← / → Home page
 │   │   ├── about.tsx             ← Current About route (rename only with matching doc update)
+│   │   ├── sobre-nos.tsx         ← /sobre-nos → About page public route
 │   │   ├── servicos/
 │   │   │   ├── avaliacao-e-consultoria.tsx
 │   │   │   ├── gestao-de-projectos.tsx

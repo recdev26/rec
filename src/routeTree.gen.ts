@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreNosRouteImport } from './routes/sobre-nos'
 import { Route as ContactosRouteImport } from './routes/contactos'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -18,6 +19,11 @@ import { Route as ServicosGestaoDeProjectosRouteImport } from './routes/servicos
 import { Route as ServicosAvaliacaoEConsultoriaRouteImport } from './routes/servicos/avaliacao-e-consultoria'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
+const SobreNosRoute = SobreNosRouteImport.update({
+  id: '/sobre-nos',
+  path: '/sobre-nos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactosRoute = ContactosRouteImport.update({
   id: '/contactos',
   path: '/contactos',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contactos': typeof ContactosRoute
+  '/sobre-nos': typeof SobreNosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/servicos/avaliacao-e-consultoria': typeof ServicosAvaliacaoEConsultoriaRoute
   '/servicos/gestao-de-projectos': typeof ServicosGestaoDeProjectosRoute
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contactos': typeof ContactosRoute
+  '/sobre-nos': typeof SobreNosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/servicos/avaliacao-e-consultoria': typeof ServicosAvaliacaoEConsultoriaRoute
   '/servicos/gestao-de-projectos': typeof ServicosGestaoDeProjectosRoute
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contactos': typeof ContactosRoute
+  '/sobre-nos': typeof SobreNosRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/servicos/avaliacao-e-consultoria': typeof ServicosAvaliacaoEConsultoriaRoute
   '/servicos/gestao-de-projectos': typeof ServicosGestaoDeProjectosRoute
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contactos'
+    | '/sobre-nos'
     | '/blog/$slug'
     | '/servicos/avaliacao-e-consultoria'
     | '/servicos/gestao-de-projectos'
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contactos'
+    | '/sobre-nos'
     | '/blog/$slug'
     | '/servicos/avaliacao-e-consultoria'
     | '/servicos/gestao-de-projectos'
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contactos'
+    | '/sobre-nos'
     | '/blog/$slug'
     | '/servicos/avaliacao-e-consultoria'
     | '/servicos/gestao-de-projectos'
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactosRoute: typeof ContactosRoute
+  SobreNosRoute: typeof SobreNosRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ServicosAvaliacaoEConsultoriaRoute: typeof ServicosAvaliacaoEConsultoriaRoute
   ServicosGestaoDeProjectosRoute: typeof ServicosGestaoDeProjectosRoute
@@ -139,6 +152,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre-nos': {
+      id: '/sobre-nos'
+      path: '/sobre-nos'
+      fullPath: '/sobre-nos'
+      preLoaderRoute: typeof SobreNosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contactos': {
       id: '/contactos'
       path: '/contactos'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactosRoute: ContactosRoute,
+  SobreNosRoute: SobreNosRoute,
   BlogSlugRoute: BlogSlugRoute,
   ServicosAvaliacaoEConsultoriaRoute: ServicosAvaliacaoEConsultoriaRoute,
   ServicosGestaoDeProjectosRoute: ServicosGestaoDeProjectosRoute,

@@ -110,7 +110,7 @@ export default function HomeHero() {
                     Os Nossos Serviços
                   </a>
                   <a
-                    href="/about"
+                    href="/sobre-nos"
                     className="inline-flex min-h-14 items-center justify-center border border-white/40 px-8 text-base font-semibold !text-white no-underline transition hover:border-[var(--color-accent)] hover:bg-[rgba(18,137,130,0.12)] hover:!text-white"
                   >
                     Saiba mais
