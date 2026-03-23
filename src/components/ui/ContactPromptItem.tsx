@@ -20,7 +20,7 @@ export default function ContactPromptItem({
         <h3 className="font-heading text-xl leading-tight font-bold text-[var(--color-text)]">
           {title}
         </h3>
-        <p className="mt-3 leading-8 text-[var(--color-gray-dark)]">
+        <p className="mt-3 leading-relaxed text-[var(--color-gray-dark)]">
           {description}
         </p>
       </div>

@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Plus, X } from 'lucide-react'
+import { ChevronDown, X } from 'lucide-react'
 import HeaderLogo from './HeaderLogo'
 import { isDropdownItem, navigationItems } from './header-data'
 
@@ -61,12 +61,14 @@ export default function MobileMenu({
                   <button
                     type="button"
                     aria-expanded={isOpen}
-                    className={`flex w-full items-center justify-between px-7 py-6 text-left text-base leading-none font-medium transition ${isActive ? 'text-[var(--color-accent)]' : 'text-[var(--color-text)]'}`}
+                    className="flex w-full items-center justify-between px-7 py-6 text-left text-base leading-none font-medium text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
                     onClick={() => onToggleSection(item.label)}
                   >
                     <span>{item.label}</span>
-                    <span className="inline-flex h-14 w-14 items-center justify-center bg-[var(--color-off-white)] text-[var(--color-text)]">
-                      <Plus size={28} strokeWidth={2.1} />
+                    <span
+                      className={`inline-flex items-center justify-center text-[var(--color-accent)] transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+                    >
+                      <ChevronDown size={22} strokeWidth={2.1} />
                     </span>
                   </button>
 

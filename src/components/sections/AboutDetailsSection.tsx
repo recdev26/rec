@@ -3,7 +3,7 @@ export default function AboutDetailsSection() {
     <section className="bg-white pb-14 lg:pb-20">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div className="border-t border-[var(--color-gray-light)] pt-10">
-          <p className="text-lg leading-relaxed text-[var(--color-gray-dark)]">
+          <p className="leading-relaxed text-[var(--color-gray-dark)]">
             A REC | Real Estate Consulting, Lda é uma empresa de consultoria,
             serviços e gestão imobiliária, presente desde 2000 no mercado
             moçambicano, dispondo de uma larga experiência de intervenção em
@@ -15,7 +15,7 @@ export default function AboutDetailsSection() {
             nossos clientes.
           </p>
 
-          <p className="mt-6 text-lg leading-relaxed text-[var(--color-gray-dark)]">
+          <p className="mt-6 leading-relaxed text-[var(--color-gray-dark)]">
             A REC desenvolve o seu trabalho com base em standards de Qualidade e
             Ética assentes em normas e orientações internacionais,
             designadamente, a normativa expressa pelo Internacional Valuation

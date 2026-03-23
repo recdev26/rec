@@ -32,7 +32,7 @@ export default function HomeContactPromptSection() {
             </span>
           </h2>
 
-          <p className="mt-6 max-w-3xl text-base md:text-lg leading-8 text-[var(--color-gray-dark)]">
+          <p className="mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-[var(--color-gray-dark)]">
             Partilhe connosco o seu projecto e descubra como podemos
             acrescentar valor ao seu investimento com uma abordagem técnica,
             personalizada e orientada para resultados.
@@ -47,13 +47,13 @@ export default function HomeContactPromptSection() {
           <div className="mt-10 flex flex-wrap gap-4">
             <a
               href="/contactos"
-              className="inline-flex min-h-14 items-center justify-center bg-[var(--color-accent)] px-8 text-base font-semibold !text-white no-underline transition hover:bg-[var(--color-accent-hover)] hover:!text-white"
+              className="inline-flex min-h-12 md:min-h-14 items-center justify-center bg-[var(--color-accent)] px-6 md:px-8 text-base font-semibold !text-white no-underline transition hover:bg-[var(--color-accent-hover)] hover:!text-white"
             >
               Contacte-nos
             </a>
             <a
               href="mailto:consulting@rec.co.mz"
-              className="inline-flex min-h-14 items-center justify-center border border-[var(--color-gray-light)] px-8 text-base font-semibold !text-[#1c2f35] no-underline transition hover:border-[var(--color-accent)] hover:!text-[var(--color-accent)]"
+              className="inline-flex min-h-12 md:min-h-14 items-center justify-center border border-[var(--color-gray-light)] px-6 md:px-8 text-base font-semibold !text-[#1c2f35] no-underline transition hover:border-[var(--color-accent)] hover:!text-[var(--color-accent)]"
             >
               consulting@rec.co.mz
             </a>

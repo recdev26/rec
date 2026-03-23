@@ -11,7 +11,7 @@ export default function AboutCommitmentSection() {
     <section className="bg-white pb-14 lg:pb-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="border-t border-[var(--color-gray-light)] pt-10">
-          <h2 className="font-heading text-4xl font-bold text-[var(--color-text)]">
+          <h2 className="font-heading text-2xl md:text-4xl font-bold text-[var(--color-text)]">
             O Nosso Compromisso
           </h2>
 

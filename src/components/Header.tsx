@@ -102,7 +102,7 @@ export default function Header() {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
             aria-label={isMenuOpen ? 'Fechar menu' : 'Abrir menu'}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--color-gray-light)] text-[var(--color-text)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)] lg:hidden"
+            className="inline-flex h-12 w-12 items-center justify-center text-[var(--color-text)] transition hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)] lg:hidden"
             onClick={() => setIsMenuOpen((current) => !current)}
           >
             {isMenuOpen ? <X size={24} strokeWidth={2.2} /> : <Menu size={24} strokeWidth={2.2} />}

@@ -44,7 +44,7 @@ export default function HomeHighlightsSection() {
               acrescentar valor em cada decisão imobiliária
             </span>
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl text-base md:text-lg leading-8 text-[var(--color-gray-dark)]">
+          <p className="mx-auto mt-5 max-w-3xl text-base md:text-lg leading-relaxed text-[var(--color-gray-dark)]">
             A REC combina proximidade, competência técnica e profundo
             conhecimento do mercado para apoiar investimentos, projectos e
             activos com confiança e responsabilidade.

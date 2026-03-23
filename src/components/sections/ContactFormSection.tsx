@@ -6,7 +6,7 @@ export default function ContactFormSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-5xl text-center">
           <SectionLabel align="center">Entre em Contacto</SectionLabel>
-          <h2 className="font-heading text-4xl leading-tight font-bold text-[var(--color-text)]">
+          <h2 className="font-heading text-2xl md:text-4xl leading-tight font-bold text-[var(--color-text)]">
             Precisa de ajuda? Fale connosco
           </h2>
           <p className="mx-auto mt-5 max-w-3xl leading-relaxed text-[var(--color-gray-dark)]">
