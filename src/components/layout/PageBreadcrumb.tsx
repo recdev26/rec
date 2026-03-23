@@ -26,7 +26,7 @@ export default function PageBreadcrumb({
           </h1>
         </div>
 
-        <div className="inline-flex w-fit items-center gap-3 bg-white px-8 py-5 font-semibold text-[var(--color-gray-mid)] shadow-[0_20px_42px_rgba(10,26,28,0.18)] lg:px-12">
+        <div className="inline-flex w-fit items-center gap-3 bg-white px-6 py-4 font-medium text-[var(--color-gray-mid)] shadow-md lg:px-8">
           <a
             href="/"
             className="!text-[var(--color-gray-mid)] no-underline transition hover:!text-[var(--color-accent)]"

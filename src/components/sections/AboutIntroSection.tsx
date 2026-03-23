@@ -46,20 +46,20 @@ export default function AboutIntroSection() {
             </span>
           </h2>
 
-          <p className="mt-6 md:leading-8 text-[var(--color-gray-dark)]">
+          <p className="mt-6 leading-relaxed text-[var(--color-gray-dark)]">
             A REC, Lda. — Real Estate Consulting, subsidiária do Grupo Meridian
             32, actua no mercado moçambicano desde 2000, prestando serviços de
             excelência nas áreas de consultoria, avaliação e gestão imobiliária.
           </p>
 
-          <p className="mt-2 md:leading-8 text-[var(--color-gray-dark)]">
+          <p className="mt-2 md:leading-relaxed text-[var(--color-gray-dark)]">
             Com uma equipa multidisciplinar altamente qualificada, trabalhamos
             com rigor, ética e responsabilidade para oferecer soluções completas,
             ajustadas às exigências de cada cliente e alinhadas com as melhores
             práticas globais.
           </p>
 
-          <div className="mt-8 space-y-6">
+          <div className="mt-8 space-y-4">
             {highlights.map((item) => (
               <div key={item} className="flex items-start gap-4">
                 <CheckCircle2

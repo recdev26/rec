@@ -46,7 +46,7 @@ export default function ServiceShowcaseCard({
         <div className="absolute inset-0 bg-[rgba(18,29,31,0.2)] opacity-0 transition duration-300 group-hover:opacity-100" />
         <a
           href={href}
-          className="absolute inset-x-8 bottom-8 inline-flex translate-y-4 items-center justify-center gap-3 bg-[rgba(18,137,130,0.92)] px-6 py-6 text-lg font-semibold !text-white no-underline opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:!text-white"
+          className="absolute inset-x-8 bottom-8 inline-flex translate-y-4 items-center justify-center gap-3 bg-[rgba(18,137,130,0.92)] px-4 py-4 font-semibold !text-white no-underline opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:!text-white"
         >
           Ler mais detalhes
           <ArrowRight size={20} strokeWidth={2.1} />

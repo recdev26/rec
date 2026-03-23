@@ -9,7 +9,7 @@ export default function ContactFormSection() {
           <h2 className="font-heading text-4xl leading-tight font-bold text-[var(--color-text)]">
             Precisa de ajuda? Fale connosco
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl leading-8 text-[var(--color-gray-dark)]">
+          <p className="mx-auto mt-5 max-w-3xl leading-relaxed text-[var(--color-gray-dark)]">
             Na REC, acreditamos que cada cliente merece atenção personalizada.
             Partilhe connosco o seu pedido e responderemos com a máxima rapidez
             e profissionalismo.
@@ -27,7 +27,7 @@ export default function ContactFormSection() {
                 name="nomeCompleto"
                 type="text"
                 placeholder="Nome completo"
-                className="min-h-20 w-full border border-transparent bg-white px-8 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
+                className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
               />
             </div>
 
@@ -40,7 +40,7 @@ export default function ContactFormSection() {
                 name="email"
                 type="email"
                 placeholder="E-mail"
-                className="min-h-20 w-full border border-transparent bg-white px-8 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
+                className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
               />
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function ContactFormSection() {
                 name="empresa"
                 type="text"
                 placeholder="Empresa (opcional)"
-                className="min-h-20 w-full border border-transparent bg-white px-8 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
+                className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
               />
             </div>
 
@@ -66,7 +66,7 @@ export default function ContactFormSection() {
               <select
                 id="assunto"
                 name="assunto"
-                className="min-h-20 w-full appearance-none border border-transparent bg-white px-8 text-[var(--color-text)] outline-none transition focus:border-[var(--color-accent)]"
+                className="min-h-16 w-full appearance-none border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition focus:border-[var(--color-accent)]"
                 defaultValue=""
               >
                 <option value="" disabled>
@@ -89,14 +89,14 @@ export default function ContactFormSection() {
               name="mensagem"
               placeholder="Escreva a sua mensagem"
               rows={8}
-              className="w-full resize-none border border-transparent bg-white px-8 py-7 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
+              className="w-full resize-none border border-transparent bg-white px-6 py-5 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
             />
           </div>
 
           <div className="mt-10 flex justify-center">
             <button
               type="submit"
-              className="inline-flex min-h-16 items-center justify-center bg-[var(--color-accent)] px-10 text-xl font-semibold text-white transition hover:bg-[var(--color-accent-hover)]"
+              className="inline-flex min-h-14 items-center justify-center bg-[var(--color-accent)] px-6 font-semibold text-white transition hover:bg-[var(--color-accent-hover)]"
             >
               Enviar Mensagem
             </button>
