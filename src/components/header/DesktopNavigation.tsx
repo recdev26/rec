@@ -8,13 +8,13 @@ export default function DesktopNavigation() {
         if (isDropdownItem(item)) {
           return (
             <li key={item.label} className="group relative list-none">
-              <button
-                type="button"
-                className="inline-flex items-center gap-1.5 border-none bg-transparent px-0 py-8 font-semibold text-[#1c2f35] transition hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
+              <a
+                href={item.href}
+                className="inline-flex items-center gap-1.5 py-8 font-semibold !text-[#1c2f35] no-underline transition hover:!text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
               >
                 {item.label}
                 <ChevronDown size={18} strokeWidth={2.2} />
-              </button>
+              </a>
               <div className="pointer-events-none absolute left-0 top-full z-40 min-w-72 translate-y-2 border border-[var(--color-gray-light)] bg-white p-3 opacity-0 shadow-[0_18px_54px_rgba(11,46,44,0.16)] transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
                 {item.items.map((subItem) => (
                   <a

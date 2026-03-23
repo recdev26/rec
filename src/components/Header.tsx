@@ -15,9 +15,7 @@ export default function Header() {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null)
 
   const isHomePage = pathname === '/'
-  const isAboutPage = pathname === '/about' || pathname === '/sobre-nos'
-  const showTopBar = pathname !== '/contactos' && !isAboutPage
-  const topBarVariant = isHomePage ? 'home' : 'inner'
+  const showTopBar = isHomePage
 
   const activeDropdownLabel = useMemo(() => {
     const dropdown = navigationItems.find(
@@ -76,7 +74,7 @@ export default function Header() {
               : 'max-h-24 translate-y-0 opacity-100'
           }`}
         >
-          <TopBar variant={topBarVariant} />
+          <TopBar />
         </div>
       ) : null}
 

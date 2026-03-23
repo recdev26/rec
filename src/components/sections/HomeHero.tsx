@@ -104,7 +104,7 @@ export default function HomeHero() {
 
                 <div className="mt-10 flex flex-wrap gap-4">
                   <a
-                    href="/servicos"
+                    href="/#servicos"
                     className="inline-flex min-h-14 items-center justify-center bg-[var(--color-accent)] px-8 text-base font-semibold !text-white no-underline transition hover:bg-[var(--color-accent-hover)] hover:!text-white"
                   >
                     Os Nossos Serviços

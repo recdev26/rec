@@ -1,40 +1,13 @@
-import { ClipboardCheck, HardHat, Landmark } from 'lucide-react'
 import SectionLabel from '../ui/SectionLabel'
 import ServiceShowcaseCard from '../ui/ServiceShowcaseCard'
-
-const services = [
-  {
-    icon: Landmark,
-    title: 'Avaliação e Consultoria Imobiliária',
-    description:
-      'Desenvolvemos avaliações criteriosas e independentes de imóveis e activos, seguindo padrões nacionais e internacionais para apoiar decisões seguras e fundamentadas.',
-    href: '/servicos/avaliacao-e-consultoria',
-    imageSrc: '/avaliacao_consultoria.png',
-    imageAlt: 'Consultores a analisar documentos de avaliação imobiliária',
-  },
-  {
-    icon: HardHat,
-    title: 'Gestão de Projectos e Fiscalização de Obras',
-    description:
-      'Coordenamos todas as fases do projecto, desde o planeamento inicial até à entrega final, assegurando prazos, orçamentos e padrões de qualidade.',
-    href: '/servicos/gestao-de-projectos',
-    imageSrc: '/gestao_de_projectos.png',
-    imageAlt: 'Equipa em reunião de gestão de projectos e fiscalização',
-  },
-  {
-    icon: ClipboardCheck,
-    title: 'Peritagens Técnicas',
-    description:
-      'Realizamos inspecções e relatórios técnicos detalhados que identificam riscos, patologias e necessidades de intervenção com rigor e clareza.',
-    href: '/servicos/peritagens-tecnicas',
-    imageSrc: '/peritagens_tecnicas.png',
-    imageAlt: 'Profissionais a realizar peritagens técnicas e análise de obra',
-  },
-] as const
+import { services } from '../../lib/services'
 
 export default function HomeServicesSection() {
   return (
-    <section className="relative overflow-hidden bg-[var(--color-text)] py-14 text-white lg:py-20">
+    <section
+      id="servicos"
+      className="relative scroll-mt-28 overflow-hidden bg-[var(--color-text)] py-14 text-white lg:scroll-mt-40 lg:py-20"
+    >
       <div className="absolute left-0 top-0 h-64 w-64 rounded-br-full bg-[rgba(255,255,255,0.04)]" />
       <div className="absolute right-0 bottom-0 h-64 w-64 rounded-tl-full bg-[rgba(255,255,255,0.04)]" />
 
@@ -56,7 +29,15 @@ export default function HomeServicesSection() {
 
         <div className="mt-12 grid gap-8 lg:grid-cols-3">
           {services.map((service) => (
-            <ServiceShowcaseCard key={service.title} {...service} />
+            <ServiceShowcaseCard
+              key={service.slug}
+              icon={service.icon}
+              title={service.title}
+              description={service.description}
+              href={service.href}
+              imageSrc={service.imageSrc}
+              imageAlt={service.imageAlt}
+            />
           ))}
         </div>
       </div>

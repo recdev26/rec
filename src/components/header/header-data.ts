@@ -1,5 +1,6 @@
 import { Clock3, Mail, MapPin, Phone } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { serviceNavItems } from '../../lib/services'
 
 export interface NavLinkItem {
   label: string
@@ -14,6 +15,7 @@ export interface NavDropdownItem {
 
 export interface NavDropdownGroup {
   label: string
+  href: string
   match: (pathname: string) => boolean
   items: readonly NavDropdownItem[]
 }
@@ -27,20 +29,7 @@ export interface HomeInfoItem {
 
 export type NavigationItem = NavLinkItem | NavDropdownGroup
 
-const serviceItems = [
-  {
-    label: 'Avaliação e Consultoria',
-    href: '/servicos/avaliacao-e-consultoria',
-  },
-  {
-    label: 'Gestão de Projectos',
-    href: '/servicos/gestao-de-projectos',
-  },
-  {
-    label: 'Peritagens Técnicas',
-    href: '/servicos/peritagens-tecnicas',
-  },
-] as const
+const serviceItems = serviceNavItems
 
 export const navigationItems: readonly NavigationItem[] = [
   {
@@ -55,6 +44,7 @@ export const navigationItems: readonly NavigationItem[] = [
   },
   {
     label: 'Serviços',
+    href: '/#servicos',
     match: (pathname) => pathname.startsWith('/servicos'),
     items: serviceItems,
   },

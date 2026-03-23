@@ -16,24 +16,13 @@ export default function PageBreadcrumb({
       <div className="absolute left-16 bottom-0 h-72 w-20 bg-[rgba(18,137,130,0.16)] [clip-path:polygon(24%_0%,100%_0%,74%_100%,0%_100%)]" />
 
       <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-        <div>
+        <div className="min-w-0">
           <p className="text-sm font-semibold tracking-[0.18em] text-[var(--color-accent-light)] uppercase">
             {label}
           </p>
-          <h1 className="mt-5 font-heading text-3xl leading-none font-bold text-white">
+          <h1 className="mt-5 max-w-4xl font-heading text-3xl leading-tight font-bold text-white break-words sm:text-4xl lg:text-5xl">
             {title}
           </h1>
-        </div>
-
-        <div className="hidden md:inline-flex w-fit items-center gap-3 bg-white px-6 py-4 font-medium text-[var(--color-gray-mid)] shadow-md lg:px-8">
-          <a
-            href="/"
-            className="!text-[var(--color-gray-mid)] no-underline transition hover:!text-[var(--color-accent)]"
-          >
-            Início
-          </a>
-          <span className="text-[var(--color-accent)]">/</span>
-          <span className="text-[var(--color-accent)]">{title}</span>
         </div>
       </div>
     </section>

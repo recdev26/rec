@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ContactosRouteImport } from './routes/contactos'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as ServicosPeritagensTecnicasRouteImport } from './routes/servicos/peritagens-tecnicas'
+import { Route as ServicosGestaoDeProjectosRouteImport } from './routes/servicos/gestao-de-projectos'
+import { Route as ServicosAvaliacaoEConsultoriaRouteImport } from './routes/servicos/avaliacao-e-consultoria'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const ContactosRoute = ContactosRouteImport.update({
   id: '/contactos',
@@ -28,35 +33,108 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicosPeritagensTecnicasRoute =
+  ServicosPeritagensTecnicasRouteImport.update({
+    id: '/servicos/peritagens-tecnicas',
+    path: '/servicos/peritagens-tecnicas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicosGestaoDeProjectosRoute =
+  ServicosGestaoDeProjectosRouteImport.update({
+    id: '/servicos/gestao-de-projectos',
+    path: '/servicos/gestao-de-projectos',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicosAvaliacaoEConsultoriaRoute =
+  ServicosAvaliacaoEConsultoriaRouteImport.update({
+    id: '/servicos/avaliacao-e-consultoria',
+    path: '/servicos/avaliacao-e-consultoria',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contactos': typeof ContactosRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/servicos/avaliacao-e-consultoria': typeof ServicosAvaliacaoEConsultoriaRoute
+  '/servicos/gestao-de-projectos': typeof ServicosGestaoDeProjectosRoute
+  '/servicos/peritagens-tecnicas': typeof ServicosPeritagensTecnicasRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contactos': typeof ContactosRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/servicos/avaliacao-e-consultoria': typeof ServicosAvaliacaoEConsultoriaRoute
+  '/servicos/gestao-de-projectos': typeof ServicosGestaoDeProjectosRoute
+  '/servicos/peritagens-tecnicas': typeof ServicosPeritagensTecnicasRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contactos': typeof ContactosRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/servicos/avaliacao-e-consultoria': typeof ServicosAvaliacaoEConsultoriaRoute
+  '/servicos/gestao-de-projectos': typeof ServicosGestaoDeProjectosRoute
+  '/servicos/peritagens-tecnicas': typeof ServicosPeritagensTecnicasRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contactos'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contactos'
+    | '/blog/$slug'
+    | '/servicos/avaliacao-e-consultoria'
+    | '/servicos/gestao-de-projectos'
+    | '/servicos/peritagens-tecnicas'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contactos'
-  id: '__root__' | '/' | '/about' | '/contactos'
+  to:
+    | '/'
+    | '/about'
+    | '/contactos'
+    | '/blog/$slug'
+    | '/servicos/avaliacao-e-consultoria'
+    | '/servicos/gestao-de-projectos'
+    | '/servicos/peritagens-tecnicas'
+    | '/blog'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contactos'
+    | '/blog/$slug'
+    | '/servicos/avaliacao-e-consultoria'
+    | '/servicos/gestao-de-projectos'
+    | '/servicos/peritagens-tecnicas'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactosRoute: typeof ContactosRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  ServicosAvaliacaoEConsultoriaRoute: typeof ServicosAvaliacaoEConsultoriaRoute
+  ServicosGestaoDeProjectosRoute: typeof ServicosGestaoDeProjectosRoute
+  ServicosPeritagensTecnicasRoute: typeof ServicosPeritagensTecnicasRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +160,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicos/peritagens-tecnicas': {
+      id: '/servicos/peritagens-tecnicas'
+      path: '/servicos/peritagens-tecnicas'
+      fullPath: '/servicos/peritagens-tecnicas'
+      preLoaderRoute: typeof ServicosPeritagensTecnicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicos/gestao-de-projectos': {
+      id: '/servicos/gestao-de-projectos'
+      path: '/servicos/gestao-de-projectos'
+      fullPath: '/servicos/gestao-de-projectos'
+      preLoaderRoute: typeof ServicosGestaoDeProjectosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicos/avaliacao-e-consultoria': {
+      id: '/servicos/avaliacao-e-consultoria'
+      path: '/servicos/avaliacao-e-consultoria'
+      fullPath: '/servicos/avaliacao-e-consultoria'
+      preLoaderRoute: typeof ServicosAvaliacaoEConsultoriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +202,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactosRoute: ContactosRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  ServicosAvaliacaoEConsultoriaRoute: ServicosAvaliacaoEConsultoriaRoute,
+  ServicosGestaoDeProjectosRoute: ServicosGestaoDeProjectosRoute,
+  ServicosPeritagensTecnicasRoute: ServicosPeritagensTecnicasRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

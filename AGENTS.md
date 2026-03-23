@@ -64,6 +64,10 @@ rec-website/
 │   │   ├── __root.tsx            ← Root layout: TopBar + Header + Footer
 │   │   ├── index.tsx             ← / → Home page
 │   │   ├── about.tsx             ← Current About route (rename only with matching doc update)
+│   │   ├── servicos/
+│   │   │   ├── avaliacao-e-consultoria.tsx
+│   │   │   ├── gestao-de-projectos.tsx
+│   │   │   └── peritagens-tecnicas.tsx
 │   │   └── ...                   ← Additional file-based routes added as the project evolves
 │   ├── components/
 │   │   ├── Header.tsx            ← Shared site header
@@ -320,6 +324,11 @@ All inner pages share this component:
 
 All 3 service pages share this template (based on Valom's `service-details.html`):
 
+Routes implemented:
+- `/servicos/avaliacao-e-consultoria`
+- `/servicos/gestao-de-projectos`
+- `/servicos/peritagens-tecnicas`
+
 ```
 1. TOPBAR + HEADER
 2. PAGE BREADCRUMB HERO (service name)
@@ -337,7 +346,7 @@ All 3 service pages share this template (based on Valom's `service-details.html`
    RIGHT SIDEBAR (~30%):
    ├── "Os Nossos Serviços" nav list
    │     (links to all 3 service pages, active state highlighted in accent)
-   ├── Download Brochure card (if PDF provided, else hidden)
+   ├── Download Brochure card
    └── "Tem alguma questão?" phone CTA card
          → "+258 21 505 000"
 
@@ -528,6 +537,10 @@ export const Route = createFileRoute('/blog/')({
 - Serviços *(dropdown)*
 - Blog
 - Contactos
+
+Navigation behaviour:
+- Clicking the parent `Serviços` nav label scrolls to the services section on the homepage (`/#servicos`)
+- The dropdown items link to the 3 service detail pages under `/servicos/*`
 
 ### 7.4 CTA labels
 

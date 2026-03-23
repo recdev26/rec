@@ -58,19 +58,28 @@ export default function MobileMenu({
 
               return (
                 <div key={item.label} className="border-b border-[var(--color-gray-light)]">
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between px-7 py-6 text-left text-base leading-none font-medium text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
-                    onClick={() => onToggleSection(item.label)}
-                  >
-                    <span>{item.label}</span>
-                    <span
-                      className={`inline-flex items-center justify-center text-[var(--color-accent)] transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+                  <div className="flex items-center justify-between px-7 py-6">
+                    <a
+                      href={item.href}
+                      className="text-base leading-none font-medium text-[var(--color-accent)] no-underline transition hover:text-[var(--color-accent-hover)]"
+                      onClick={onClose}
                     >
-                      <ChevronDown size={22} strokeWidth={2.1} />
-                    </span>
-                  </button>
+                      {item.label}
+                    </a>
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      aria-label={`Expandir ${item.label}`}
+                      className="inline-flex items-center justify-center text-[var(--color-accent)] transition hover:text-[var(--color-accent-hover)]"
+                      onClick={() => onToggleSection(item.label)}
+                    >
+                      <span
+                        className={`inline-flex items-center justify-center transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+                      >
+                        <ChevronDown size={22} strokeWidth={2.1} />
+                      </span>
+                    </button>
+                  </div>
 
                   {isOpen ? (
                     <div className="space-y-1 bg-[var(--color-off-white)] px-7 py-4">

@@ -49,6 +49,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 a {
   color: var(--color-accent);
   text-decoration-color: rgba(18, 137, 130, 0.35);
