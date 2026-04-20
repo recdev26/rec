@@ -9,6 +9,12 @@ export default function BlogPagination({
   pages,
   currentPage,
 }: BlogPaginationProps) {
+  if (pages.length <= 1) {
+    return null
+  }
+
+  const nextPage = pages.find((page) => page > currentPage)
+
   return (
     <nav aria-label="Paginação do blog" className="mt-8 flex flex-wrap gap-2 sm:mt-10 sm:gap-3">
       {pages.map((page) => {
@@ -30,13 +36,15 @@ export default function BlogPagination({
         )
       })}
 
-      <a
-        href="/blog?page=2"
-        aria-label="Página seguinte"
-        className="inline-flex h-10 min-w-10 items-center justify-center border border-[var(--color-gray-light)] bg-white !text-[var(--color-text)] no-underline transition hover:border-[var(--color-accent)] hover:!text-[var(--color-accent)] sm:h-12 sm:min-w-12"
-      >
-        <ChevronRight size={18} strokeWidth={2.2} />
-      </a>
+      {nextPage ? (
+        <a
+          href={`/blog?page=${nextPage}`}
+          aria-label="Página seguinte"
+          className="inline-flex h-10 min-w-10 items-center justify-center border border-[var(--color-gray-light)] bg-white !text-[var(--color-text)] no-underline transition hover:border-[var(--color-accent)] hover:!text-[var(--color-accent)] sm:h-12 sm:min-w-12"
+        >
+          <ChevronRight size={18} strokeWidth={2.2} />
+        </a>
+      ) : null}
     </nav>
   )
 }

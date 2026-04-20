@@ -3,14 +3,10 @@ import BlogListingCard from '../../components/blog/BlogListingCard'
 import BlogPagination from '../../components/blog/BlogPagination'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
-import {
-  blogCategories,
-  blogPagination,
-  blogPosts,
-  recentBlogPosts,
-} from '../../lib/blog-mock'
+import { getBlogPageData } from '../../lib/wp-api'
 
 export const Route = createFileRoute('/blog/')({
+  loader: async () => getBlogPageData(),
   head: () => ({
     meta: [
       {
@@ -45,6 +41,8 @@ export const Route = createFileRoute('/blog/')({
 })
 
 function BlogPage() {
+  const { posts, categories, recentPosts } = Route.useLoaderData()
+
   return (
     <>
       <PageBreadcrumb label="Notícias" title="Blog" />
@@ -53,15 +51,15 @@ function BlogPage() {
         <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8 lg:px-8 xl:grid-cols-[minmax(0,1fr)_24rem]">
           <div className="min-w-0">
             <div className="space-y-8 lg:space-y-10">
-              {blogPosts.map((post) => (
+              {posts.map((post) => (
                 <BlogListingCard key={post.slug} post={post} />
               ))}
             </div>
 
-            <BlogPagination pages={blogPagination} currentPage={1} />
+            <BlogPagination pages={[1]} currentPage={1} />
           </div>
 
-          <BlogSidebar categories={blogCategories} recentPosts={recentBlogPosts} />
+          <BlogSidebar categories={categories} recentPosts={recentPosts} />
         </div>
       </section>
     </>

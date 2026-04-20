@@ -1,26 +1,26 @@
 import { createFileRoute } from '@tanstack/react-router'
 import ServiceDetailPage from '../../components/services/ServiceDetailPage'
-import { requireServiceBySlug } from '../../lib/services'
-
-const service = requireServiceBySlug('avaliacao-e-consultoria')
+import NotFoundPage from '../../components/layout/NotFoundPage'
+import { getServicePageData } from '../../lib/wp-api'
 
 export const Route = createFileRoute('/servicos/avaliacao-e-consultoria')({
-  head: () => ({
+  loader: async () => getServicePageData('avaliacao-e-consultoria'),
+  head: ({ loaderData }) => ({
     meta: [
       {
-        title: `${service.title} | REC — Real Estate Consulting`,
+        title: `${loaderData?.service?.title ?? 'Serviço'} | REC — Real Estate Consulting`,
       },
       {
         name: 'description',
-        content: service.description,
+        content: loaderData?.service?.description ?? 'Serviço da REC.',
       },
       {
         property: 'og:title',
-        content: `${service.title} | REC — Real Estate Consulting`,
+        content: `${loaderData?.service?.title ?? 'Serviço'} | REC — Real Estate Consulting`,
       },
       {
         property: 'og:description',
-        content: service.description,
+        content: loaderData?.service?.description ?? 'Serviço da REC.',
       },
       {
         property: 'og:type',
@@ -28,14 +28,20 @@ export const Route = createFileRoute('/servicos/avaliacao-e-consultoria')({
       },
       {
         property: 'og:image',
-        content: service.imageSrc,
+        content: loaderData?.service?.imageSrc ?? '/contact.jpg',
       },
     ],
-    links: [{ rel: 'canonical', href: `https://rec.co.mz${service.href}` }],
+    links: [{ rel: 'canonical', href: `https://rec.co.mz/servicos/avaliacao-e-consultoria` }],
   }),
   component: AvaliacaoEConsultoriaPage,
 })
 
 function AvaliacaoEConsultoriaPage() {
-  return <ServiceDetailPage service={service} />
+  const { service, serviceLinks } = Route.useLoaderData()
+
+  if (!service) {
+    return <NotFoundPage />
+  }
+
+  return <ServiceDetailPage service={service} serviceLinks={serviceLinks} />
 }

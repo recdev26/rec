@@ -1,0 +1,437 @@
+import type {
+  BlogArticleData,
+  BlogCardData,
+  BlogCategory,
+  HomePageData,
+  ServicePageData,
+  WPImageField,
+  WPPost,
+  WPPostAcf,
+  WPServiceAcf,
+  WPServicePost,
+  WordPressBlogData,
+  WordPressBlogDetailData,
+} from '../types/wordpress'
+import {
+  getSerializableFallbackServices,
+  stripServiceIcons,
+  getServiceBySlug as getFallbackServiceBySlug,
+} from './services'
+import type { ServiceDetailData, ServiceNavItem } from './services'
+
+const WP_API_BASE =
+  (typeof process !== 'undefined' ? process.env.WP_API_URL : undefined) ??
+  'https://cms.rec.co.mz/wp-json/wp/v2'
+const SITE_URL =
+  import.meta.env.VITE_SITE_URL ??
+  (typeof process !== 'undefined' ? process.env.VITE_SITE_URL : undefined) ??
+  'https://rec.co.mz'
+
+const MONTH_NAMES = [
+  'Janeiro',
+  'Fevereiro',
+  'Março',
+  'Abril',
+  'Maio',
+  'Junho',
+  'Julho',
+  'Agosto',
+  'Setembro',
+  'Outubro',
+  'Novembro',
+  'Dezembro',
+] as const
+
+const SHORT_MONTH_NAMES = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'] as const
+
+function decodeHtml(value: string) {
+  return value
+    .replace(/&hellip;/g, '...')
+    .replace(/&#8217;/g, "'")
+    .replace(/&#8211;/g, '-')
+    .replace(/&#8220;|&#8221;/g, '"')
+    .replace(/&#038;/g, '&')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+}
+
+function stripHtml(value: string) {
+  return decodeHtml(value.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()
+}
+
+function sanitizeHtml(html: string) {
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+    .replace(/<(iframe|object|embed|form|input|button|textarea|select|link|meta)[^>]*>/gi, '')
+    .replace(/ on[a-z]+="[^"]*"/gi, '')
+    .replace(/ on[a-z]+='[^']*'/gi, '')
+    .replace(/javascript:/gi, '')
+}
+
+function formatFullDate(value: string) {
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    return ''
+  }
+
+  return `${date.getUTCDate()} de ${MONTH_NAMES[date.getUTCMonth()]} de ${date.getUTCFullYear()}`
+}
+
+function formatDateParts(value: string) {
+  const date = new Date(value)
+
+  if (Number.isNaN(date.getTime())) {
+    return { day: '', month: '' }
+  }
+
+  return {
+    day: String(date.getUTCDate()).padStart(2, '0'),
+    month: SHORT_MONTH_NAMES[date.getUTCMonth()],
+  }
+}
+
+function estimateReadTime(html: string) {
+  const words = stripHtml(html).split(/\s+/).filter(Boolean).length
+  const minutes = Math.max(1, Math.ceil(words / 220))
+  return `${minutes} min de leitura`
+}
+
+function getFeaturedMedia(post: WPPost | WPServicePost) {
+  return post._embedded?.['wp:featuredmedia']?.[0]
+}
+
+function getImageSource(image?: WPImageField | null) {
+  return image?.source_url ?? image?.url ?? image?.link ?? ''
+}
+
+function getImageAlt(image?: WPImageField | null) {
+  if (!image) {
+    return ''
+  }
+
+  if (typeof image.title === 'string') {
+    return image.alt ?? image.alt_text ?? image.title
+  }
+
+  return image.alt ?? image.alt_text ?? image.title?.rendered ?? ''
+}
+
+function getFileName(image?: WPImageField | string | null) {
+  if (!image) {
+    return ''
+  }
+
+  if (typeof image === 'string') {
+    return image.split('/').pop() ?? 'brochura'
+  }
+
+  if (image.filename) {
+    return image.filename
+  }
+
+  const source = getImageSource(image)
+  return source.split('/').pop() ?? 'brochura'
+}
+
+function normalizeImageUrl(url: string) {
+  if (!url) {
+    return ''
+  }
+
+  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/')) {
+    return url
+  }
+
+  return `${SITE_URL}${url.startsWith('/') ? url : `/${url}`}`
+}
+
+function getTermsByTaxonomy(post: WPPost, taxonomy: string) {
+  return (post._embedded?.['wp:term'] ?? []).flat().filter((term) => term.taxonomy === taxonomy)
+}
+
+function mapBlogCard(post: WPPost): BlogCardData {
+  const { day, month } = formatDateParts(post.date)
+  const featuredMedia = getFeaturedMedia(post)
+
+  return {
+    slug: post.slug,
+    title: stripHtml(post.title.rendered),
+    excerpt: stripHtml(post.excerpt.rendered),
+    dateDay: day,
+    dateMonth: month,
+    fullDate: formatFullDate(post.date),
+    imageSrc: normalizeImageUrl(featuredMedia?.source_url ?? ''),
+    imageAlt: featuredMedia?.alt_text || stripHtml(post.title.rendered),
+    author: 'REC',
+    category: getTermsByTaxonomy(post, 'category')[0]?.name ?? 'Notícias',
+  }
+}
+
+function mapBlogArticle(post: WPPost): BlogArticleData {
+  const acf = (post.acf ?? {}) as WPPostAcf
+  const category = getTermsByTaxonomy(post, 'category')[0]?.name ?? 'Notícias'
+  const tags = getTermsByTaxonomy(post, 'post_tag').map((term) => term.name)
+  const featuredMedia = getFeaturedMedia(post)
+  const gallery = (acf.galeria ?? [])
+    .map((image) => ({
+      src: normalizeImageUrl(getImageSource(image)),
+      alt: getImageAlt(image) || 'Imagem da publicação da REC',
+      href: `/blog/${post.slug}`,
+    }))
+    .filter((image) => image.src)
+
+  return {
+    ...mapBlogCard(post),
+    imageSrc: normalizeImageUrl(featuredMedia?.source_url ?? ''),
+    imageAlt:
+      acf.texto_alt_imagem_destacada || featuredMedia?.alt_text || stripHtml(post.title.rendered),
+    author: 'REC',
+    category,
+    readTime: acf.tempo_de_leitura?.trim() || estimateReadTime(post.content.rendered),
+    contentHtml: sanitizeHtml(post.content.rendered),
+    quote:
+      acf.texto_citacao && acf.autor_citacao
+        ? {
+            text: acf.texto_citacao,
+            author: acf.autor_citacao,
+          }
+        : undefined,
+    gallery,
+    tags,
+    authorRole: acf.cargo_autor,
+    authorBio: acf.bio_autor,
+    authorImageSrc: normalizeImageUrl(getImageSource(acf.fotografia_autor)),
+    authorImageAlt: getImageAlt(acf.fotografia_autor) || 'Fotografia do autor',
+  }
+}
+
+function splitParagraphs(html: string) {
+  return sanitizeHtml(html)
+    .split(/<\/p>/i)
+    .map((fragment) => stripHtml(fragment))
+    .filter(Boolean)
+}
+
+function mapService(post: WPServicePost): ServiceDetailData {
+  const acf = (post.acf ?? {}) as WPServiceAcf
+  const featuredMedia = getFeaturedMedia(post)
+
+  return {
+    slug: post.slug,
+    href: `/servicos/${post.slug}`,
+    navLabel: acf.rotulo_navegacao?.trim() || stripHtml(post.title.rendered),
+    title: stripHtml(post.title.rendered),
+    shortTitle: acf.titulo_curto?.trim() || stripHtml(post.title.rendered),
+    description: stripHtml(post.excerpt.rendered),
+    lead: acf.lead?.trim() || stripHtml(post.excerpt.rendered),
+    imageSrc: normalizeImageUrl(featuredMedia?.source_url ?? ''),
+    imageAlt:
+      acf.texto_alt_imagem_cabecalho || featuredMedia?.alt_text || stripHtml(post.title.rendered),
+    overviewParagraphs: splitParagraphs(post.content.rendered),
+    overviewHighlights: (acf.destaques_visao_geral ?? [])
+      .map((item) => ({
+        title: item.title?.trim() ?? '',
+        description: item.description?.trim() ?? '',
+      }))
+      .filter((item) => item.title && item.description),
+    offers: (acf.servicos_prestados ?? [])
+      .map((offer) => ({
+        title: offer.title?.trim() ?? '',
+        description: offer.description?.trim() ?? '',
+        items: (offer.items ?? []).map((item) => item.item?.trim() ?? '').filter(Boolean),
+      }))
+      .filter((offer) => offer.title && offer.description),
+    processTitle: acf.titulo_processo?.trim() || '3 Etapas do Nosso Acompanhamento',
+    processIntro:
+      acf.introducao_processo?.trim() ||
+      'Estruturamos cada trabalho de forma clara, documentada e verificável para garantir consistência técnica e decisões fundamentadas.',
+    processSteps: (acf.etapas_processo ?? [])
+      .map((step) => ({
+        title: step.title?.trim() ?? '',
+        description: step.description?.trim() ?? '',
+      }))
+      .filter((step) => step.title && step.description),
+    reasons: (acf.razoes_para_escolher ?? [])
+      .map((reason) => ({
+        title: reason.title?.trim() ?? '',
+        description: reason.description?.trim() ?? '',
+      }))
+      .filter((reason) => reason.title && reason.description),
+    brochureDownloads: (acf.brochuras ?? [])
+      .map((brochure) => {
+        const href = typeof brochure.file === 'string' ? brochure.file : getImageSource(brochure.file)
+
+        return {
+          label: brochure.label?.trim() ?? getFileName(brochure.file),
+          fileName: getFileName(brochure.file),
+          href: normalizeImageUrl(href),
+        }
+      })
+      .filter((brochure) => brochure.href),
+  }
+}
+
+function mapServiceNavItems(services: ServiceDetailData[]): ServiceNavItem[] {
+  return services.map((service) => ({
+    label: service.navLabel,
+    href: service.href,
+  }))
+}
+
+async function fetchWordPress<T>(path: string, searchParams?: Record<string, string | number | undefined>) {
+  const url = new URL(path, `${WP_API_BASE.replace(/\/$/, '')}/`)
+
+  if (searchParams) {
+    for (const [key, value] of Object.entries(searchParams)) {
+      if (value !== undefined && value !== '') {
+        url.searchParams.set(key, String(value))
+      }
+    }
+  }
+
+  try {
+    const response = await fetch(url.toString())
+
+    if (!response.ok) {
+      return null
+    }
+
+    return (await response.json()) as T
+  } catch {
+    return null
+  }
+}
+
+export async function getPosts(params?: {
+  page?: number
+  perPage?: number
+  category?: number
+}): Promise<BlogCardData[]> {
+  const posts = await fetchWordPress<WPPost[]>('posts', {
+    _embed: 1,
+    page: params?.page ?? 1,
+    per_page: params?.perPage ?? 9,
+    categories: params?.category,
+  })
+
+  return (posts ?? []).map(mapBlogCard)
+}
+
+export async function getRawPosts(params?: {
+  page?: number
+  perPage?: number
+  category?: number
+}): Promise<WPPost[]> {
+  const posts = await fetchWordPress<WPPost[]>('posts', {
+    _embed: 1,
+    page: params?.page ?? 1,
+    per_page: params?.perPage ?? 9,
+    categories: params?.category,
+  })
+
+  return posts ?? []
+}
+
+export async function getPostBySlug(slug: string): Promise<BlogArticleData | null> {
+  const posts = await fetchWordPress<WPPost[]>('posts', {
+    _embed: 1,
+    slug,
+    per_page: 1,
+  })
+
+  const post = posts?.[0]
+
+  return post ? mapBlogArticle(post) : null
+}
+
+export async function getCategories(): Promise<BlogCategory[]> {
+  const categories = await fetchWordPress<Array<{ id: number; name: string; slug: string; count: number }>>(
+    'categories',
+    { per_page: 100 }
+  )
+
+  return (categories ?? []).map((category) => ({
+    label: category.name,
+    slug: category.slug,
+    count: category.count,
+  }))
+}
+
+export async function getServices(): Promise<ServiceDetailData[]> {
+  const posts = await fetchWordPress<WPServicePost[]>('servico', {
+    _embed: 1,
+    per_page: 100,
+  })
+
+  if (!posts || posts.length === 0) {
+    return getSerializableFallbackServices()
+  }
+
+  return posts.map(mapService)
+}
+
+export async function getServiceBySlug(slug: string): Promise<ServiceDetailData | null> {
+  const posts = await fetchWordPress<WPServicePost[]>('servico', {
+    _embed: 1,
+    slug,
+    per_page: 1,
+  })
+
+  const service = posts?.[0]
+  return service ? mapService(service) : (() => {
+    const fallbackService = getFallbackServiceBySlug(slug)
+    return fallbackService ? stripServiceIcons(fallbackService) : null
+  })()
+}
+
+export async function getBlogPageData(): Promise<WordPressBlogData> {
+  const [posts, categories, recentPosts] = await Promise.all([
+    getPosts({ perPage: 9, page: 1 }),
+    getCategories(),
+    getPosts({ perPage: 3, page: 1 }),
+  ])
+
+  return {
+    posts,
+    categories,
+    recentPosts,
+  }
+}
+
+export async function getBlogPostPageData(slug: string): Promise<WordPressBlogDetailData> {
+  const [post, categories, recentPosts] = await Promise.all([
+    getPostBySlug(slug),
+    getCategories(),
+    getPosts({ perPage: 3, page: 1 }),
+  ])
+
+  return {
+    post,
+    categories,
+    recentPosts,
+  }
+}
+
+export async function getHomePageData(): Promise<HomePageData> {
+  const [posts, services] = await Promise.all([getPosts({ perPage: 3, page: 1 }), getServices()])
+
+  return {
+    posts: posts.slice(0, 3),
+    services,
+  }
+}
+
+export async function getServicePageData(slug: string): Promise<ServicePageData> {
+  const [service, services] = await Promise.all([getServiceBySlug(slug), getServices()])
+
+  return {
+    service,
+    serviceLinks: mapServiceNavItems(services),
+  }
+}

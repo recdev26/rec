@@ -1,8 +1,8 @@
 import { Facebook, Instagram, Quote, Tag, Twitter, UserRound } from 'lucide-react'
-import type { BlogMockPost } from '../../lib/blog-mock'
+import type { BlogArticleData } from '../../types/wordpress'
 
 interface BlogPostArticleProps {
-  post: BlogMockPost
+  post: BlogArticleData
 }
 
 export default function BlogPostArticle({ post }: BlogPostArticleProps) {
@@ -55,12 +55,6 @@ export default function BlogPostArticle({ post }: BlogPostArticleProps) {
         </h1>
         <p className="mt-4 text-sm leading-7 text-[var(--color-gray-dark)] sm:mt-6 sm:text-base sm:leading-relaxed">{post.excerpt}</p>
 
-        <div className="prose prose-sm mt-6 max-w-none prose-p:text-[var(--color-gray-dark)] prose-p:leading-7 sm:prose-base sm:mt-8 sm:prose-p:leading-relaxed">
-          {post.bodyIntro.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-
         {post.quote ? (
           <blockquote className="mt-8 flex flex-col gap-4 bg-[var(--color-off-white)] p-5 not-italic shadow-[0_12px_30px_rgba(11,46,44,0.06)] sm:mt-10 sm:gap-6 sm:p-8 lg:flex-row">
             <div className="inline-flex h-24 w-24 shrink-0 items-center justify-center bg-[var(--color-accent)] text-white">
@@ -77,11 +71,10 @@ export default function BlogPostArticle({ post }: BlogPostArticleProps) {
           </blockquote>
         ) : null}
 
-        <div className="prose prose-sm mt-6 max-w-none prose-p:text-[var(--color-gray-dark)] prose-p:leading-7 sm:prose-lg sm:mt-8 sm:prose-p:leading-8">
-          {post.bodyMiddle.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+        <article
+          className="prose prose-sm mt-6 max-w-none prose-headings:font-heading prose-headings:text-[var(--color-text)] prose-p:text-[var(--color-gray-dark)] prose-p:leading-7 prose-a:text-[var(--color-accent)] sm:prose-lg sm:mt-8 sm:prose-p:leading-8"
+          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
 
         <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-6 md:grid-cols-2">
           {post.gallery.map((image) => (
@@ -96,36 +89,8 @@ export default function BlogPostArticle({ post }: BlogPostArticleProps) {
           ))}
         </div>
 
-        <div className="prose prose-sm mt-6 max-w-none prose-p:text-[var(--color-gray-dark)] prose-p:leading-7 sm:prose-lg sm:mt-8 sm:prose-p:leading-8">
-          {post.bodyConclusion.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-
-        {post.closingTitle ? (
-          <>
-            <img
-              src={post.gallery[0]?.src ?? post.imageSrc}
-              alt={post.gallery[0]?.alt ?? post.imageAlt}
-              width="1600"
-              height="900"
-              className="mt-8 block h-52 w-full max-w-full object-cover sm:mt-10 sm:h-[22rem]"
-            />
-
-            <h2 className="mt-6 font-heading text-2xl font-bold text-[var(--color-text)] sm:mt-8 sm:text-3xl">
-              {post.closingTitle}
-            </h2>
-
-            <div className="prose prose-sm mt-4 max-w-none prose-p:text-[var(--color-gray-dark)] prose-p:leading-7 sm:mt-6 sm:prose-lg sm:prose-p:leading-8">
-              {post.bodyConclusion.map((paragraph) => (
-                <p key={`${paragraph}-closing`}>{paragraph}</p>
-              ))}
-            </div>
-          </>
-        ) : null}
-
         <div className="mt-8 flex flex-col gap-5 border-t border-[var(--color-gray-light)] pt-6 sm:mt-10 sm:gap-6 sm:pt-8 lg:flex-row lg:items-center lg:justify-between">
-          {post.tags?.length ? (
+          {post.tags.length ? (
             <div className="flex flex-wrap items-center gap-3">
               <span className="font-semibold text-[var(--color-text)]">Tags:</span>
               {post.tags.map((tag) => (

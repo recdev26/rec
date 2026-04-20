@@ -4,17 +4,12 @@ import BlogReplyForm from '../../components/blog/BlogReplyForm'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import NotFoundPage from '../../components/layout/NotFoundPage'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
-import {
-  blogCategories,
-  blogGalleryImages,
-  blogTags,
-  getBlogPostBySlug,
-  recentBlogPosts,
-} from '../../lib/blog-mock'
+import { getBlogPostPageData } from '../../lib/wp-api'
 
 export const Route = createFileRoute('/blog/$slug')({
-  head: ({ params }) => {
-    const post = getBlogPostBySlug(params.slug)
+  loader: async ({ params }) => getBlogPostPageData(params.slug),
+  head: ({ loaderData }) => {
+    const post = loaderData?.post
 
     if (!post) {
       return {
@@ -55,8 +50,7 @@ export const Route = createFileRoute('/blog/$slug')({
 })
 
 function BlogDetailPage() {
-  const { slug } = Route.useParams()
-  const post = getBlogPostBySlug(slug)
+  const { post, categories, recentPosts } = Route.useLoaderData()
 
   if (!post) {
     return <NotFoundPage />
@@ -74,10 +68,10 @@ function BlogDetailPage() {
           </div>
 
           <BlogSidebar
-            categories={blogCategories}
-            recentPosts={recentBlogPosts}
-            galleryImages={blogGalleryImages}
-            tags={blogTags}
+            categories={categories}
+            recentPosts={recentPosts}
+            galleryImages={post.gallery}
+            tags={post.tags}
           />
         </div>
       </section>

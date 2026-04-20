@@ -39,6 +39,11 @@ export interface ServiceReason {
   description: string
 }
 
+export interface ServiceReasonData {
+  title: string
+  description: string
+}
+
 export interface ServiceDownload {
   label: string
   fileName: string
@@ -65,6 +70,41 @@ export interface ServiceDetail {
   reasons: readonly ServiceReason[]
   brochureDownloads: readonly ServiceDownload[]
 }
+
+export interface ServiceDetailData {
+  slug: string
+  href: string
+  navLabel: string
+  title: string
+  shortTitle: string
+  description: string
+  lead: string
+  imageSrc: string
+  imageAlt: string
+  overviewParagraphs: readonly string[]
+  overviewHighlights: readonly ServiceOverviewHighlight[]
+  offers: readonly ServiceOffer[]
+  processTitle: string
+  processIntro: string
+  processSteps: readonly ServiceProcessStep[]
+  reasons: readonly ServiceReasonData[]
+  brochureDownloads: readonly ServiceDownload[]
+}
+
+const serviceIconMap = {
+  'avaliacao-e-consultoria': {
+    icon: Landmark,
+    reasons: [BadgeCheck, BarChart3, Layers3],
+  },
+  'gestao-de-projectos': {
+    icon: HardHat,
+    reasons: [ShieldCheck, HardHat, ClipboardCheck],
+  },
+  'peritagens-tecnicas': {
+    icon: ClipboardCheck,
+    reasons: [ScanSearch, FileSearch, Wrench],
+  },
+} as const
 
 export const services: readonly ServiceDetail[] = [
   {
@@ -455,6 +495,53 @@ export const serviceStats = [
 
 export function getServiceBySlug(slug: string) {
   return services.find((service) => service.slug === slug) ?? null
+}
+
+function getServiceIconConfig(slug: string) {
+  return serviceIconMap[slug as keyof typeof serviceIconMap] ?? serviceIconMap['avaliacao-e-consultoria']
+}
+
+export function stripServiceIcons(service: ServiceDetail): ServiceDetailData {
+  return {
+    slug: service.slug,
+    href: service.href,
+    navLabel: service.navLabel,
+    title: service.title,
+    shortTitle: service.shortTitle,
+    description: service.description,
+    lead: service.lead,
+    imageSrc: service.imageSrc,
+    imageAlt: service.imageAlt,
+    overviewParagraphs: service.overviewParagraphs,
+    overviewHighlights: service.overviewHighlights,
+    offers: service.offers,
+    processTitle: service.processTitle,
+    processIntro: service.processIntro,
+    processSteps: service.processSteps,
+    reasons: service.reasons.map(({ title, description }) => ({ title, description })),
+    brochureDownloads: service.brochureDownloads,
+  }
+}
+
+export function attachServiceIcons(service: ServiceDetailData): ServiceDetail {
+  const config = getServiceIconConfig(service.slug)
+
+  return {
+    ...service,
+    icon: config.icon,
+    reasons: service.reasons.map((reason, index) => ({
+      ...reason,
+      icon: config.reasons[index] ?? config.icon,
+    })),
+  }
+}
+
+export function attachServiceIconsToList(services: readonly ServiceDetailData[]): ServiceDetail[] {
+  return services.map(attachServiceIcons)
+}
+
+export function getSerializableFallbackServices(): ServiceDetailData[] {
+  return services.map(stripServiceIcons)
 }
 
 export function requireServiceBySlug(slug: string) {

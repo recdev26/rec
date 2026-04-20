@@ -1,8 +1,15 @@
 import SectionLabel from '../ui/SectionLabel'
 import ServiceShowcaseCard from '../ui/ServiceShowcaseCard'
-import { services } from '../../lib/services'
+import { attachServiceIconsToList } from '../../lib/services'
+import type { ServiceDetailData } from '../../lib/services'
 
-export default function HomeServicesSection() {
+interface HomeServicesSectionProps {
+  services: readonly ServiceDetailData[]
+}
+
+export default function HomeServicesSection({ services }: HomeServicesSectionProps) {
+  const hydratedServices = attachServiceIconsToList(services)
+
   return (
     <section
       id="servicos"
@@ -28,7 +35,7 @@ export default function HomeServicesSection() {
         </div>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-3">
-          {services.map((service) => (
+          {hydratedServices.map((service) => (
             <ServiceShowcaseCard
               key={service.slug}
               icon={service.icon}
