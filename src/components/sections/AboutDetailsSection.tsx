@@ -4,25 +4,37 @@ export default function AboutDetailsSection() {
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div className="border-t border-[var(--color-gray-light)] pt-10">
           <p className="leading-relaxed text-[var(--color-gray-dark)]">
-            A REC | Real Estate Consulting, Lda é uma empresa de consultoria,
-            serviços e gestão imobiliária, presente desde 2000 no mercado
-            moçambicano, dispondo de uma larga experiência de intervenção em
-            diferentes áreas de atividade imobiliária. Esta experiência, aliada
-            à preparação dos consultores que integram o seu quadro de
-            colaboradores, tornam possível a constituição de uma equipa
-            multidisciplinar e profissionalizada de especialistas, que com os
-            conhecimentos do mercado nacional prestam um serviço completo aos
-            nossos clientes.
+            A REC | Real Estate Consulting, Lda. é uma empresa moçambicana de
+            consultoria, serviços e gestão imobiliária, presente no mercado
+            desde 2000, com uma trajectória consolidada e uma vasta experiência
+            de actuação em diferentes áreas do sector imobiliário.
           </p>
 
           <p className="mt-6 leading-relaxed text-[var(--color-gray-dark)]">
-            A REC desenvolve o seu trabalho com base em standards de Qualidade e
-            Ética assentes em normas e orientações internacionais,
-            designadamente, a normativa expressa pelo Internacional Valuation
-            Standards Council (IVSC), The Royal Institution of Chartered
-            Surveyors (RICS) e The European Group of Valuers Associations
-            (TEGoVA), assumindo uma postura de Compromisso, Transparência e
-            Competência em todo o trabalho realizado.
+            Ao longo de mais de duas décadas, a REC tem vindo a afirmar-se pela
+            qualidade dos seus serviços, pelo conhecimento aprofundado do mercado
+            nacional e pela capacidade de responder, com rigor e
+            profissionalismo, às necessidades específicas de clientes
+            institucionais, empresas e particulares. A experiência acumulada,
+            aliada à qualificação técnica dos profissionais que integram a sua
+            equipa, permite oferecer uma abordagem multidisciplinar,
+            consistente e orientada para a criação de valor.
+          </p>
+
+          <p className="mt-6 leading-relaxed text-[var(--color-gray-dark)]">
+            A REC desenvolve a sua actividade com base em princípios de
+            qualidade, independência, rigor técnico e ética profissional,
+            seguindo normas e orientações reconhecidas internacionalmente,
+            designadamente as emitidas pelo International Valuation Standards
+            Council (IVSC), pela Royal Institution of Chartered Surveyors
+            (RICS) e pela TEGoVA | The European Group of Valuers’ Associations.
+          </p>
+
+          <p className="mt-6 leading-relaxed text-[var(--color-gray-dark)]">
+            Com uma actuação assente no compromisso, transparência e
+            competência, a REC procura assegurar aos seus clientes um serviço
+            fiável, tecnicamente fundamentado e ajustado às exigências de um
+            mercado em constante evolução.
           </p>
         </div>
       </div>

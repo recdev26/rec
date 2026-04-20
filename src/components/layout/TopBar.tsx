@@ -2,17 +2,17 @@ import { Facebook, Instagram, Linkedin } from 'lucide-react'
 
 const socialLinks = [
   {
-    href: 'https://www.facebook.com',
+    href: 'https://www.facebook.com/share/18M9FZFAPJ/?mibextid=wwXIfr',
     label: 'Facebook',
     icon: Facebook,
   },
   {
-    href: 'https://www.instagram.com',
+    href: 'https://www.instagram.com/rec.co.mz?igsh=MXFocXphOXpjbWk2Yw==',
     label: 'Instagram',
     icon: Instagram,
   },
   {
-    href: 'https://www.linkedin.com',
+    href: null,
     label: 'LinkedIn',
     icon: Linkedin,
   },
@@ -37,16 +37,26 @@ export default function TopBar() {
           <span className="font-semibold">Siga-nos:</span>
           <div className="flex items-center gap-2">
             {socialLinks.map(({ href, icon: Icon, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--color-text)] no-underline transition hover:bg-white hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-              >
-                <Icon size={18} strokeWidth={2.2} />
-              </a>
+              href ? (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--color-text)] no-underline transition hover:bg-white hover:text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                >
+                  <Icon size={18} strokeWidth={2.2} />
+                </a>
+              ) : (
+                <span
+                  key={label}
+                  aria-label={label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--color-text)] opacity-50"
+                >
+                  <Icon size={18} strokeWidth={2.2} />
+                </span>
+              )
             ))}
           </div>
         </div>

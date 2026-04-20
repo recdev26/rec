@@ -75,6 +75,7 @@ export default function ContactFormSection() {
                 <option value="avaliacao">Avaliação e Consultoria Imobiliária</option>
                 <option value="gestao">Gestão de Projectos e Fiscalização</option>
                 <option value="peritagens">Peritagens Técnicas</option>
+                <option value="inventariacao">Inventariação e Etiquetagem de Activos</option>
                 <option value="outro">Outro assunto</option>
               </select>
             </div>

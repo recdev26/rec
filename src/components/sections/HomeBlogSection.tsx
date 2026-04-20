@@ -1,32 +1,8 @@
 import BlogCard from '../blog/BlogCard'
 import SectionLabel from '../ui/SectionLabel'
+import { blogPosts } from '../../lib/blog-mock'
 
-const latestPosts = [
-  {
-    dateDay: '15',
-    dateMonth: 'JAN',
-    title: 'Como valorizar activos imobiliários com maior segurança',
-    excerpt:
-      'Análises criteriosas e leitura do mercado ajudam investidores e proprietários a tomar decisões mais informadas e sustentáveis.',
-    tone: 'sage',
-  },
-  {
-    dateDay: '20',
-    dateMonth: 'FEV',
-    title: 'O papel da fiscalização no sucesso de um projecto',
-    excerpt:
-      'A supervisão técnica contínua reduz desvios, protege orçamentos e assegura qualidade em todas as fases da execução.',
-    tone: 'mist',
-  },
-  {
-    dateDay: '05',
-    dateMonth: 'JUN',
-    title: 'Peritagens técnicas para decisões com mais confiança',
-    excerpt:
-      'Relatórios claros, diagnósticos precisos e avaliação de risco reforçam a confiança em negócios patrimoniais e operacionais.',
-    tone: 'clay',
-  },
-] as const
+const tones = ['sage', 'mist', 'clay'] as const
 
 export default function HomeBlogSection() {
   return (
@@ -40,8 +16,16 @@ export default function HomeBlogSection() {
         </div>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-3">
-          {latestPosts.map((post) => (
-            <BlogCard key={post.title} {...post} />
+          {blogPosts.slice(0, 3).map((post, index) => (
+            <BlogCard
+              key={post.slug}
+              dateDay={post.dateDay}
+              dateMonth={post.dateMonth}
+              title={post.title}
+              excerpt={post.excerpt}
+              href={`/blog/${post.slug}`}
+              tone={tones[index]}
+            />
           ))}
         </div>
       </div>
