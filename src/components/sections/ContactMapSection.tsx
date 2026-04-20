@@ -22,7 +22,7 @@ export default function ContactMapSection() {
   return (
     <section className="bg-white">
       <div className="relative overflow-hidden">
-        <div className="mx-auto w-full max-w-7xl px-4 pt-6 sm:px-6 lg:absolute lg:top-6 lg:right-6 lg:z-10 lg:max-w-none lg:px-0">
+        <div className="mx-auto w-full max-w-7xl px-4 pt-6 sm:px-6 lg:absolute lg:top-6 lg:right-12 lg:z-10 lg:w-auto lg:max-w-none lg:px-0 xl:right-16">
           <div className="bg-white shadow-[0_24px_54px_rgba(11,46,44,0.16)] lg:w-[24rem]">
             <div className="relative h-36 overflow-hidden">
               <img
