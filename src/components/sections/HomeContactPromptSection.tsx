@@ -26,16 +26,17 @@ export default function HomeContactPromptSection() {
         <div>
           <SectionLabel>Fale Connosco</SectionLabel>
           <h2 className="font-heading text-2xl md:text-3xl leading-tight font-bold text-[var(--color-text)]">
-            Estamos prontos para ouvir o seu desafio e
+            Estamos prontos para conhecer o seu desafio e
             <span className="block text-[var(--color-accent)]">
-              transformar necessidades em soluções
+              apresentar soluções com valor
             </span>
           </h2>
 
           <p className="mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-[var(--color-gray-dark)]">
-            Partilhe connosco o seu projecto e descubra como podemos
-            acrescentar valor ao seu investimento com uma abordagem técnica,
-            personalizada e orientada para resultados.
+            Na REC, colocamos a nossa experiência, rigor técnico e conhecimento
+            do mercado ao serviço dos nossos clientes. Partilhe connosco o seu
+            projecto e descubra como podemos apoiar as suas decisões com uma
+            abordagem profissional, personalizada e orientada para resultados.
           </p>
 
           <div className="mt-10 space-y-8">

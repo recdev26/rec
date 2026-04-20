@@ -74,7 +74,7 @@ export const services: readonly ServiceDetail[] = [
     title: 'Avaliação e Consultoria Imobiliária',
     shortTitle: 'Avaliação e Consultoria',
     description:
-      'Desenvolvemos avaliações criteriosas e independentes de imóveis e activos, seguindo padrões nacionais e internacionais para apoiar decisões seguras e fundamentadas.',
+      'Desenvolvemos avaliações criteriosas, independentes e tecnicamente fundamentadas de imóveis e activos, de acordo com padrões nacionais e internacionais, para apoiar decisões de investimento, financiamento, gestão patrimonial e relato financeiro.',
     lead:
       'Credibilidade internacional, leitura de mercado e transparência total para apoiar decisões de investimento, reporte financeiro, compra, venda e gestão de activos.',
     imageSrc: '/avaliacao_consultoria.png',
@@ -105,35 +105,35 @@ export const services: readonly ServiceDetail[] = [
       {
         title: 'Avaliação de Activos',
         description:
-          'Realizamos avaliações independentes e devidamente fundamentadas para diferentes classes de activos, com enquadramento técnico e financeiro sólido.',
+          'Realizamos avaliações independentes, rigorosas e devidamente fundamentadas para diferentes classes de activos, com enquadramento técnico, financeiro e normativo adequado a cada finalidade.',
         items: [
-          'Imobiliários: habitação, escritórios, comércio e hotelaria',
-          'Industriais: máquinas, equipamentos e instalações fabris',
-          'Biológicos: plantações, gado e outros activos vivos',
-          'Activos fixos tangíveis: inventariação, etiquetagem e reconciliação',
-          'Intangíveis e investimentos: patentes, concessões, licenças e contractos de leasing',
+          'Activos imobiliários: habitação, escritórios, comércio, indústria e hotelaria',
+          'Activos industriais: máquinas, equipamentos, instalações técnicas e unidades fabris',
+          'Activos biológicos: plantações, efectivo pecuário e outros activos vivos',
+          'Activos fixos tangíveis: inventariação, etiquetagem, reconciliação e valorização patrimonial',
+          'Activos intangíveis e investimentos: patentes, concessões, licenças, direitos de uso e contratos de leasing',
         ],
       },
       {
         title: 'Estudos e Consultoria Estratégica',
         description:
-          'Apoiamos decisões de expansão, optimização e investimento com análises orientadas para viabilidade, risco e posicionamento competitivo.',
+          'Apoiamos decisões de investimento, expansão, optimização e reposicionamento, através de análises técnicas e económicas orientadas para a viabilidade, mitigação de risco e criação de valor.',
         items: [
-          'Estudos de mercado e análise de oferta e procura',
-          'Viabilidade financeira e projecções de investimento',
+          'Estudos de mercado e análises da oferta e da procura',
+          'Estudos de viabilidade financeira e projecções de investimento',
           'Consultoria estratégica para desenvolvimento imobiliário',
-          'Peritagem de seguros e revisão de apólices',
+          'Peritagem de seguros e revisão técnica de apólices',
         ],
       },
       {
-        title: 'Inventariação e Tracking de Activos',
+        title: 'Inventariação e Etiquetagem de Activos',
         description:
-          'Organizamos activos físicos com processos digitais e controlo permanente, melhorando auditorias, reconciliação patrimonial e monitorização operacional.',
+          'Implementamos soluções de inventariação física e controlo patrimonial com recurso a processos digitais, reforçando a fiabilidade da informação, a reconciliação patrimonial e a monitorização operacional dos activos.',
         items: [
-          'Etiquetagem em poliéster térmico com registo fotográfico',
-          'Base de dados digital com acesso contínuo',
-          'Etiquetas RFID para localização automática até 10 metros',
-          'Verificações periódicas com redução de tempo e custo',
+          'Etiquetagem patrimonial em poliéster térmico com registo fotográfico',
+          'Criação e organização de base de dados digital para gestão contínua',
+          'Aplicação de etiquetas RFID para localização e controlo automatizado de activos',
+          'Verificações periódicas para redução de tempo, custos e desvios patrimoniais',
         ],
       },
     ],
@@ -162,19 +162,19 @@ export const services: readonly ServiceDetail[] = [
         icon: BadgeCheck,
         title: 'Referência técnica reconhecida',
         description:
-          'Actuamos com alinhamento a normas e metodologias internacionais, reforçando a confiança dos clientes e parceiros.',
+          'Desenvolvemos o nosso trabalho com base em normas, metodologias e princípios reconhecidos internacionalmente, assegurando rigor técnico, consistência e confiança em cada serviço prestado.',
       },
       {
         icon: BarChart3,
         title: 'Leitura real do mercado',
         description:
-          'Combinamos visão macro, contexto local e sensibilidade comercial para apoiar decisões mais seguras.',
+          'Aliamos experiência prática, leitura do contexto económico e conhecimento aprofundado do mercado nacional para apoiar decisões mais seguras, realistas e bem fundamentadas.',
       },
       {
         icon: Layers3,
         title: 'Soluções completas',
         description:
-          'Avaliamos, organizamos e estruturamos informação crítica para que o cliente tenha uma base sólida de actuação.',
+          'Oferecemos uma abordagem completa, que combina avaliação, inventariação, consultoria e análises técnicas, permitindo ao cliente dispor de informação fiável e de uma base sólida para agir com confiança.',
       },
     ],
     brochureDownloads: [
@@ -197,15 +197,15 @@ export const services: readonly ServiceDetail[] = [
     title: 'Gestão de Projectos e Fiscalização de Obras',
     shortTitle: 'Gestão de Projectos',
     description:
-      'Coordenamos todas as fases do projecto, desde o planeamento inicial até à entrega final, assegurando prazos, orçamentos e padrões de qualidade.',
+      'Acompanhamos e coordenamos todas as fases do projecto, desde o planeamento inicial até à conclusão da obra, assegurando controlo de prazos, custos, qualidade e conformidade técnica.',
     lead:
-      'Do conceito à entrega, assumimos o controlo técnico e operativo necessário para transformar planeamento em execução disciplinada e previsível.',
+      'Do conceito à entrega, asseguramos o controlo técnico e operativo necessário para transformar planeamento em execução disciplinada, eficiente e previsível.',
     imageSrc: '/gestao_de_projectos.png',
     imageAlt: 'Equipa em reunião de gestão de projectos e fiscalização de obras',
     icon: HardHat,
     overviewParagraphs: [
-      'A vasta experiência técnica da equipa da REC, aliada a parcerias estratégicas com empresas de referência no sector, permite-nos oferecer soluções completas e integradas desde a fase inicial do projecto até à sua entrega final.',
-      'Actuamos como parceiro do cliente na coordenação de equipas, controlo de custos, fiscalização da qualidade e gestão de riscos, assegurando uma execução rigorosa e alinhada com os objectivos definidos.',
+      'A experiência técnica da equipa da REC, aliada a parcerias estratégicas com entidades de referência no sector, permite-nos disponibilizar soluções integradas e ajustadas às exigências de cada projecto.',
+      'Actuamos como parceiro do cliente ao longo de todo o processo, apoiando a coordenação das diferentes especialidades, o acompanhamento da execução, o controlo de custos, a fiscalização da qualidade e a gestão de riscos. O nosso objectivo é assegurar que cada projecto seja desenvolvido com rigor, eficiência e total alinhamento com os objectivos técnicos, funcionais e financeiros estabelecidos.',
     ],
     overviewHighlights: [
       {
@@ -216,19 +216,19 @@ export const services: readonly ServiceDetail[] = [
       {
         title: 'Serviço chave-na-mão',
         description:
-          'Planeamos, acompanhamos e entregamos com controlo integral, reduzindo desvios e simplificando a gestão para o cliente.',
+          'Oferecemos um acompanhamento estruturado e abrangente, desde o planeamento até à entrega final, simplificando a gestão para o cliente e assegurando maior controlo sobre todas as fases do projecto.',
       },
       {
         title: 'Controlo de qualidade, prazo e custo',
         description:
-          'Utilizamos metodologias consolidadas para manter cronogramas realistas, orçamentos controlados e conformidade regulamentar.',
+          'Adoptamos metodologias de acompanhamento e fiscalização orientadas para o cumprimento de cronogramas, controlo orçamental, conformidade técnica e minimização de desvios durante a execução.',
       },
     ],
     offers: [
       {
         title: 'Gestão Integral de Projecto',
         description:
-          'Gerimos todas as etapas do projecto com visão estratégica e controlo permanente dos recursos, dos intervenientes e dos resultados.',
+          'Gerimos todas as etapas do projecto com visão estratégica, controlo permanente e foco na concretização dos objectivos definidos, assegurando articulação eficaz entre recursos, intervenientes e resultados.',
         items: [
           'Planeamento global e definição de fases críticas',
           'Coordenação de equipas, fornecedores e consultores',
@@ -238,7 +238,7 @@ export const services: readonly ServiceDetail[] = [
       {
         title: 'Coordenação e Fiscalização',
         description:
-          'Acompanhamos a execução em obra, promovendo alinhamento técnico, segurança, conformidade e qualidade ao longo do processo.',
+          'Acompanhamos a execução em obra, promovendo alinhamento técnico, segurança, conformidade regulamentar e controlo de qualidade ao longo de todo o processo construtivo.',
         items: [
           'Fiscalização técnica e validação de conformidade',
           'Relatórios de progresso e controlo de obra',
@@ -248,7 +248,7 @@ export const services: readonly ServiceDetail[] = [
       {
         title: 'Custos, Orçamentação e Engenharia',
         description:
-          'Damos suporte à sustentabilidade financeira e técnica do projecto, desde a estimativa inicial até ao ajustamento durante a execução.',
+          'Prestamos apoio técnico e financeiro ao projecto, desde a estimativa inicial até ao acompanhamento durante a execução, contribuindo para uma gestão mais eficiente e sustentável.',
         items: [
           'Preparação e revisão de orçamentos',
           'Gestão de custos e mitigação de desvios financeiros',
@@ -287,13 +287,13 @@ export const services: readonly ServiceDetail[] = [
         icon: HardHat,
         title: 'Experiência em obra e gestão',
         description:
-          'Combinamos coordenação técnica e visão prática para responder aos desafios reais de cada projecto.',
+          'Combinamos coordenação técnica, conhecimento prático e visão estratégica para responder de forma eficaz aos desafios reais de cada projecto.',
       },
       {
         icon: ClipboardCheck,
         title: 'Relatórios claros e accionáveis',
         description:
-          'Fornecemos informação objectiva para apoiar decisões rápidas, sustentadas e alinhadas com o investimento.',
+          'Fornecemos informação objectiva, estruturada e útil para apoiar decisões rápidas, fundamentadas e alinhadas com os interesses do cliente e do investimento.',
       },
     ],
     brochureDownloads: [
@@ -316,83 +316,83 @@ export const services: readonly ServiceDetail[] = [
     title: 'Peritagens Técnicas',
     shortTitle: 'Peritagens Técnicas',
     description:
-      'Realizamos inspecções e relatórios técnicos detalhados que identificam riscos, patologias e necessidades de intervenção com rigor e clareza.',
+      'Realizamos inspecções, diagnósticos e relatórios técnicos detalhados, com o objectivo de identificar patologias, riscos, anomalias construtivas e necessidades de intervenção, com rigor, clareza e independência.',
     lead:
       'Avaliação rigorosa, diagnóstico fiável e documentação técnica sólida para decisões de compra, financiamento, manutenção e gestão patrimonial.',
     imageSrc: '/peritagens_tecnicas.png',
     imageAlt: 'Profissionais em análise técnica e peritagem de edifícios',
     icon: ClipboardCheck,
     overviewParagraphs: [
-      'Na REC, compreendemos que decisões relacionadas com compra, venda, financiamento ou manutenção de imóveis dependem de informações técnicas fiáveis e detalhadas.',
-      'O nosso serviço de Peritagens Técnicas combina vistorias de campo, análises instrumentais e levantamento documental para entregar relatórios completos, claros e ajustados às exigências de cada contexto.',
+      'Na REC, compreendemos que decisões relacionadas com a aquisição, alienação, financiamento, conservação ou valorização de imóveis exigem informação técnica fiável, objectiva e devidamente fundamentada.',
+      'O nosso serviço de Peritagens Técnicas combina vistorias de campo, análise documental, verificação de conformidade e, sempre que necessário, levantamentos quantitativos e análises complementares, com vista à produção de relatórios claros, completos e ajustados às exigências de cada contexto.',
     ],
     overviewHighlights: [
       {
         title: 'Rigor técnico especializado',
         description:
-          'A nossa equipa utiliza metodologias reconhecidas internacionalmente para garantir diagnósticos precisos e confiáveis.',
+          'A nossa equipa actua com método, prudência e critérios técnicos consistentes, assegurando diagnósticos fiáveis e avaliações fundamentadas.',
       },
       {
         title: 'Soluções personalizadas',
         description:
-          'Adaptamos o nível de detalhe e o formato do relatório às necessidades do cliente, da operação ou da instituição financeira.',
+          'Adaptamos o âmbito da peritagem, o nível de detalhe e o formato do relatório às necessidades específicas do cliente, da operação ou da entidade financiadora.',
       },
       {
         title: 'Cobertura completa',
         description:
-          'Do levantamento quantitativo à due diligence técnica, asseguramos suporte integral em todas as fases do processo.',
+          'Da inspecção física do imóvel à due diligence técnica e ao levantamento quantitativo, asseguramos um acompanhamento completo em diferentes fases do processo.',
       },
     ],
     offers: [
       {
         title: 'Peritagem e Inspecção de Edifícios',
         description:
-          'Avaliamos estruturas, acabamentos e desempenho técnico do imóvel para identificar patologias, riscos e necessidades de intervenção.',
+          'Avaliamos o estado físico e o desempenho técnico de edifícios e outras construções, com o objectivo de identificar patologias, anomalias, riscos e necessidades de intervenção.',
         items: [
-          'Inspecção estrutural e de acabamentos',
-          'Identificação de patologias e anomalias',
-          'Verificação de conformidade técnica e legal',
+          'Inspecção estrutural e análise de acabamentos',
+          'Identificação de patologias construtivas e anomalias visíveis',
+          'Verificação de conformidade técnica, funcional e legal',
         ],
       },
       {
         title: 'Due Diligence e Quantity Surveying',
         description:
-          'Analisamos documentação, quantidades, custos e execução para reduzir incerteza e proteger decisões de investimento.',
+          'Analisamos documentação, quantidades, custos e condições de execução, reduzindo incertezas e reforçando a segurança das decisões de investimento ou desenvolvimento.',
         items: [
-          'Due diligence técnica pré-aquisição',
-          'Levantamento quantitativo de materiais e volumes',
-          'Suporte à elaboração de orçamentos realistas',
+          'Due diligence técnica em processo de construção ou reabilitação, de aquisição ou investimento',
+          'Levantamento quantitativo de materiais, áreas e volumes',
+          'Apoio à preparação e validação de orçamentos realistas',
         ],
       },
       {
         title: 'Relatórios para Financiamento e Gestão Patrimonial',
         description:
-          'Produzimos relatórios de progresso e inventários técnicos que apoiam bancos, investidores e proprietários na gestão dos seus activos.',
+          'Produzimos relatórios de progresso e inventários técnicos que apoiam bancos, investidores e proprietários na gestão dos seus activos, acompanhamento e valorização dos seus activos.',
         items: [
-          'Vistorias de obra para financiamento',
-          'Relatórios de progresso e qualidade',
-          'Levantamento patrimonial detalhado de edifícios',
+          'Vistorias de obra para efeitos de financiamento',
+          'Relatórios de progresso físico e controlo de qualidade',
+          'Levantamento técnico patrimonial detalhado de edifícios',
         ],
       },
     ],
     processTitle: '3 Etapas do Nosso Acompanhamento',
     processIntro:
-      'Cada peritagem é conduzida com método, evidência e clareza, para que o cliente compreenda o estado real do activo e os riscos associados.',
+      'Cada peritagem é conduzida com método, evidência e clareza, para que o cliente compreenda o estado real do activo e os riscos associados e as implicações técnicas da decisão a tomar.',
     processSteps: [
       {
         title: 'Vistoria e levantamento',
         description:
-          'Recolhemos dados em campo, imagens, medições e elementos documentais necessários ao diagnóstico técnico.',
+          'Procedemos à recolha de informação em campo, incluindo observação directa, registo fotográfico, medições e recolha de elementos documentais necessários à análise técnica.',
       },
       {
         title: 'Diagnóstico e validação',
         description:
-          'Analisamos anomalias, conformidade, custos e implicações técnicas com base em critérios objectivos.',
+          'Analisamos anomalias, conformidade, custos e implicações técnicas com base em critérios objectivos e enquadramento adequado ao tipo de activo e à finalidade da peritagem.',
       },
       {
         title: 'Relatório e recomendações',
         description:
-          'Entregamos conclusões claras, prioridades de intervenção e elementos úteis para negociação, manutenção ou financiamento.',
+          'Entregamos conclusões claras, prioridades de intervenção e elementos úteis para negociação, manutenção, financiamento ou reabilitação.',
       },
     ],
     reasons: [
@@ -400,19 +400,19 @@ export const services: readonly ServiceDetail[] = [
         icon: ScanSearch,
         title: 'Diagnóstico preciso',
         description:
-          'Avaliamos o activo com profundidade técnica para reduzir incerteza e antecipar necessidades de intervenção.',
+          'Avaliamos cada activo com profundidade técnica e sentido crítico, reduzindo incertezas e permitindo antecipar necessidades de intervenção.',
       },
       {
         icon: FileSearch,
         title: 'Relatórios claros',
         description:
-          'Traduzimos informação complexa em conclusões úteis para clientes, tribunais, bancos e equipas técnicas.',
+          'Transformamos informação técnica complexa em conclusões objectivas, estruturadas e úteis para clientes, bancos, investidores e equipas técnicas.',
       },
       {
         icon: Wrench,
         title: 'Suporte à acção',
         description:
-          'As nossas recomendações ajudam a priorizar reparações, gerir risco e proteger o valor patrimonial.',
+          'As nossas recomendações ajudam a priorizar intervenções, mitigar riscos e proteger o valor patrimonial do activo ao longo do tempo.',
       },
     ],
     brochureDownloads: [

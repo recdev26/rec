@@ -1,9 +1,10 @@
 const valueItems = [
   'Rigor e transparência em todos os serviços prestados',
-  'Paixão e dedicação em cada projecto',
-  'Inovação e melhoria contínua nas metodologias utilizadas',
-  'Compromisso com resultados e satisfação do cliente',
-  'Ética e profissionalismo como base das nossas relações comerciais',
+  'Compromisso com a qualidade e com a excelência técnica',
+  'Ética e profissionalismo como base de todas as relações',
+  'Dedicação e responsabilidade em cada projecto desenvolvido',
+  'Inovação e melhoria contínua nos métodos e práticas adoptadas',
+  'Orientação para o cliente e para resultados assente em confiança e criação de valor',
 ] as const
 
 export default function AboutCommitmentSection() {

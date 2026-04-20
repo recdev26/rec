@@ -21,9 +21,9 @@ const heroSlides: readonly HeroSlide[] = [
     description:
       'A REC, Lda. é uma empresa de consultoria especializada em avaliação e consultoria imobiliária, gestão de projectos e fiscalização de obras e peritagens técnicas.',
     accent: 'Avaliação, rigor e transparência',
-    panelTitle: 'Decisões sustentadas por experiência',
+    panelTitle: 'Consultoria imobiliária orientada para resultados',
     panelText:
-      'Apoiamos investidores, promotores e instituições com análise técnica, visão estratégica e acompanhamento próximo.',
+      'A nossa experiência, rigor técnico e visão clara permitem acrescentar valor em cada decisão imobiliária.',
     imageSrc: '/avaliacao_consultoria.png',
     imageAlt: 'Consultores a analisar documentos de avaliação imobiliária',
   },
@@ -34,9 +34,9 @@ const heroSlides: readonly HeroSlide[] = [
     description:
       'Coordenamos processos imobiliários com metodologia, clareza operacional e acompanhamento contínuo para proteger o investimento do cliente.',
     accent: 'Gestão integrada em cada fase',
-    panelTitle: 'Planeamento que reduz risco',
+    panelTitle: 'Os nossos serviços',
     panelText:
-      'Da avaliação inicial à execução do projecto, estruturamos cada etapa com critérios técnicos e objectivos mensuráveis.',
+      'Da análise inicial à execução e verificação técnica, prestamos serviços especializados que reforçam a confiança, reduzem o risco e ajudam o cliente a decidir com segurança.',
     imageSrc: '/gestao_de_projectos.png',
     imageAlt: 'Equipa em reunião de gestão de projectos e fiscalização',
   },
@@ -47,9 +47,9 @@ const heroSlides: readonly HeroSlide[] = [
     description:
       'Entregamos pareceres técnicos, estudos e recomendações práticas para apoiar negócios imobiliários com qualidade, rigor e independência.',
     accent: 'Conhecimento local, padrão internacional',
-    panelTitle: 'Solidez técnica para cada oportunidade',
+    panelTitle: 'O nosso compromisso',
     panelText:
-      'Trabalhamos com uma abordagem orientada para desempenho, conformidade e maximização do valor dos activos.',
+      'Partilhe connosco o seu projecto e descubra como podemos apoiar as suas decisões com uma abordagem profissional, personalizada e orientada para resultados.',
     imageSrc: '/peritagens_tecnicas.png',
     imageAlt: 'Profissionais a realizar peritagens técnicas e análise de obra',
   },

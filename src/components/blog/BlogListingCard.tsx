@@ -18,12 +18,14 @@ export default function BlogListingCard({ post }: BlogListingCardProps) {
         />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,transparent_0%,rgba(8,26,26,0.86)_100%)]" />
 
-        <div className="absolute left-4 top-4 flex h-14 w-14 flex-col items-center justify-center bg-[var(--color-accent)] text-white shadow-[0_16px_24px_rgba(18,137,130,0.3)] sm:left-6 sm:top-6 sm:h-16 sm:w-16">
-          <span className="font-heading text-xl leading-none font-bold sm:text-2xl">{post.dateDay}</span>
-          <span className="mt-1 text-[0.65rem] font-semibold tracking-[0.1em] uppercase sm:text-[0.72rem]">
-            {post.dateMonth}
-          </span>
-        </div>
+        {post.dateDay && post.dateMonth ? (
+          <div className="absolute left-4 top-4 flex h-14 w-14 flex-col items-center justify-center bg-[var(--color-accent)] text-white shadow-[0_16px_24px_rgba(18,137,130,0.3)] sm:left-6 sm:top-6 sm:h-16 sm:w-16">
+            <span className="font-heading text-xl leading-none font-bold sm:text-2xl">{post.dateDay}</span>
+            <span className="mt-1 text-[0.65rem] font-semibold tracking-[0.1em] uppercase sm:text-[0.72rem]">
+              {post.dateMonth}
+            </span>
+          </div>
+        ) : null}
 
         <div className="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-3 px-4 py-3 text-xs text-white/88 sm:gap-5 sm:px-6 sm:py-4 sm:text-sm">
           <span className="inline-flex items-center gap-2">
@@ -34,10 +36,12 @@ export default function BlogListingCard({ post }: BlogListingCardProps) {
             <Tag size={15} strokeWidth={2} />
             {post.category}
           </span>
-          <span className="hidden items-center gap-2 sm:inline-flex">
-            <Clock3 size={15} strokeWidth={2} />
-            {post.fullDate}
-          </span>
+          {post.fullDate ? (
+            <span className="hidden items-center gap-2 sm:inline-flex">
+              <Clock3 size={15} strokeWidth={2} />
+              {post.fullDate}
+            </span>
+          ) : null}
         </div>
       </div>
 

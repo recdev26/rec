@@ -88,10 +88,12 @@ export default function BlogSidebar({
                   className="h-16 w-16 shrink-0 object-cover sm:h-20 sm:w-20"
                 />
                 <span className="min-w-0">
-                  <span className="inline-flex items-center gap-2 text-xs text-[var(--color-gray-dark)] sm:text-sm">
-                    <Clock3 size={14} strokeWidth={2} />
-                    {post.fullDate}
-                  </span>
+                  {post.fullDate ? (
+                    <span className="inline-flex items-center gap-2 text-xs text-[var(--color-gray-dark)] sm:text-sm">
+                      <Clock3 size={14} strokeWidth={2} />
+                      {post.fullDate}
+                    </span>
+                  ) : null}
                   <span className="mt-2 block font-heading text-base leading-snug font-semibold text-[var(--color-text)] sm:text-lg">
                     {post.title}
                   </span>

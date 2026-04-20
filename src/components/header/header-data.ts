@@ -70,8 +70,8 @@ export const homeInfoItems: readonly HomeInfoItem[] = [
   {
     icon: Phone,
     eyebrow: 'Ligue-nos',
-    value: '+258 21 505 000',
-    href: 'tel:+25821505000',
+    value: '+258 21 505 000 / +258 84 382 2494',
+    href: 'tel:+258843822494',
   },
   {
     icon: Clock3,

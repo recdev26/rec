@@ -5,6 +5,7 @@ interface BlogCardProps {
   dateMonth: string
   title: string
   excerpt: string
+  href: string
   tone: 'sage' | 'mist' | 'clay'
 }
 
@@ -22,6 +23,7 @@ export default function BlogCard({
   dateMonth,
   title,
   excerpt,
+  href,
   tone,
 }: BlogCardProps) {
   return (
@@ -49,7 +51,7 @@ export default function BlogCard({
         </p>
         <div className="mt-8 border-t border-[var(--color-gray-light)] pt-7">
           <a
-            href="/blog"
+            href={href}
             className="inline-flex items-center gap-2 text-base font-semibold !text-[var(--color-accent)] no-underline transition hover:gap-3 hover:!text-[var(--color-accent-hover)]"
           >
             Ler mais

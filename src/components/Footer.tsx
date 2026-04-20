@@ -12,8 +12,8 @@ const officeItems = [
   {
     icon: Phone,
     label: 'Ligue-nos',
-    value: '+258 21 505 000',
-    href: 'tel:+25821505000',
+    value: '+258 21 505 000 / +258 84 382 2494',
+    href: 'tel:+258843822494',
   },
   {
     icon: Mail,
@@ -30,9 +30,17 @@ const officeItems = [
 ] as const
 
 const socialLinks = [
-  { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com' },
-  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com' },
+  {
+    icon: Facebook,
+    label: 'Facebook',
+    href: 'https://www.facebook.com/share/18M9FZFAPJ/?mibextid=wwXIfr',
+  },
+  {
+    icon: Instagram,
+    label: 'Instagram',
+    href: 'https://www.instagram.com/rec.co.mz?igsh=MXFocXphOXpjbWk2Yw==',
+  },
+  { icon: Linkedin, label: 'LinkedIn', href: null },
 ] as const
 
 function FooterLink({ label, href }: { label: string; href: string }) {
@@ -98,16 +106,26 @@ export default function Footer() {
 
             <div className="mt-10 flex flex-wrap gap-3">
               {socialLinks.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="inline-flex h-10 w-12 items-center justify-center bg-white text-[var(--color-accent)] no-underline transition hover:-translate-y-1 hover:bg-[var(--color-accent-light)]"
-                >
-                  <Icon size={20} strokeWidth={2.1} />
-                </a>
+                href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="inline-flex h-10 w-12 items-center justify-center bg-white text-[var(--color-accent)] no-underline transition hover:-translate-y-1 hover:bg-[var(--color-accent-light)]"
+                  >
+                    <Icon size={20} strokeWidth={2.1} />
+                  </a>
+                ) : (
+                  <span
+                    key={label}
+                    aria-label={label}
+                    className="inline-flex h-10 w-12 items-center justify-center bg-white text-[var(--color-accent)] opacity-50"
+                  >
+                    <Icon size={20} strokeWidth={2.1} />
+                  </span>
+                )
               ))}
             </div>
           </div>
