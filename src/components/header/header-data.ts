@@ -53,11 +53,6 @@ export const navigationItems: readonly NavigationItem[] = [
     href: '/blog',
     match: (pathname) => pathname.startsWith('/blog'),
   },
-  {
-    label: 'Contactos',
-    href: '/contactos',
-    match: (pathname) => pathname.startsWith('/contactos'),
-  },
 ] as const
 
 export const homeInfoItems: readonly HomeInfoItem[] = [
