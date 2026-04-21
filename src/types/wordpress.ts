@@ -50,11 +50,15 @@ export interface WPServiceOfferField {
 }
 
 export interface WPServiceProcessStepField {
+  titulo?: string
+  descricao?: string
   title?: string
   description?: string
 }
 
 export interface WPServiceReasonField {
+  titulo?: string
+  descricao?: string
   title?: string
   description?: string
 }
@@ -86,7 +90,11 @@ export interface WPServiceAcf {
   servicos_prestados?: WPServiceOfferField[]
   titulo_processo?: string
   introducao_processo?: string
+  detalhes_de_servicos?: WPServiceProcessStepField[]
+  detalhes_servicos?: WPServiceProcessStepField[]
   etapas_processo?: WPServiceProcessStepField[]
+  porque_rec?: WPServiceReasonField[]
+  por_que_rec?: WPServiceReasonField[]
   razoes_para_escolher?: WPServiceReasonField[]
   brochuras?: WPServiceBrochureField[]
 }

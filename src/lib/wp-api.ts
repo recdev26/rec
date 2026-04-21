@@ -275,6 +275,9 @@ function mapService(post: WPServicePost): ServiceDetailData {
   const featuredMedia = getFeaturedMedia(post)
   const title = stripHtml(post.title.rendered)
   const routeSlug = normalizeServiceRouteSlug(post.slug, title)
+  const processStepsField =
+    acf.detalhes_de_servicos ?? acf.detalhes_servicos ?? acf.etapas_processo ?? []
+  const reasonsField = acf.porque_rec ?? acf.por_que_rec ?? acf.razoes_para_escolher ?? []
   const overviewHighlights = (acf.conformidades ?? acf.destaques_visao_geral ?? [])
     .map((item) => ({
       title: item.titulo?.trim() ?? item.title?.trim() ?? '',
@@ -307,16 +310,16 @@ function mapService(post: WPServicePost): ServiceDetailData {
     processIntro:
       acf.introducao_processo?.trim() ||
       'Estruturamos cada trabalho de forma clara, documentada e verificável para garantir consistência técnica e decisões fundamentadas.',
-    processSteps: (acf.etapas_processo ?? [])
+    processSteps: processStepsField
       .map((step) => ({
-        title: step.title?.trim() ?? '',
-        description: step.description?.trim() ?? '',
+        title: step.titulo?.trim() ?? step.title?.trim() ?? '',
+        description: step.descricao?.trim() ?? step.description?.trim() ?? '',
       }))
       .filter((step) => step.title && step.description),
-    reasons: (acf.razoes_para_escolher ?? [])
+    reasons: reasonsField
       .map((reason) => ({
-        title: reason.title?.trim() ?? '',
-        description: reason.description?.trim() ?? '',
+        title: reason.titulo?.trim() ?? reason.title?.trim() ?? '',
+        description: reason.descricao?.trim() ?? reason.description?.trim() ?? '',
       }))
       .filter((reason) => reason.title && reason.description),
     brochureDownloads: (acf.brochuras ?? [])
