@@ -342,7 +342,7 @@ function mapService(post: WPServicePost, downloadsById: ReadonlyMap<number, WPDo
   const title = stripHtml(post.title.rendered)
   const routeSlug = normalizeServiceRouteSlug(post.slug, title)
   const processStepsField =
-    acf.detalhes_de_servicos ?? acf.detalhes_servicos ?? acf.etapas_processo ?? []
+    acf.detalhes_de_servicos ?? acf.detalhes_servicos ?? acf.etapas ?? acf.etapas_processo ?? []
   const reasonsField = acf.porque_rec ?? acf.por_que_rec ?? acf.razoes_para_escolher ?? []
   const overviewHighlights = (acf.conformidades ?? acf.destaques_visao_geral ?? [])
     .map((item) => ({

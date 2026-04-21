@@ -119,7 +119,7 @@ export default function ServiceDetailPage({ service, serviceLinks, metrics }: Se
               <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">
                 Por que escolher a REC?
               </h3>
-              <div className="mt-8 grid gap-6 lg:grid-cols-3">
+              <div className="mt-8 space-y-6">
                 {hydratedService.reasons.map(({ icon: Icon, title, description }) => (
                   <article
                     key={title}

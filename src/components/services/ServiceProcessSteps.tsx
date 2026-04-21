@@ -16,11 +16,11 @@ export default function ServiceProcessSteps({
       <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">{title}</h3>
       <p className="mt-5 max-w-3xl leading-relaxed text-[var(--color-gray-dark)]">{intro}</p>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
+      <div className="mt-8 grid gap-6 md:grid-cols-2">
         {steps.map((step, index) => (
           <article
             key={step.title}
-            className="border border-[var(--color-gray-light)] bg-white p-8 shadow-[0_18px_42px_rgba(11,46,44,0.08)]"
+            className={`border border-[var(--color-gray-light)] bg-white p-8 shadow-[0_18px_42px_rgba(11,46,44,0.08)] ${index === 2 ? 'md:col-span-2' : ''}`}
           >
             <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-[var(--color-accent-light)]">
               <span className="font-heading text-2xl font-bold text-[var(--color-accent)]">

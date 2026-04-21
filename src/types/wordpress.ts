@@ -99,6 +99,7 @@ export interface WPServiceAcf {
   introducao_processo?: string
   detalhes_de_servicos?: WPServiceProcessStepField[]
   detalhes_servicos?: WPServiceProcessStepField[]
+  etapas?: WPServiceProcessStepField[]
   etapas_processo?: WPServiceProcessStepField[]
   porque_rec?: WPServiceReasonField[]
   por_que_rec?: WPServiceReasonField[]
