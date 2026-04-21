@@ -50,6 +50,13 @@ export interface ServiceDownload {
   href: string
 }
 
+export interface ServiceMetric {
+  slug: string
+  value: string
+  label: string
+  description: string
+}
+
 export interface ServiceDetail {
   slug: string
   href: string
@@ -475,18 +482,21 @@ export const serviceNavItems: readonly ServiceNavItem[] = services.map((service)
   href: service.href,
 }))
 
-export const serviceStats = [
+export const serviceStats: readonly ServiceMetric[] = [
   {
+    slug: 'anos-de-experiencia',
     value: '+20',
     label: 'Anos de experiência',
     description: 'Desde 2000 a apoiar decisões imobiliárias com rigor técnico.',
   },
   {
+    slug: 'provincias-abrangidas',
     value: '11',
     label: 'Províncias abrangidas',
     description: 'Cobertura nacional com leitura local do mercado moçambicano.',
   },
   {
+    slug: 'clientes-atendidos',
     value: '+2.500',
     label: 'Clientes atendidos',
     description: 'Empresas, instituições e particulares com necessidades diversas.',

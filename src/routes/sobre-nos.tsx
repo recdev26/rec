@@ -4,17 +4,21 @@ import AboutDetailsSection from '../components/sections/AboutDetailsSection'
 import PageBreadcrumb from '../components/layout/PageBreadcrumb'
 import AboutIntroSection from '../components/sections/AboutIntroSection'
 import HomeStatsCardsSection from '../components/sections/HomeStatsCardsSection'
+import { getAboutPageData } from '../lib/wp-api'
 
 export const Route = createFileRoute('/sobre-nos')({
+  loader: async () => getAboutPageData(),
   component: SobreNos,
 })
 
 function SobreNos() {
+  const { metrics } = Route.useLoaderData()
+
   return (
     <>
       <PageBreadcrumb label="Sobre Nós" title="Sobre Nós" />
       <AboutIntroSection />
-      <HomeStatsCardsSection />
+      <HomeStatsCardsSection metrics={metrics} />
       <AboutDetailsSection />
       <AboutCommitmentSection />
     </>

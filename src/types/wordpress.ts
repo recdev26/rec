@@ -1,4 +1,4 @@
-import type { ServiceDetailData, ServiceNavItem } from '../lib/services'
+import type { ServiceDetailData, ServiceMetric, ServiceNavItem } from '../lib/services'
 
 export interface WPTerm {
   id: number
@@ -102,6 +102,7 @@ export interface WPServiceAcf {
 export interface WPPostBase {
   id: number
   slug: string
+  menu_order?: number
   date: string
   modified: string
   title: { rendered: string }
@@ -119,6 +120,28 @@ export interface WPPost extends WPPostBase {
 
 export interface WPServicePost extends WPPostBase {
   type: 'servicos'
+}
+
+export interface WPMetricAcf {
+  campos_das_metricas?: Array<{
+    numeros?: string
+    titulo?: string
+    descricao?: string
+  }>
+  valor?: string
+  numero?: string
+  valor_metrica?: string
+  titulo?: string
+  rotulo?: string
+  nome?: string
+  descricao?: string
+  texto?: string
+  descricao_curta?: string
+}
+
+export interface WPMetricPost extends WPPostBase {
+  type: 'metricas'
+  acf?: WPMetricAcf
 }
 
 export interface BlogCategory {
@@ -180,9 +203,15 @@ export interface WordPressBlogDetailData {
 export interface HomePageData {
   posts: BlogCardData[]
   services: ServiceDetailData[]
+  metrics: ServiceMetric[]
 }
 
 export interface ServicePageData {
   service: ServiceDetailData | null
   serviceLinks: ServiceNavItem[]
+  metrics: ServiceMetric[]
+}
+
+export interface AboutPageData {
+  metrics: ServiceMetric[]
 }

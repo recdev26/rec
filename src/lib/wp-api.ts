@@ -1,9 +1,12 @@
 import type {
+  AboutPageData,
   BlogArticleData,
   BlogCardData,
   BlogCategory,
   HomePageData,
   ServicePageData,
+  WPMetricAcf,
+  WPMetricPost,
   WPImageField,
   WPPost,
   WPPostAcf,
@@ -14,10 +17,11 @@ import type {
 } from '../types/wordpress'
 import {
   getSerializableFallbackServices,
+  serviceStats,
   stripServiceIcons,
   getServiceBySlug as getFallbackServiceBySlug,
 } from './services'
-import type { ServiceDetailData, ServiceNavItem } from './services'
+import type { ServiceDetailData, ServiceMetric, ServiceNavItem } from './services'
 
 const serviceRouteSlugAliases = {
   'avaliacao-e-consultoria': 'avaliacao-e-consultoria',
@@ -29,7 +33,7 @@ const serviceRouteSlugAliases = {
 
 const WP_API_BASE =
   (typeof process !== 'undefined' ? process.env.WP_API_URL : undefined) ??
-  'https://cms.rec.co.mz/wp-json/wp/v2'
+  'https://admin.rec.co.mz/wp-json/wp/v2'
 const SITE_URL =
   import.meta.env.VITE_SITE_URL ??
   (typeof process !== 'undefined' ? process.env.VITE_SITE_URL : undefined) ??
@@ -226,11 +230,11 @@ function splitParagraphs(html: string) {
     .filter(Boolean)
 }
 
-function getRenderedExcerpt(post: WPPost | WPServicePost) {
+function getRenderedExcerpt(post: WPPost | WPServicePost | WPMetricPost) {
   return post.excerpt?.rendered ?? ''
 }
 
-function getRenderedContent(post: WPPost | WPServicePost) {
+function getRenderedContent(post: WPPost | WPServicePost | WPMetricPost) {
   return post.content?.rendered ?? ''
 }
 
@@ -256,6 +260,40 @@ function normalizeServiceRouteSlug(slug: string, title: string) {
   }
 
   return slug
+}
+
+function mapMetric(post: WPMetricPost): ServiceMetric | null {
+  const acf = (post.acf ?? {}) as WPMetricAcf
+  const value =
+    acf.valor?.trim() ?? acf.numero?.trim() ?? acf.valor_metrica?.trim() ?? stripHtml(post.title.rendered)
+  const label =
+    acf.titulo?.trim() ?? acf.rotulo?.trim() ?? acf.nome?.trim() ?? stripHtml(post.title.rendered)
+  const description =
+    acf.descricao?.trim() ?? acf.texto?.trim() ?? acf.descricao_curta?.trim() ?? stripHtml(getRenderedExcerpt(post))
+
+  if (!value || !label || !description) {
+    return null
+  }
+
+  return {
+    slug: post.slug,
+    value,
+    label,
+    description,
+  }
+}
+
+function mapMetricRepeater(post: WPMetricPost): ServiceMetric[] {
+  const acf = (post.acf ?? {}) as WPMetricAcf
+
+  return (acf.campos_das_metricas ?? [])
+    .map((item, index) => ({
+      slug: `${post.slug}-${index + 1}`,
+      value: item.numeros?.trim() ?? '',
+      label: item.titulo?.trim() ?? '',
+      description: item.descricao?.trim() ?? '',
+    }))
+    .filter((metric) => metric.value && metric.label && metric.description)
 }
 
 function mergeServicesWithFallback(services: ServiceDetailData[]) {
@@ -435,6 +473,39 @@ export async function getServices(): Promise<ServiceDetailData[]> {
   return mergeServicesWithFallback(posts.map(mapService))
 }
 
+export async function getMetrics(): Promise<ServiceMetric[]> {
+  const posts = await fetchWordPress<WPMetricPost[]>('metricas', {
+    per_page: 100,
+    _embed: '1',
+  })
+
+  if (!posts || posts.length === 0) {
+    return [...serviceStats]
+  }
+
+  const repeaterMetrics = posts.flatMap(mapMetricRepeater)
+
+  if (repeaterMetrics.length > 0) {
+    return repeaterMetrics
+  }
+
+  const metrics = posts
+    .slice()
+    .sort((left, right) => {
+      const orderDiff = (left.menu_order ?? 0) - (right.menu_order ?? 0)
+
+      if (orderDiff !== 0) {
+        return orderDiff
+      }
+
+      return left.id - right.id
+    })
+    .map(mapMetric)
+    .filter((metric): metric is ServiceMetric => metric !== null)
+
+  return metrics.length > 0 ? metrics : [...serviceStats]
+}
+
 export async function getServiceBySlug(slug: string): Promise<ServiceDetailData | null> {
   const services = await getServices()
   const service = services.find((item) => item.slug === slug)
@@ -474,19 +545,33 @@ export async function getBlogPostPageData(slug: string): Promise<WordPressBlogDe
 }
 
 export async function getHomePageData(): Promise<HomePageData> {
-  const [posts, services] = await Promise.all([getPosts({ perPage: 3, page: 1 }), getServices()])
+  const [posts, services, metrics] = await Promise.all([
+    getPosts({ perPage: 3, page: 1 }),
+    getServices(),
+    getMetrics(),
+  ])
 
   return {
     posts: posts.slice(0, 3),
     services,
+    metrics,
+  }
+}
+
+export async function getAboutPageData(): Promise<AboutPageData> {
+  const metrics = await getMetrics()
+
+  return {
+    metrics,
   }
 }
 
 export async function getServicePageData(slug: string): Promise<ServicePageData> {
-  const [service, services] = await Promise.all([getServiceBySlug(slug), getServices()])
+  const [service, services, metrics] = await Promise.all([getServiceBySlug(slug), getServices(), getMetrics()])
 
   return {
     service,
     serviceLinks: mapServiceNavItems(services),
+    metrics,
   }
 }

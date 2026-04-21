@@ -16,7 +16,7 @@ export const Route = createFileRoute('/')({
 })
 
 function App() {
-  const { posts, services } = Route.useLoaderData()
+  const { posts, services, metrics } = Route.useLoaderData()
 
   return (
     <>
@@ -24,7 +24,7 @@ function App() {
       <HomeHighlightsSection />
       <HomeContactPromptSection />
       <HomeServicesSection services={services} />
-      <HomeStatsCardsSection />
+      <HomeStatsCardsSection metrics={metrics} />
       {FEATURES.SHOW_PROJECTS_SECTION ? <HomeProjectsSection /> : null}
       {FEATURES.SHOW_CLIENT_LOGOS_SECTION ? <HomeClientsLogoSection /> : null}
       {FEATURES.BLOG_ENABLED ? <HomeBlogSection posts={posts} /> : null}

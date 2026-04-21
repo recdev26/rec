@@ -3,15 +3,16 @@ import PageBreadcrumb from '../layout/PageBreadcrumb'
 import StatsBand from '../sections/StatsBand'
 import ContactSidebar from '../ui/ContactSidebar'
 import { attachServiceIcons } from '../../lib/services'
-import type { ServiceDetailData, ServiceNavItem } from '../../lib/services'
+import type { ServiceDetailData, ServiceMetric, ServiceNavItem } from '../../lib/services'
 import ServiceProcessSteps from './ServiceProcessSteps'
 
 interface ServiceDetailPageProps {
   service: ServiceDetailData
   serviceLinks: readonly ServiceNavItem[]
+  metrics: readonly ServiceMetric[]
 }
 
-export default function ServiceDetailPage({ service, serviceLinks }: ServiceDetailPageProps) {
+export default function ServiceDetailPage({ service, serviceLinks, metrics }: ServiceDetailPageProps) {
   const hydratedService = attachServiceIcons(service)
   const ServiceIcon = hydratedService.icon
 
@@ -143,7 +144,7 @@ export default function ServiceDetailPage({ service, serviceLinks }: ServiceDeta
         </div>
       </section>
 
-      <StatsBand />
+      <StatsBand metrics={metrics} />
     </>
   )
 }

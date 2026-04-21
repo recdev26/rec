@@ -37,11 +37,11 @@ export const Route = createFileRoute('/servicos/avaliacao-e-consultoria')({
 })
 
 function AvaliacaoEConsultoriaPage() {
-  const { service, serviceLinks } = Route.useLoaderData()
+  const { service, serviceLinks, metrics } = Route.useLoaderData()
 
   if (!service) {
     return <NotFoundPage />
   }
 
-  return <ServiceDetailPage service={service} serviceLinks={serviceLinks} />
+  return <ServiceDetailPage service={service} serviceLinks={serviceLinks} metrics={metrics} />
 }

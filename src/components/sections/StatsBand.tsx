@@ -1,14 +1,18 @@
-import { serviceStats } from '../../lib/services'
+import { serviceStats, type ServiceMetric } from '../../lib/services'
 
-export default function StatsBand() {
+interface StatsBandProps {
+  metrics?: readonly ServiceMetric[]
+}
+
+export default function StatsBand({ metrics = serviceStats }: StatsBandProps) {
   return (
     <section className="bg-[var(--bg-dark)] py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-3 lg:gap-0">
-          {serviceStats.map((stat, index) => (
+          {metrics.map((stat, index) => (
             <article
-              key={stat.label}
-              className={`text-center lg:px-10 ${index < serviceStats.length - 1 ? 'lg:border-r lg:border-white/18' : ''}`}
+              key={stat.slug}
+              className={`text-center lg:px-10 ${index < metrics.length - 1 ? 'lg:border-r lg:border-white/18' : ''}`}
             >
               <p className="font-heading text-5xl font-extrabold tracking-tight text-white">
                 {stat.value}
