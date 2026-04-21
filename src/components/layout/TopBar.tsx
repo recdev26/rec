@@ -12,7 +12,7 @@ const socialLinks = [
     icon: Instagram,
   },
   {
-    href: null,
+    href: 'https://www.linkedin.com/company/rec-real-estate-consulting/',
     label: 'LinkedIn',
     icon: Linkedin,
   },

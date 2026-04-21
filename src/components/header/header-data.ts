@@ -1,4 +1,4 @@
-import { Clock3, Mail, MapPin, Phone } from 'lucide-react'
+import { Clock3, Mail, MapPin, MessageCircle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { serviceNavItems } from '../../lib/services'
 
@@ -68,10 +68,10 @@ export const homeInfoItems: readonly HomeInfoItem[] = [
     href: 'mailto:consulting@rec.co.mz',
   },
   {
-    icon: Phone,
+    icon: MessageCircle,
     eyebrow: 'Ligue-nos',
     value: '+258 21 505 000 / +258 84 382 2494',
-    href: 'tel:+258843822494',
+    href: 'https://wa.me/258843822494',
   },
   {
     icon: Clock3,

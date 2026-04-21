@@ -1,4 +1,4 @@
-import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react'
+import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 
 const quickLinks = [
   { label: 'Início', href: '/' },
@@ -10,10 +10,10 @@ const quickLinks = [
 
 const officeItems = [
   {
-    icon: Phone,
+    icon: MessageCircle,
     label: 'Ligue-nos',
     value: '+258 21 505 000 / +258 84 382 2494',
-    href: 'tel:+258843822494',
+    href: 'https://wa.me/258843822494',
   },
   {
     icon: Mail,
@@ -40,7 +40,11 @@ const socialLinks = [
     label: 'Instagram',
     href: 'https://www.instagram.com/rec.co.mz?igsh=MXFocXphOXpjbWk2Yw==',
   },
-  { icon: Linkedin, label: 'LinkedIn', href: null },
+  {
+    icon: Linkedin,
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/rec-real-estate-consulting/',
+  },
 ] as const
 
 function FooterLink({ label, href }: { label: string; href: string }) {
