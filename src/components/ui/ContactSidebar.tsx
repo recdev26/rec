@@ -20,6 +20,8 @@ export default function ContactSidebar({
   currentService,
   serviceLinks,
 }: ContactSidebarProps) {
+  const hasBrochures = currentService.brochureDownloads.length > 0
+
   return (
     <aside className="space-y-8 lg:sticky lg:top-28">
       <section className="hidden border border-[var(--color-gray-light)] bg-[var(--color-off-white)] p-8 lg:block">
@@ -46,34 +48,36 @@ export default function ContactSidebar({
         </div>
       </section>
 
-      <section className="border border-[var(--color-gray-light)] bg-[var(--color-off-white)] p-8">
-        <SidebarHeading title="Download Brochura" />
-        <div className="mt-8 space-y-4">
-          {currentService.brochureDownloads.map((downloadItem) => (
-            <a
-              key={downloadItem.href}
-              href={downloadItem.href}
-              download={downloadItem.fileName}
-              className="flex items-center justify-between gap-4 border border-[var(--color-gray-light)] bg-white px-5 py-4 no-underline transition hover:border-[var(--color-accent)]"
-            >
-              <span className="flex items-center gap-4">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent)]">
-                  <Download size={20} strokeWidth={2.1} />
-                </span>
-                <span>
-                  <span className="block font-semibold text-[var(--color-text)]">
-                    {downloadItem.label}
+      {hasBrochures ? (
+        <section className="border border-[var(--color-gray-light)] bg-[var(--color-off-white)] p-8">
+          <SidebarHeading title="Download Brochura" />
+          <div className="mt-8 space-y-4">
+            {currentService.brochureDownloads.map((downloadItem) => (
+              <a
+                key={downloadItem.href}
+                href={downloadItem.href}
+                download={downloadItem.fileName}
+                className="flex items-center justify-between gap-4 border border-[var(--color-gray-light)] bg-white px-5 py-4 no-underline transition hover:border-[var(--color-accent)]"
+              >
+                <span className="flex items-center gap-4">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-accent-light)] text-[var(--color-accent)]">
+                    <Download size={20} strokeWidth={2.1} />
                   </span>
-                  <span className="mt-1 block text-sm text-[var(--color-gray-dark)]">
-                    Descarregar ficheiro
+                  <span>
+                    <span className="block font-semibold text-[var(--color-text)]">
+                      {downloadItem.label}
+                    </span>
+                    <span className="mt-1 block text-sm text-[var(--color-gray-dark)]">
+                      Descarregar ficheiro
+                    </span>
                   </span>
                 </span>
-              </span>
-              <ArrowRight size={18} strokeWidth={2.1} className="text-[var(--color-accent)]" />
-            </a>
-          ))}
-        </div>
-      </section>
+                <ArrowRight size={18} strokeWidth={2.1} className="text-[var(--color-accent)]" />
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="bg-[var(--color-accent)] p-8 text-white shadow-[0_18px_36px_rgba(11,46,44,0.16)]">
         <p className="text-sm font-semibold tracking-[0.2em] text-white/76 uppercase">
