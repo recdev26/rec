@@ -3,6 +3,8 @@ import { useServerFn } from '@tanstack/react-start'
 import { submitContactForm, type ContactFormErrors } from '../../server/contact'
 import SectionLabel from '../ui/SectionLabel'
 
+const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
+
 export default function ContactFormSection() {
   const submitContact = useServerFn(submitContactForm)
   const [fieldErrors, setFieldErrors] = useState<ContactFormErrors>({})
@@ -27,6 +29,7 @@ export default function ContactFormSection() {
         empresa: String(formData.get('empresa') ?? ''),
         assunto: String(formData.get('assunto') ?? ''),
         mensagem: String(formData.get('mensagem') ?? ''),
+        turnstileToken: String(formData.get('cf-turnstile-response') ?? ''),
       },
     })
 
@@ -168,6 +171,20 @@ export default function ContactFormSection() {
               </p>
             ) : null}
           </div>
+
+          {turnstileSiteKey ? (
+            <div className="mt-6">
+              <div
+                className="cf-turnstile"
+                data-sitekey={turnstileSiteKey}
+                data-theme="light"
+                data-language="pt"
+              />
+              {fieldErrors.turnstile ? (
+                <p className="mt-2 text-sm text-red-700">{fieldErrors.turnstile}</p>
+              ) : null}
+            </div>
+          ) : null}
 
           {feedback ? (
             <p

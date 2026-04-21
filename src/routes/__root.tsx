@@ -7,6 +7,8 @@ import NotFoundPage from '../components/layout/NotFoundPage'
 
 import appCss from '../styles.css?url'
 
+const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -27,6 +29,15 @@ export const Route = createRootRoute({
         href: appCss,
       },
     ],
+    scripts: turnstileSiteKey
+      ? [
+          {
+            src: 'https://challenges.cloudflare.com/turnstile/v0/api.js',
+            async: true,
+            defer: true,
+          },
+        ]
+      : [],
   }),
   notFoundComponent: NotFoundPage,
   shellComponent: RootDocument,

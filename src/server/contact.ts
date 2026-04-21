@@ -17,6 +17,7 @@ export interface ContactFormInput {
   empresa: string
   assunto: string
   mensagem: string
+  turnstileToken: string
 }
 
 export interface ContactFormErrors {
@@ -24,6 +25,7 @@ export interface ContactFormErrors {
   email?: string
   assunto?: string
   mensagem?: string
+  turnstile?: string
 }
 
 export type ContactFormResult =
@@ -38,10 +40,11 @@ function normaliseInput(data: ContactFormInput): ContactFormInput {
     empresa: data.empresa.trim(),
     assunto: data.assunto.trim(),
     mensagem: data.mensagem.trim(),
+    turnstileToken: data.turnstileToken.trim(),
   }
 }
 
-function validateInput(data: ContactFormInput): ContactFormErrors {
+function validateInput(data: ContactFormInput, requireTurnstile: boolean): ContactFormErrors {
   const errors: ContactFormErrors = {}
 
   if (!data.nomeCompleto) {
@@ -62,7 +65,37 @@ function validateInput(data: ContactFormInput): ContactFormErrors {
     errors.mensagem = 'Escreva a sua mensagem.'
   }
 
+  if (requireTurnstile && !data.turnstileToken) {
+    errors.turnstile = 'Confirme que não é um robot antes de enviar a mensagem.'
+  }
+
   return errors
+}
+
+async function verifyTurnstileToken(token: string): Promise<boolean> {
+  const secretKey = process.env.TURNSTILE_SECRET_KEY
+
+  if (!secretKey) {
+    return true
+  }
+
+  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      secret: secretKey,
+      response: token,
+    }),
+  })
+
+  if (!response.ok) {
+    return false
+  }
+
+  const result = (await response.json()) as { success?: boolean }
+  return result.success === true
 }
 
 function hasErrors(errors: ContactFormErrors): boolean {
@@ -269,13 +302,28 @@ export const submitContactForm = createServerFn({ method: 'POST' })
   .inputValidator((data: ContactFormInput) => data)
   .handler(async ({ data }): Promise<ContactFormResult> => {
     const formData = normaliseInput(data)
-    const fieldErrors = validateInput(formData)
+    const requiresTurnstile = Boolean(process.env.TURNSTILE_SECRET_KEY)
+    const fieldErrors = validateInput(formData, requiresTurnstile)
 
     if (hasErrors(fieldErrors)) {
       return {
         success: false,
         message: 'Verifique os campos assinalados e tente novamente.',
         fieldErrors,
+      }
+    }
+
+    if (requiresTurnstile) {
+      const turnstileValid = await verifyTurnstileToken(formData.turnstileToken)
+
+      if (!turnstileValid) {
+        return {
+          success: false,
+          message: 'Não foi possível validar a protecção anti-spam. Tente novamente.',
+          fieldErrors: {
+            turnstile: 'Confirme novamente que não é um robot e volte a tentar.',
+          },
+        }
       }
     }
 
