@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { isDropdownItem, navigationItems } from './header-data'
 
 export default function DesktopNavigation() {
@@ -20,10 +20,9 @@ export default function DesktopNavigation() {
                   <a
                     key={subItem.href}
                     href={subItem.href}
-                    className="flex items-center justify-between px-4 py-3 text-base font-medium !text-[#1c2f35] no-underline transition hover:bg-[var(--color-accent-light)] hover:!text-[var(--color-accent)]"
+                    className="block px-4 py-3 text-base font-medium !text-[#1c2f35] no-underline transition hover:bg-[var(--color-accent-light)] hover:!text-[var(--color-accent)]"
                   >
-                    <span>{subItem.label}</span>
-                    <ChevronRight size={16} strokeWidth={2.2} />
+                    {subItem.label}
                   </a>
                 ))}
               </div>

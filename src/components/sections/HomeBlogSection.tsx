@@ -1,10 +1,14 @@
 import BlogCard from '../blog/BlogCard'
 import SectionLabel from '../ui/SectionLabel'
-import { blogPosts } from '../../lib/blog-mock'
+import type { BlogCardData } from '../../types/wordpress'
 
 const tones = ['sage', 'mist', 'clay'] as const
 
-export default function HomeBlogSection() {
+interface HomeBlogSectionProps {
+  posts: readonly BlogCardData[]
+}
+
+export default function HomeBlogSection({ posts }: HomeBlogSectionProps) {
   return (
     <section className="bg-white py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -16,7 +20,7 @@ export default function HomeBlogSection() {
         </div>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-3">
-          {blogPosts.slice(0, 3).map((post, index) => (
+          {posts.slice(0, 3).map((post, index) => (
             <BlogCard
               key={post.slug}
               dateDay={post.dateDay}
@@ -24,6 +28,8 @@ export default function HomeBlogSection() {
               title={post.title}
               excerpt={post.excerpt}
               href={`/blog/${post.slug}`}
+              imageSrc={post.imageSrc}
+              imageAlt={post.imageAlt}
               tone={tones[index]}
             />
           ))}

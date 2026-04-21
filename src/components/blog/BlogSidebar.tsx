@@ -1,10 +1,10 @@
 import { ArrowRight, Clock3, Phone, Search } from 'lucide-react'
-import type { BlogMockCategory, BlogMockPost } from '../../lib/blog-mock'
+import type { BlogCardData, BlogCategory, BlogSidebarImage } from '../../types/wordpress'
 
 interface BlogSidebarProps {
-  categories: readonly BlogMockCategory[]
-  recentPosts: readonly BlogMockPost[]
-  galleryImages?: readonly { src: string; alt: string; href: string }[]
+  categories: readonly BlogCategory[]
+  recentPosts: readonly BlogCardData[]
+  galleryImages?: readonly BlogSidebarImage[]
   tags?: readonly string[]
 }
 
@@ -58,8 +58,8 @@ export default function BlogSidebar({
         <div className="space-y-3">
           {categories.map((category) => (
             <a
-              key={category.label}
-              href={`/blog?categoria=${encodeURIComponent(category.label)}`}
+               key={category.slug}
+               href={`/blog?categoria=${encodeURIComponent(category.slug)}`}
               className="flex items-center justify-between gap-4 border border-[var(--color-gray-light)] bg-[var(--color-off-white)] px-4 py-3 no-underline transition hover:border-[var(--color-accent)] hover:bg-white sm:px-5 sm:py-4"
             >
               <span className="min-w-0 text-sm font-medium text-[var(--color-text)] sm:text-base">{category.label}</span>
@@ -81,8 +81,8 @@ export default function BlogSidebar({
             >
               <a href={`/blog/${post.slug}`} className="flex gap-3 no-underline sm:gap-4">
                 <img
-                  src={post.imageSrc}
-                  alt={post.imageAlt}
+                   src={post.imageSrc}
+                   alt={post.imageAlt}
                   width="120"
                   height="120"
                   className="h-16 w-16 shrink-0 object-cover sm:h-20 sm:w-20"

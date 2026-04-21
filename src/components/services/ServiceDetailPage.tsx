@@ -2,28 +2,31 @@ import { CheckCircle2 } from 'lucide-react'
 import PageBreadcrumb from '../layout/PageBreadcrumb'
 import StatsBand from '../sections/StatsBand'
 import ContactSidebar from '../ui/ContactSidebar'
-import type { ServiceDetail } from '../../lib/services'
-import { serviceNavItems } from '../../lib/services'
+import { attachServiceIcons } from '../../lib/services'
+import type { ServiceDetailData, ServiceMetric, ServiceNavItem } from '../../lib/services'
 import ServiceProcessSteps from './ServiceProcessSteps'
 
 interface ServiceDetailPageProps {
-  service: ServiceDetail
+  service: ServiceDetailData
+  serviceLinks: readonly ServiceNavItem[]
+  metrics: readonly ServiceMetric[]
 }
 
-export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
-  const ServiceIcon = service.icon
+export default function ServiceDetailPage({ service, serviceLinks, metrics }: ServiceDetailPageProps) {
+  const hydratedService = attachServiceIcons(service)
+  const ServiceIcon = hydratedService.icon
 
   return (
     <>
-      <PageBreadcrumb label="Os Nossos Serviços" title={service.title} />
+      <PageBreadcrumb label="Os Nossos Serviços" title={hydratedService.title} />
 
       <section className="bg-white py-14 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-14 lg:px-8">
           <div>
             <div className="overflow-hidden shadow-[0_24px_54px_rgba(11,46,44,0.14)]">
               <img
-                src={service.imageSrc}
-                alt={service.imageAlt}
+                src={hydratedService.imageSrc}
+                alt={hydratedService.imageAlt}
                 width="1600"
                 height="960"
                 className="h-[19rem] w-full object-cover sm:h-[24rem] lg:h-[32rem]"
@@ -32,17 +35,17 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
 
             <div className="mt-10">
               <h2 className="font-heading text-2xl leading-tight font-bold text-[var(--color-text)]">
-                {service.lead}
+                  {hydratedService.lead}
               </h2>
               <p className="mt-6  leading-relaxed text-[var(--color-gray-dark)]">
-                {service.description}
+                  {hydratedService.description}
               </p>
             </div>
 
             <section className="mt-14">
               <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">Visão Geral</h3>
               <div className="mt-5 space-y-5 text-[var(--color-gray-dark)]">
-                {service.overviewParagraphs.map((paragraph) => (
+                {hydratedService.overviewParagraphs.map((paragraph) => (
                   <p key={paragraph} className="leading-relaxed">
                     {paragraph}
                   </p>
@@ -50,7 +53,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               </div>
 
               <div className="mt-8 grid gap-6 lg:grid-cols-3">
-                {service.overviewHighlights.map((item) => (
+                {hydratedService.overviewHighlights.map((item) => (
                   <article
                     key={item.title}
                     className="bg-[var(--color-off-white)] p-8 shadow-[0_14px_32px_rgba(11,46,44,0.06)]"
@@ -78,7 +81,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               </p>
 
               <div className="mt-8 space-y-6">
-                {service.offers.map((offer) => (
+                {hydratedService.offers.map((offer) => (
                   <article
                     key={offer.title}
                     className="border border-[var(--color-gray-light)] bg-[var(--color-off-white)] p-8"
@@ -107,17 +110,17 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             </section>
 
             <ServiceProcessSteps
-              title={service.processTitle}
-              intro={service.processIntro}
-              steps={service.processSteps}
+              title={hydratedService.processTitle}
+              intro={hydratedService.processIntro}
+              steps={hydratedService.processSteps}
             />
 
             <section className="mt-16">
               <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">
                 Por que escolher a REC?
               </h3>
-              <div className="mt-8 grid gap-6 lg:grid-cols-3">
-                {service.reasons.map(({ icon: Icon, title, description }) => (
+              <div className="mt-8 space-y-6">
+                {hydratedService.reasons.map(({ icon: Icon, title, description }) => (
                   <article
                     key={title}
                     className="border border-[var(--color-gray-light)] bg-white p-8 shadow-[0_16px_36px_rgba(11,46,44,0.06)]"
@@ -137,11 +140,11 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             </section>
           </div>
 
-          <ContactSidebar currentService={service} serviceLinks={serviceNavItems} />
+          <ContactSidebar currentService={hydratedService} serviceLinks={serviceLinks} />
         </div>
       </section>
 
-      <StatsBand />
+      <StatsBand metrics={metrics} />
     </>
   )
 }

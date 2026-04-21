@@ -1,8 +1,8 @@
 import { ArrowRight, Clock3, Tag, UserRound } from 'lucide-react'
-import type { BlogMockPost } from '../../lib/blog-mock'
+import type { BlogCardData } from '../../types/wordpress'
 
 interface BlogListingCardProps {
-  post: BlogMockPost
+  post: BlogCardData
 }
 
 export default function BlogListingCard({ post }: BlogListingCardProps) {

@@ -427,7 +427,7 @@ Routes implemented:
 ### 6.1 All API logic lives in `src/lib/wp-api.ts`
 
 ```typescript
-const WP_API_BASE = process.env.WP_API_URL ?? 'https://cms.rec.co.mz/wp-json/wp/v2'
+const WP_API_BASE = process.env.WP_API_URL ?? 'https://admin.rec.co.mz/wp-json/wp/v2'
 
 export async function getPosts(params?: {
   page?: number
@@ -612,7 +612,7 @@ Homepage Organization schema:
 
 ```bash
 # .env — never commit
-WP_API_URL=https://cms.rec.co.mz/wp-json/wp/v2
+WP_API_URL=https://admin.rec.co.mz/wp-json/wp/v2
 WP_APP_USER=api-user
 WP_APP_PASSWORD=xxxx xxxx xxxx xxxx xxxx xxxx
 
