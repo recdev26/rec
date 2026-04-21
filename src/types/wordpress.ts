@@ -64,8 +64,15 @@ export interface WPServiceReasonField {
 }
 
 export interface WPServiceBrochureField {
+  titulo?: string
   label?: string
+  brochura?: number[] | Array<{ ID?: number }>
   file?: WPImageField | string
+}
+
+export interface WPDownloadPost extends WPPostBase {
+  type: 'dlm_download'
+  link?: string
 }
 
 export interface WPPostAcf {

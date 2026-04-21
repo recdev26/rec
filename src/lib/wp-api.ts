@@ -5,6 +5,7 @@ import type {
   BlogCategory,
   HomePageData,
   ServicePageData,
+  WPDownloadPost,
   WPMetricAcf,
   WPMetricPost,
   WPImageField,
@@ -296,6 +297,33 @@ function mapMetricRepeater(post: WPMetricPost): ServiceMetric[] {
     .filter((metric) => metric.value && metric.label && metric.description)
 }
 
+function getBrochureDownloadId(brochure: WPServiceAcf['brochuras'] extends infer T ? T extends Array<infer U> ? U : never : never) {
+  const value = brochure?.brochura?.[0]
+
+  if (typeof value === 'number') {
+    return value
+  }
+
+  if (value && typeof value === 'object' && 'ID' in value && typeof value.ID === 'number') {
+    return value.ID
+  }
+
+  return null
+}
+
+async function getDownloadsByIds(ids: readonly number[]) {
+  if (ids.length === 0) {
+    return new Map<number, WPDownloadPost>()
+  }
+
+  const downloads = await fetchWordPress<WPDownloadPost[]>('dlm_download', {
+    include: ids.join(','),
+    per_page: ids.length,
+  })
+
+  return new Map((downloads ?? []).map((download) => [download.id, download] as const))
+}
+
 function mergeServicesWithFallback(services: ServiceDetailData[]) {
   const merged = new Map(
     getSerializableFallbackServices().map((service) => [service.slug, service] as const)
@@ -308,7 +336,7 @@ function mergeServicesWithFallback(services: ServiceDetailData[]) {
   return Array.from(merged.values())
 }
 
-function mapService(post: WPServicePost): ServiceDetailData {
+function mapService(post: WPServicePost, downloadsById: ReadonlyMap<number, WPDownloadPost>): ServiceDetailData {
   const acf = (post.acf ?? {}) as WPServiceAcf
   const featuredMedia = getFeaturedMedia(post)
   const title = stripHtml(post.title.rendered)
@@ -362,15 +390,22 @@ function mapService(post: WPServicePost): ServiceDetailData {
       .filter((reason) => reason.title && reason.description),
     brochureDownloads: (acf.brochuras ?? [])
       .map((brochure) => {
-        const href = typeof brochure.file === 'string' ? brochure.file : getImageSource(brochure.file)
+        const brochureId = getBrochureDownloadId(brochure)
+        const linkedDownload = brochureId ? downloadsById.get(brochureId) : null
+        const href =
+          linkedDownload?.link ??
+          (typeof brochure.file === 'string' ? brochure.file : getImageSource(brochure.file))
 
         return {
-          label: brochure.label?.trim() ?? getFileName(brochure.file),
-          fileName: getFileName(brochure.file),
+          label:
+            brochure.titulo?.trim() ??
+            brochure.label?.trim() ??
+            (stripHtml(linkedDownload?.title.rendered ?? '') || getFileName(brochure.file)),
+          fileName: getFileName(brochure.file) || `${linkedDownload?.slug ?? 'brochura'}.pdf`,
           href: normalizeImageUrl(href),
         }
       })
-      .filter((brochure) => brochure.href),
+      .filter((brochure) => brochure.href && brochure.label),
   }
 }
 
@@ -470,7 +505,16 @@ export async function getServices(): Promise<ServiceDetailData[]> {
     return getSerializableFallbackServices()
   }
 
-  return mergeServicesWithFallback(posts.map(mapService))
+  const brochureIds = posts.flatMap((post) => {
+    const acf = (post.acf ?? {}) as WPServiceAcf
+
+    return (acf.brochuras ?? [])
+      .map((brochure) => getBrochureDownloadId(brochure))
+      .filter((id): id is number => id !== null)
+  })
+  const downloadsById = await getDownloadsByIds([...new Set(brochureIds)])
+
+  return mergeServicesWithFallback(posts.map((post) => mapService(post, downloadsById)))
 }
 
 export async function getMetrics(): Promise<ServiceMetric[]> {
