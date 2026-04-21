@@ -19,6 +19,14 @@ import {
 } from './services'
 import type { ServiceDetailData, ServiceNavItem } from './services'
 
+const serviceRouteSlugAliases = {
+  'avaliacao-e-consultoria': 'avaliacao-e-consultoria',
+  'avaliacao-e-consultoria-imobiliaria': 'avaliacao-e-consultoria',
+  'gestao-de-projectos': 'gestao-de-projectos',
+  'gestao-de-projectos-e-fiscalizacao-de-obras': 'gestao-de-projectos',
+  'peritagens-tecnicas': 'peritagens-tecnicas',
+} as const
+
 const WP_API_BASE =
   (typeof process !== 'undefined' ? process.env.WP_API_URL : undefined) ??
   'https://cms.rec.co.mz/wp-json/wp/v2'
@@ -162,7 +170,7 @@ function mapBlogCard(post: WPPost): BlogCardData {
   return {
     slug: post.slug,
     title: stripHtml(post.title.rendered),
-    excerpt: stripHtml(post.excerpt.rendered),
+    excerpt: stripHtml(getRenderedExcerpt(post)),
     dateDay: day,
     dateMonth: month,
     fullDate: formatFullDate(post.date),
@@ -193,8 +201,8 @@ function mapBlogArticle(post: WPPost): BlogArticleData {
       acf.texto_alt_imagem_destacada || featuredMedia?.alt_text || stripHtml(post.title.rendered),
     author: 'REC',
     category,
-    readTime: acf.tempo_de_leitura?.trim() || estimateReadTime(post.content.rendered),
-    contentHtml: sanitizeHtml(post.content.rendered),
+    readTime: acf.tempo_de_leitura?.trim() || estimateReadTime(getRenderedContent(post)),
+    contentHtml: sanitizeHtml(getRenderedContent(post)),
     quote:
       acf.texto_citacao && acf.autor_citacao
         ? {
@@ -218,35 +226,83 @@ function splitParagraphs(html: string) {
     .filter(Boolean)
 }
 
+function getRenderedExcerpt(post: WPPost | WPServicePost) {
+  return post.excerpt?.rendered ?? ''
+}
+
+function getRenderedContent(post: WPPost | WPServicePost) {
+  return post.content?.rendered ?? ''
+}
+
+function normalizeServiceRouteSlug(slug: string, title: string) {
+  const directMatch = serviceRouteSlugAliases[slug as keyof typeof serviceRouteSlugAliases]
+
+  if (directMatch) {
+    return directMatch
+  }
+
+  const normalizedTitle = title.toLowerCase()
+
+  if (normalizedTitle.includes('avaliação') || normalizedTitle.includes('avaliacao')) {
+    return 'avaliacao-e-consultoria'
+  }
+
+  if (normalizedTitle.includes('gestão') || normalizedTitle.includes('gestao')) {
+    return 'gestao-de-projectos'
+  }
+
+  if (normalizedTitle.includes('peritagens')) {
+    return 'peritagens-tecnicas'
+  }
+
+  return slug
+}
+
+function mergeServicesWithFallback(services: ServiceDetailData[]) {
+  const merged = new Map(
+    getSerializableFallbackServices().map((service) => [service.slug, service] as const)
+  )
+
+  for (const service of services) {
+    merged.set(service.slug, service)
+  }
+
+  return Array.from(merged.values())
+}
+
 function mapService(post: WPServicePost): ServiceDetailData {
   const acf = (post.acf ?? {}) as WPServiceAcf
   const featuredMedia = getFeaturedMedia(post)
+  const title = stripHtml(post.title.rendered)
+  const routeSlug = normalizeServiceRouteSlug(post.slug, title)
+  const overviewHighlights = (acf.conformidades ?? acf.destaques_visao_geral ?? [])
+    .map((item) => ({
+      title: item.titulo?.trim() ?? item.title?.trim() ?? '',
+      description: item.descricao?.trim() ?? item.description?.trim() ?? '',
+    }))
+    .filter((item) => item.title && item.description)
+  const offers = (acf.tipos_de_servicos ?? acf.servicos_prestados ?? [])
+    .map((offer) => ({
+      title: offer.titulo?.trim() ?? offer.title?.trim() ?? '',
+      description: offer.descricao?.trim() ?? offer.description?.trim() ?? '',
+      items: (offer.items ?? []).map((item) => item.item?.trim() ?? '').filter(Boolean),
+    }))
+    .filter((offer) => offer.title && offer.description)
 
   return {
-    slug: post.slug,
-    href: `/servicos/${post.slug}`,
-    navLabel: acf.rotulo_navegacao?.trim() || stripHtml(post.title.rendered),
-    title: stripHtml(post.title.rendered),
-    shortTitle: acf.titulo_curto?.trim() || stripHtml(post.title.rendered),
-    description: stripHtml(post.excerpt.rendered),
-    lead: acf.lead?.trim() || stripHtml(post.excerpt.rendered),
+    slug: routeSlug,
+    href: `/servicos/${routeSlug}`,
+    navLabel: acf.rotulo_navegacao?.trim() || title,
+    title,
+    shortTitle: acf.titulo_curto?.trim() || title,
+    description: stripHtml(getRenderedExcerpt(post)),
+    lead: acf.lead?.trim() || stripHtml(getRenderedExcerpt(post)),
     imageSrc: normalizeImageUrl(featuredMedia?.source_url ?? ''),
     imageAlt:
-      acf.texto_alt_imagem_cabecalho || featuredMedia?.alt_text || stripHtml(post.title.rendered),
-    overviewParagraphs: splitParagraphs(post.content.rendered),
-    overviewHighlights: (acf.destaques_visao_geral ?? [])
-      .map((item) => ({
-        title: item.title?.trim() ?? '',
-        description: item.description?.trim() ?? '',
-      }))
-      .filter((item) => item.title && item.description),
-    offers: (acf.servicos_prestados ?? [])
-      .map((offer) => ({
-        title: offer.title?.trim() ?? '',
-        description: offer.description?.trim() ?? '',
-        items: (offer.items ?? []).map((item) => item.item?.trim() ?? '').filter(Boolean),
-      }))
-      .filter((offer) => offer.title && offer.description),
+      acf.texto_alt_imagem_cabecalho || featuredMedia?.alt_text || title,
+    overviewParagraphs: splitParagraphs(getRenderedContent(post)),
+    overviewHighlights,
+    offers,
     processTitle: acf.titulo_processo?.trim() || '3 Etapas do Nosso Acompanhamento',
     processIntro:
       acf.introducao_processo?.trim() ||
@@ -364,7 +420,7 @@ export async function getCategories(): Promise<BlogCategory[]> {
 }
 
 export async function getServices(): Promise<ServiceDetailData[]> {
-  const posts = await fetchWordPress<WPServicePost[]>('servico', {
+  const posts = await fetchWordPress<WPServicePost[]>('servicos', {
     _embed: 1,
     per_page: 100,
   })
@@ -373,18 +429,14 @@ export async function getServices(): Promise<ServiceDetailData[]> {
     return getSerializableFallbackServices()
   }
 
-  return posts.map(mapService)
+  return mergeServicesWithFallback(posts.map(mapService))
 }
 
 export async function getServiceBySlug(slug: string): Promise<ServiceDetailData | null> {
-  const posts = await fetchWordPress<WPServicePost[]>('servico', {
-    _embed: 1,
-    slug,
-    per_page: 1,
-  })
+  const services = await getServices()
+  const service = services.find((item) => item.slug === slug)
 
-  const service = posts?.[0]
-  return service ? mapService(service) : (() => {
+  return service ? service : (() => {
     const fallbackService = getFallbackServiceBySlug(slug)
     return fallbackService ? stripServiceIcons(fallbackService) : null
   })()

@@ -35,11 +35,15 @@ export interface WPRepeaterTextItem {
 }
 
 export interface WPServiceHighlightField {
+  titulo?: string
+  descricao?: string
   title?: string
   description?: string
 }
 
 export interface WPServiceOfferField {
+  titulo?: string
+  descricao?: string
   title?: string
   description?: string
   items?: WPRepeaterTextItem[]
@@ -72,6 +76,8 @@ export interface WPPostAcf {
 }
 
 export interface WPServiceAcf {
+  conformidades?: WPServiceHighlightField[]
+  tipos_de_servicos?: WPServiceOfferField[]
   titulo_curto?: string
   rotulo_navegacao?: string
   lead?: string
@@ -91,8 +97,8 @@ export interface WPPostBase {
   date: string
   modified: string
   title: { rendered: string }
-  excerpt: { rendered: string }
-  content: { rendered: string }
+  excerpt?: { rendered?: string }
+  content?: { rendered?: string }
   featured_media?: number
   acf?: WPPostAcf | WPServiceAcf
   _embedded?: WPEmbedded
@@ -104,7 +110,7 @@ export interface WPPost extends WPPostBase {
 }
 
 export interface WPServicePost extends WPPostBase {
-  type: 'servico'
+  type: 'servicos'
 }
 
 export interface BlogCategory {

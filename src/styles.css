@@ -49,6 +49,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+::selection {
+  color: var(--color-text);
+  background: rgba(18, 137, 130, 0.28);
+}
+
+::-moz-selection {
+  color: var(--color-text);
+  background: rgba(18, 137, 130, 0.28);
+}
+
 html,
 body {
   overflow-x: clip;
