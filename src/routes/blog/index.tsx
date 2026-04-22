@@ -3,40 +3,18 @@ import BlogListingCard from '../../components/blog/BlogListingCard'
 import BlogPagination from '../../components/blog/BlogPagination'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
+import { buildSeoHead } from '../../lib/seo'
 import { getBlogPageData } from '../../lib/wp-api'
 
 export const Route = createFileRoute('/blog/')({
   loader: async () => getBlogPageData(),
-  head: () => ({
-    meta: [
-      {
-        title: 'Blog | REC — Real Estate Consulting',
-      },
-      {
-        name: 'description',
-        content:
-          'Acompanhe artigos, análises e perspectivas da REC sobre avaliação imobiliária, gestão de projectos, fiscalização de obras e peritagens técnicas.',
-      },
-      {
-        property: 'og:title',
-        content: 'Blog | REC — Real Estate Consulting',
-      },
-      {
-        property: 'og:description',
-        content:
-          'Acompanhe artigos, análises e perspectivas da REC sobre avaliação imobiliária, gestão de projectos, fiscalização de obras e peritagens técnicas.',
-      },
-      {
-        property: 'og:type',
-        content: 'website',
-      },
-      {
-        property: 'og:image',
-        content: '/contact.jpg',
-      },
-    ],
-    links: [{ rel: 'canonical', href: 'https://rec.co.mz/blog' }],
-  }),
+  head: () =>
+    buildSeoHead({
+      title: 'Blog',
+      description:
+        'Acompanhe artigos, análises e perspectivas da REC sobre avaliação imobiliária, gestão de projectos, fiscalização de obras e peritagens técnicas.',
+      path: '/blog',
+    }),
   component: BlogPage,
 })
 

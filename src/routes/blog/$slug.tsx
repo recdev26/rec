@@ -4,6 +4,7 @@ import BlogReplyForm from '../../components/blog/BlogReplyForm'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import NotFoundPage from '../../components/layout/NotFoundPage'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
+import { buildArticleSchema, buildSeoHead, resolveAbsoluteUrl } from '../../lib/seo'
 import { getBlogPostPageData } from '../../lib/wp-api'
 
 export const Route = createFileRoute('/blog/$slug')({
@@ -12,38 +13,37 @@ export const Route = createFileRoute('/blog/$slug')({
     const post = loaderData?.post
 
     if (!post) {
-      return {
-        meta: [{ title: 'Página não encontrada | REC — Real Estate Consulting' }],
-      }
+      return buildSeoHead({
+        title: 'Página não encontrada',
+        description: 'A página solicitada não foi encontrada no website da REC.',
+        path: '/blog',
+        noIndex: true,
+      })
     }
 
+    const canonicalPath = `/blog/${post.slug}`
+
     return {
-      meta: [
-        {
-          title: `${post.title} | REC — Real Estate Consulting`,
-        },
-        {
-          name: 'description',
-          content: post.excerpt,
-        },
-        {
-          property: 'og:title',
-          content: `${post.title} | REC — Real Estate Consulting`,
-        },
-        {
-          property: 'og:description',
-          content: post.excerpt,
-        },
-        {
-          property: 'og:type',
-          content: 'website',
-        },
-        {
-          property: 'og:image',
-          content: post.imageSrc,
-        },
+      ...buildSeoHead({
+        title: post.title,
+        description: post.excerpt,
+        path: canonicalPath,
+        type: 'article',
+        publishedTime: post.publishedAt,
+        modifiedTime: post.modifiedAt,
+      }),
+      scripts: [
+        buildArticleSchema({
+          canonicalUrl: resolveAbsoluteUrl(canonicalPath),
+          title: post.title,
+          description: post.excerpt,
+          imageUrl: resolveAbsoluteUrl('/logo.jpg'),
+          datePublished: post.publishedAt,
+          dateModified: post.modifiedAt,
+          category: post.category,
+          readTime: post.readTime,
+        }),
       ],
-      links: [{ rel: 'canonical', href: `https://rec.co.mz/blog/${post.slug}` }],
     }
   },
   component: BlogDetailPage,

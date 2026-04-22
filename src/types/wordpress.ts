@@ -162,6 +162,8 @@ export interface BlogCardData {
   slug: string
   title: string
   excerpt: string
+  publishedAt: string
+  modifiedAt: string
   dateDay: string
   dateMonth: string
   fullDate: string

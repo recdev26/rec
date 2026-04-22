@@ -20,7 +20,28 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'REC - Real Estate Consulting',
+        title: 'REC — Real Estate Consulting',
+      },
+      {
+        name: 'description',
+        content:
+          'Consultoria imobiliária em Moçambique: avaliação e consultoria imobiliária, gestão de projectos e peritagens técnicas.',
+      },
+      {
+        name: 'robots',
+        content: 'index, follow, max-image-preview:large',
+      },
+      {
+        property: 'og:site_name',
+        content: 'REC — Real Estate Consulting',
+      },
+      {
+        property: 'og:locale',
+        content: 'pt_PT',
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image',
       },
     ],
     links: [

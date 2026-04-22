@@ -8,10 +8,20 @@ import HomeProjectsSection from '../components/sections/HomeProjectsSection'
 import HomeServicesSection from '../components/sections/HomeServicesSection'
 import HomeStatsCardsSection from '../components/sections/HomeStatsCardsSection'
 import { FEATURES } from '../lib/constants'
+import { buildOrganizationSchema, buildSeoHead } from '../lib/seo'
 import { getHomePageData } from '../lib/wp-api'
 
 export const Route = createFileRoute('/')({
   loader: async () => getHomePageData(),
+  head: () => ({
+    ...buildSeoHead({
+      title: 'Início',
+      description:
+        'A REC, Lda. é uma empresa de consultoria especializada em avaliação e consultoria imobiliária, gestão de projectos e fiscalização de obras e peritagens técnicas.',
+      path: '/',
+    }),
+    scripts: [buildOrganizationSchema()],
+  }),
   component: App,
 })
 
