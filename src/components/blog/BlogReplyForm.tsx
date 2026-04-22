@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useServerFn } from '@tanstack/react-start'
 import { submitContactForm, type ContactFormErrors } from '../../server/contact'
+import TurnstileWidget from '../ui/TurnstileWidget'
 
 const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
 
@@ -142,15 +143,7 @@ export default function BlogReplyForm() {
 
         {turnstileSiteKey ? (
           <div>
-            <div
-              className="cf-turnstile"
-              data-sitekey={turnstileSiteKey}
-              data-theme="light"
-              data-language="pt"
-            />
-            {fieldErrors.turnstile ? (
-              <p className="mt-2 text-sm text-red-700">{fieldErrors.turnstile}</p>
-            ) : null}
+            <TurnstileWidget siteKey={turnstileSiteKey} error={fieldErrors.turnstile} />
           </div>
         ) : null}
 
