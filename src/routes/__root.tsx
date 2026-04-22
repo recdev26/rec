@@ -32,7 +32,7 @@ export const Route = createRootRoute({
     scripts: turnstileSiteKey
       ? [
           {
-            src: 'https://challenges.cloudflare.com/turnstile/v0/api.js',
+            src: 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit',
             async: true,
             defer: true,
           },

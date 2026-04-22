@@ -8,6 +8,9 @@ import HomeInfoBand from './header/HomeInfoBand'
 import MobileMenu from './header/MobileMenu'
 import TopBar from './layout/TopBar'
 
+const SCROLL_DOWN_THRESHOLD = 32
+const SCROLL_UP_RESET_THRESHOLD = 4
+
 export default function Header() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -27,7 +30,13 @@ export default function Header() {
 
   useEffect(() => {
     const onScroll = () => {
-      setIsScrolled(window.scrollY > 10)
+      const scrollY = window.scrollY
+
+      setIsScrolled((current) =>
+        current
+          ? scrollY > SCROLL_UP_RESET_THRESHOLD
+          : scrollY > SCROLL_DOWN_THRESHOLD,
+      )
     }
 
     onScroll()

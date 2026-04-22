@@ -302,7 +302,9 @@ export const submitContactForm = createServerFn({ method: 'POST' })
   .inputValidator((data: ContactFormInput) => data)
   .handler(async ({ data }): Promise<ContactFormResult> => {
     const formData = normaliseInput(data)
-    const requiresTurnstile = Boolean(process.env.TURNSTILE_SECRET_KEY)
+    const requiresTurnstile = Boolean(
+      process.env.TURNSTILE_SECRET_KEY && process.env.VITE_TURNSTILE_SITE_KEY,
+    )
     const fieldErrors = validateInput(formData, requiresTurnstile)
 
     if (hasErrors(fieldErrors)) {
