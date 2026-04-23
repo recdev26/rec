@@ -2,6 +2,7 @@ import SectionLabel from '../ui/SectionLabel'
 import ServiceShowcaseCard from '../ui/ServiceShowcaseCard'
 import { attachServiceIconsToList } from '../../lib/services'
 import type { ServiceDetailData } from '../../lib/services'
+import { useLocale } from '../../lib/use-locale'
 
 interface HomeServicesSectionProps {
   services: readonly ServiceDetailData[]
@@ -9,6 +10,24 @@ interface HomeServicesSectionProps {
 
 export default function HomeServicesSection({ services }: HomeServicesSectionProps) {
   const hydratedServices = attachServiceIconsToList(services)
+  const locale = useLocale()
+
+  const copy =
+    locale === 'en'
+      ? {
+          label: 'Our Services',
+          titleLine1: 'Technical competence across each stage of',
+          titleLine2: 'your real estate investment',
+          description:
+            'From initial appraisal through to delivery and technical verification, we provide specialist services that strengthen confidence, reduce risk and support informed client decision-making.',
+        }
+      : {
+          label: 'Os Nossos Serviços',
+          titleLine1: 'Competência técnica para cada fase do',
+          titleLine2: 'seu investimento imobiliário',
+          description:
+            'Da análise inicial à execução e verificação técnica, prestamos serviços especializados que reforçam a confiança, reduzem o risco e ajudam o cliente a decidir com segurança.',
+        }
 
   return (
     <section
@@ -20,17 +39,15 @@ export default function HomeServicesSection({ services }: HomeServicesSectionPro
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <SectionLabel align="center">Os Nossos Serviços</SectionLabel>
+          <SectionLabel align="center">{copy.label}</SectionLabel>
           <h2 className="font-heading text-xl md:text-4xl leading-tight font-bold text-white">
-            Competência técnica para cada fase do
+            {copy.titleLine1}
             <span className="block text-[var(--color-accent-light)]">
-              seu investimento imobiliário
+              {copy.titleLine2}
             </span>
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-base md:text-lg text-white/74">
-            Da análise inicial à execução e verificação técnica, prestamos
-            serviços especializados que reforçam a confiança, reduzem o risco e
-            ajudam o cliente a decidir com segurança.
+            {copy.description}
           </p>
         </div>
 

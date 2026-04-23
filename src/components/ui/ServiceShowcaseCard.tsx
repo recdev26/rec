@@ -1,5 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
 
 interface ServiceShowcaseCardProps {
   icon: LucideIcon
@@ -18,6 +20,9 @@ export default function ServiceShowcaseCard({
   imageSrc,
   imageAlt,
 }: ServiceShowcaseCardProps) {
+  const locale = useLocale()
+  const ctaLabel = locale === 'en' ? 'View service' : 'Ver serviço'
+
   return (
     <article className="group flex h-full flex-col overflow-hidden bg-white shadow-[0_18px_46px_rgba(7,31,30,0.12)]">
       <div className="flex-1 p-8 pb-7 lg:p-10 lg:pb-8">
@@ -45,10 +50,10 @@ export default function ServiceShowcaseCard({
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),transparent_34%,rgba(18,29,31,0.44)_100%)]" />
         <div className="absolute inset-0 bg-[rgba(18,29,31,0.2)] opacity-0 transition duration-300 group-hover:opacity-100" />
         <a
-          href={href}
+          href={localizeInternalHref(href, locale)}
           className="absolute inset-x-8 bottom-8 inline-flex translate-y-4 items-center justify-center gap-3 bg-[rgba(18,137,130,0.92)] px-4 py-4 font-semibold !text-white no-underline opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 hover:!text-white"
         >
-          Ver serviço
+          {ctaLabel}
           <ArrowRight size={20} strokeWidth={2.1} />
         </a>
       </div>

@@ -4,6 +4,7 @@ import BlogReplyForm from '../../components/blog/BlogReplyForm'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import NotFoundPage from '../../components/layout/NotFoundPage'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
+import { useLocale } from '../../lib/use-locale'
 import { buildArticleSchema, buildSeoHead, resolveAbsoluteUrl } from '../../lib/seo'
 import { getBlogPostPageData } from '../../lib/wp-api'
 
@@ -51,14 +52,17 @@ export const Route = createFileRoute('/blog/$slug')({
 
 function BlogDetailPage() {
   const { post, categories, recentPosts } = Route.useLoaderData()
+  const locale = useLocale()
 
   if (!post) {
     return <NotFoundPage />
   }
 
+  const breadcrumbLabel = locale === 'en' ? 'News' : 'Notícias'
+
   return (
     <>
-      <PageBreadcrumb label="Notícias" title={post.title} />
+      <PageBreadcrumb label={breadcrumbLabel} title={post.title} />
 
       <section className="overflow-x-clip bg-[var(--color-off-white)] py-12 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8 lg:px-8 xl:grid-cols-[minmax(0,1fr)_24rem]">

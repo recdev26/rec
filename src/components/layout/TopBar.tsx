@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin } from 'lucide-react'
+import { localizeInternalHref, type Locale } from '../../lib/i18n'
 
 const socialLinks = [
   {
@@ -18,23 +19,34 @@ const socialLinks = [
   },
 ] as const
 
-export default function TopBar() {
+interface TopBarProps {
+  locale: Locale
+}
+
+export default function TopBar({ locale }: TopBarProps) {
+  const strapline =
+    locale === 'en'
+      ? 'We are ready to value your real estate assets'
+      : 'Estamos prontos para valorizar o seu património'
+  const contactLabel = locale === 'en' ? 'Contact us' : 'Contacte-nos'
+  const followLabel = locale === 'en' ? 'Follow us:' : 'Siga-nos:'
+
   return (
     <div className="hidden border-b border-[var(--color-gray-light)] bg-white lg:block">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2 lg:px-8">
         <p className="m-0 flex items-center gap-3 text-sm font-medium text-[var(--color-text)]">
-          <span>Estamos prontos para valorizar o seu património</span>
+          <span>{strapline}</span>
           <a
-            href="/contactos"
+            href={localizeInternalHref('/contactos', locale)}
             className="inline-flex items-center gap-2 font-semibold text-[var(--color-accent)] no-underline hover:text-[var(--color-accent-hover)]"
           >
-            Contacte-nos
+            {contactLabel}
             <span aria-hidden="true">-&gt;</span>
           </a>
         </p>
 
         <div className="flex items-center gap-5 text-sm text-[var(--color-text)]">
-          <span className="font-semibold">Siga-nos:</span>
+          <span className="font-semibold">{followLabel}</span>
           <div className="flex items-center gap-2">
             {socialLinks.map(({ href, icon: Icon, label }) => (
               href ? (

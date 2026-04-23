@@ -1,15 +1,40 @@
 import { useState, type FormEvent } from 'react'
 import { useServerFn } from '@tanstack/react-start'
 import { submitContactForm, type ContactFormErrors } from '../../server/contact'
+import { useLocale } from '../../lib/use-locale'
 import TurnstileWidget from '../ui/TurnstileWidget'
 
 const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
 
 export default function BlogReplyForm() {
   const submitContact = useServerFn(submitContactForm)
+  const locale = useLocale()
   const [fieldErrors, setFieldErrors] = useState<ContactFormErrors>({})
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const copy =
+    locale === 'en'
+      ? {
+          title: 'Leave Your Message',
+          name: 'Your name',
+          email: 'Email address',
+          selectTopic: 'Select a topic',
+          message: 'Message',
+          sending: 'Sending...',
+          submit: 'Send Message',
+          options: ['Valuation', 'Consultancy', 'Project Management', 'Technical Due Diligence'],
+        }
+      : {
+          title: 'Deixe a Sua Mensagem',
+          name: 'O seu nome',
+          email: 'Endereço de e-mail',
+          selectTopic: 'Seleccione um tema',
+          message: 'Mensagem',
+          sending: 'A enviar...',
+          submit: 'Enviar Mensagem',
+          options: ['Avaliação', 'Consultoria', 'Gestão de Projectos', 'Peritagens'],
+        }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -49,20 +74,20 @@ export default function BlogReplyForm() {
   return (
     <section className="mt-8 bg-white p-5 shadow-[0_18px_40px_rgba(11,46,44,0.08)] sm:mt-10 sm:p-8 lg:p-10">
       <h2 className="font-heading text-2xl font-bold text-[var(--color-text)] sm:text-3xl">
-        Deixe a Sua Mensagem
+        {copy.title}
       </h2>
 
       <form className="mt-8 space-y-4" onSubmit={handleSubmit} noValidate>
         <div className="grid gap-4 md:grid-cols-2">
           <div>
             <label htmlFor="reply-name" className="sr-only">
-              O seu nome
+              {copy.name}
             </label>
             <input
               id="reply-name"
               name="nomeCompleto"
               type="text"
-              placeholder="O seu nome"
+               placeholder={copy.name}
               aria-invalid={Boolean(fieldErrors.nomeCompleto)}
               aria-describedby={fieldErrors.nomeCompleto ? 'reply-name-error' : undefined}
               className="min-h-12 w-full border border-[var(--color-gray-light)] bg-[var(--color-off-white)] px-4 text-sm text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)] sm:min-h-14 sm:px-5 sm:text-base"
@@ -75,13 +100,13 @@ export default function BlogReplyForm() {
           </div>
           <div>
             <label htmlFor="reply-email" className="sr-only">
-              Endereço de e-mail
+               {copy.email}
             </label>
             <input
               id="reply-email"
               name="email"
               type="email"
-              placeholder="Endereço de e-mail"
+               placeholder={copy.email}
               aria-invalid={Boolean(fieldErrors.email)}
               aria-describedby={fieldErrors.email ? 'reply-email-error' : undefined}
               className="min-h-12 w-full border border-[var(--color-gray-light)] bg-[var(--color-off-white)] px-4 text-sm text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)] sm:min-h-14 sm:px-5 sm:text-base"
@@ -96,8 +121,8 @@ export default function BlogReplyForm() {
 
         <div>
           <label htmlFor="reply-topic" className="sr-only">
-            Seleccione um tema
-          </label>
+             {copy.selectTopic}
+           </label>
           <select
             id="reply-topic"
             name="assunto"
@@ -106,14 +131,15 @@ export default function BlogReplyForm() {
             className="min-h-12 w-full appearance-none border border-[var(--color-gray-light)] bg-[var(--color-off-white)] px-4 text-sm text-[var(--color-text)] outline-none transition focus:border-[var(--color-accent)] sm:min-h-14 sm:px-5 sm:text-base"
             defaultValue=""
           >
-            <option value="" disabled>
-              Seleccione um tema
-            </option>
-            <option value="Avaliação">Avaliação</option>
-            <option value="Consultoria">Consultoria</option>
-            <option value="Gestão de Projectos">Gestão de Projectos</option>
-            <option value="Peritagens">Peritagens</option>
-          </select>
+              <option value="" disabled>
+               {copy.selectTopic}
+              </option>
+              {copy.options.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           {fieldErrors.assunto ? (
             <p id="reply-topic-error" className="mt-2 text-sm text-red-700">
               {fieldErrors.assunto}
@@ -123,12 +149,12 @@ export default function BlogReplyForm() {
 
         <div>
           <label htmlFor="reply-message" className="sr-only">
-            Mensagem
-          </label>
+             {copy.message}
+           </label>
           <textarea
             id="reply-message"
             name="mensagem"
-            placeholder="Mensagem"
+             placeholder={copy.message}
             rows={7}
             aria-invalid={Boolean(fieldErrors.mensagem)}
             aria-describedby={fieldErrors.mensagem ? 'reply-message-error' : undefined}
@@ -162,7 +188,7 @@ export default function BlogReplyForm() {
           disabled={isSubmitting}
           className="inline-flex min-h-11 items-center justify-center bg-[var(--color-accent)] px-6 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-70 sm:min-h-12 sm:px-8 sm:text-base"
         >
-          {isSubmitting ? 'A enviar...' : 'Enviar Mensagem'}
+          {isSubmitting ? copy.sending : copy.submit}
         </button>
       </form>
     </section>

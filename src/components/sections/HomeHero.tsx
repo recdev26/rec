@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
 
 interface HeroSlide {
   id: number
@@ -13,50 +15,106 @@ interface HeroSlide {
   imageAlt: string
 }
 
-const heroSlides: readonly HeroSlide[] = [
-  {
-    id: 1,
-    eyebrow: 'Bem-vindo à REC',
-    title: 'Consultoria Imobiliária de Excelência em Moçambique',
-    description:
-      'A REC, Lda. é uma empresa de consultoria especializada em avaliação e consultoria imobiliária, gestão de projectos e fiscalização de obras e peritagens técnicas.',
-    accent: 'Avaliação, rigor e transparência',
-    panelTitle: 'Consultoria imobiliária orientada para resultados',
-    panelText:
-      'A nossa experiência, rigor técnico e visão clara permitem acrescentar valor em cada decisão imobiliária.',
-    imageSrc: '/avaliacao_consultoria.png',
-    imageAlt: 'Consultores a analisar documentos de avaliação imobiliária',
-  },
-  {
-    id: 2,
-    eyebrow: 'Os nossos serviços',
-    title: 'Gerimos activos e projectos com foco em valor e segurança',
-    description:
-      'Coordenamos processos imobiliários com metodologia, clareza operacional e acompanhamento contínuo para proteger o investimento do cliente.',
-    accent: 'Gestão integrada em cada fase',
-    panelTitle: 'Os nossos serviços',
-    panelText:
-      'Da análise inicial à execução e verificação técnica, prestamos serviços especializados que reforçam a confiança, reduzem o risco e ajudam o cliente a decidir com segurança.',
-    imageSrc: '/gestao_de_projectos.png',
-    imageAlt: 'Equipa em reunião de gestão de projectos e fiscalização',
-  },
-  {
-    id: 3,
-    eyebrow: 'Compromisso REC',
-    title: 'Peritagens técnicas e consultoria para decisões com confiança',
-    description:
-      'Entregamos pareceres técnicos, estudos e recomendações práticas para apoiar negócios imobiliários com qualidade, rigor e independência.',
-    accent: 'Conhecimento local, padrão internacional',
-    panelTitle: 'O nosso compromisso',
-    panelText:
-      'Partilhe connosco o seu projecto e descubra como podemos apoiar as suas decisões com uma abordagem profissional, personalizada e orientada para resultados.',
-    imageSrc: '/peritagens_tecnicas.png',
-    imageAlt: 'Profissionais a realizar peritagens técnicas e análise de obra',
-  },
-] as const
+function getHeroSlides(locale: 'pt' | 'en'): readonly HeroSlide[] {
+  if (locale === 'en') {
+    return [
+      {
+        id: 1,
+        eyebrow: 'Welcome to REC',
+        title: 'Professional Real Estate Consultancy in Mozambique',
+        description:
+          'REC, Lda. is a specialist consultancy covering valuation and advisory, project management, works supervision and technical due diligence.',
+        accent: 'Valuation, rigour and transparency',
+        panelTitle: 'Outcome-focused real estate consultancy',
+        panelText:
+          'Our technical competence and market knowledge support defensible decisions throughout the property lifecycle.',
+        imageSrc: '/avaliacao_consultoria.png',
+        imageAlt: 'Consultants reviewing valuation documentation',
+      },
+      {
+        id: 2,
+        eyebrow: 'Our services',
+        title: 'We manage assets and projects with value and risk control in mind',
+        description:
+          'We coordinate property processes with robust methodology, operational clarity and continuous oversight to protect client capital.',
+        accent: 'Integrated management at each stage',
+        panelTitle: 'Our services',
+        panelText:
+          'From initial appraisal to technical verification, we provide specialist support that improves confidence and mitigates downside risk.',
+        imageSrc: '/gestao_de_projectos.png',
+        imageAlt: 'Project team in a management and supervision meeting',
+      },
+      {
+        id: 3,
+        eyebrow: 'REC commitment',
+        title: 'Technical due diligence and advisory for assured decisions',
+        description:
+          'We deliver independent technical opinions, studies and practical recommendations for secure property transactions and investments.',
+        accent: 'Local intelligence, international standards',
+        panelTitle: 'Our commitment',
+        panelText:
+          'Share your brief and our team will provide professional, bespoke guidance aligned with RICS-led best practice.',
+        imageSrc: '/peritagens_tecnicas.png',
+        imageAlt: 'Professionals conducting technical property inspections',
+      },
+    ] as const
+  }
+
+  return [
+    {
+      id: 1,
+      eyebrow: 'Bem-vindo à REC',
+      title: 'Consultoria Imobiliária de Excelência em Moçambique',
+      description:
+        'A REC, Lda. é uma empresa de consultoria especializada em avaliação e consultoria imobiliária, gestão de projectos e fiscalização de obras e peritagens técnicas.',
+      accent: 'Avaliação, rigor e transparência',
+      panelTitle: 'Consultoria imobiliária orientada para resultados',
+      panelText:
+        'A nossa experiência, rigor técnico e visão clara permitem acrescentar valor em cada decisão imobiliária.',
+      imageSrc: '/avaliacao_consultoria.png',
+      imageAlt: 'Consultores a analisar documentos de avaliação imobiliária',
+    },
+    {
+      id: 2,
+      eyebrow: 'Os nossos serviços',
+      title: 'Gerimos activos e projectos com foco em valor e segurança',
+      description:
+        'Coordenamos processos imobiliários com metodologia, clareza operacional e acompanhamento contínuo para proteger o investimento do cliente.',
+      accent: 'Gestão integrada em cada fase',
+      panelTitle: 'Os nossos serviços',
+      panelText:
+        'Da análise inicial à execução e verificação técnica, prestamos serviços especializados que reforçam a confiança, reduzem o risco e ajudam o cliente a decidir com segurança.',
+      imageSrc: '/gestao_de_projectos.png',
+      imageAlt: 'Equipa em reunião de gestão de projectos e fiscalização',
+    },
+    {
+      id: 3,
+      eyebrow: 'Compromisso REC',
+      title: 'Peritagens técnicas e consultoria para decisões com confiança',
+      description:
+        'Entregamos pareceres técnicos, estudos e recomendações práticas para apoiar negócios imobiliários com qualidade, rigor e independência.',
+      accent: 'Conhecimento local, padrão internacional',
+      panelTitle: 'O nosso compromisso',
+      panelText:
+        'Partilhe connosco o seu projecto e descubra como podemos apoiar as suas decisões com uma abordagem profissional, personalizada e orientada para resultados.',
+      imageSrc: '/peritagens_tecnicas.png',
+      imageAlt: 'Profissionais a realizar peritagens técnicas e análise de obra',
+    },
+  ] as const
+}
 
 export default function HomeHero() {
+  const locale = useLocale()
+  const heroSlides = getHeroSlides(locale)
   const [activeSlide, setActiveSlide] = useState(0)
+
+  const servicesCta = locale === 'en' ? 'Our Services' : 'Os Nossos Serviços'
+  const learnMoreCta = locale === 'en' ? 'Learn more' : 'Saiba mais'
+  const panelText =
+    locale === 'en'
+      ? 'Outcome-focused real estate consultancy'
+      : 'Consultoria imobiliária orientada para resultados'
+  const showSlideLabel = locale === 'en' ? 'Show slide' : 'Mostrar slide'
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -104,16 +162,16 @@ export default function HomeHero() {
 
                 <div className="mt-10 flex flex-wrap gap-4">
                   <a
-                    href="/#servicos"
+                    href={localizeInternalHref('/#servicos', locale)}
                     className="inline-flex min-h-14 items-center justify-center bg-[var(--color-accent)] px-8 text-base font-semibold !text-white no-underline transition hover:bg-[var(--color-accent-hover)] hover:!text-white"
                   >
-                    Os Nossos Serviços
+                    {servicesCta}
                   </a>
                   <a
-                    href="/sobre-nos"
+                    href={localizeInternalHref('/sobre-nos', locale)}
                     className="inline-flex min-h-14 items-center justify-center border border-white/40 px-8 text-base font-semibold !text-white no-underline transition hover:border-[var(--color-accent)] hover:bg-[rgba(18,137,130,0.12)] hover:!text-white"
                   >
-                    Saiba mais
+                    {learnMoreCta}
                   </a>
                 </div>
               </div>
@@ -164,7 +222,7 @@ export default function HomeHero() {
             <button
               key={slide.id}
               type="button"
-              aria-label={`Mostrar slide ${slide.id}`}
+               aria-label={`${showSlideLabel} ${slide.id}`}
               onClick={() => setActiveSlide(index)}
               className={`group inline-flex items-center gap-3 border-none bg-transparent px-0 py-0 ${
                 isActive ? 'opacity-100' : 'opacity-65'
@@ -187,7 +245,7 @@ export default function HomeHero() {
         <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/18 bg-white/6">
           <ArrowRight size={18} strokeWidth={2} />
         </span>
-        <span>Consultoria imobiliária orientada para resultados</span>
+        <span>{panelText}</span>
       </div>
     </section>
   )

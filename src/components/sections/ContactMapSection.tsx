@@ -1,24 +1,34 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
+import { useLocale } from '../../lib/use-locale'
 
-const contactItems = [
-  {
-    icon: Phone,
-    label: 'Ligue-nos 24/7',
-    value: '+258 21 505 000 / +258 84 382 2494',
-  },
-  {
-    icon: Mail,
-    label: 'Envie-nos um e-mail',
-    value: 'consulting@rec.co.mz',
-  },
-  {
-    icon: MapPin,
-    label: 'Escritório',
-    value: 'Av. FPLM, nº 857, Maputo',
-  },
-] as const
+function getContactItems(locale: 'pt' | 'en') {
+  return [
+    {
+      icon: Phone,
+      label: locale === 'en' ? 'Call us 24/7' : 'Ligue-nos 24/7',
+      value: '+258 21 505 000 / +258 84 382 2494',
+    },
+    {
+      icon: Mail,
+      label: locale === 'en' ? 'Email us' : 'Envie-nos um e-mail',
+      value: 'consulting@rec.co.mz',
+    },
+    {
+      icon: MapPin,
+      label: locale === 'en' ? 'Office' : 'Escritório',
+      value: 'Av. FPLM, nº 857, Maputo',
+    },
+  ] as const
+}
 
 export default function ContactMapSection() {
+  const locale = useLocale()
+  const contactItems = getContactItems(locale)
+
+  const imageAlt =
+    locale === 'en' ? 'Modern buildings viewed from below' : 'Edifícios modernos vistos de baixo'
+  const mapTitle = locale === 'en' ? 'REC office location map' : 'Localização da REC no mapa'
+
   return (
     <section className="bg-white">
       <div className="relative overflow-hidden">
@@ -27,7 +37,7 @@ export default function ContactMapSection() {
             <div className="relative h-36 overflow-hidden">
               <img
                 src="/contact.jpg"
-                alt="Edifícios modernos vistos de baixo"
+                alt={imageAlt}
                 width="640"
                 height="960"
                 className="h-full w-full object-cover"
@@ -77,7 +87,7 @@ export default function ContactMapSection() {
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Localização da REC no mapa"
+            title={mapTitle}
             className="h-full w-full border-0"
           />
 

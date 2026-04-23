@@ -3,6 +3,7 @@ import BlogListingCard from '../../components/blog/BlogListingCard'
 import BlogPagination from '../../components/blog/BlogPagination'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
+import { useLocale } from '../../lib/use-locale'
 import { buildSeoHead } from '../../lib/seo'
 import { getBlogPageData } from '../../lib/wp-api'
 
@@ -20,10 +21,13 @@ export const Route = createFileRoute('/blog/')({
 
 function BlogPage() {
   const { posts, categories, recentPosts } = Route.useLoaderData()
+  const locale = useLocale()
+
+  const breadcrumbLabel = locale === 'en' ? 'News' : 'Notícias'
 
   return (
     <>
-      <PageBreadcrumb label="Notícias" title="Blog" />
+      <PageBreadcrumb label={breadcrumbLabel} title="Blog" />
 
       <section className="overflow-x-hidden bg-[var(--color-off-white)] py-12 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8 lg:px-8 xl:grid-cols-[minmax(0,1fr)_24rem]">
