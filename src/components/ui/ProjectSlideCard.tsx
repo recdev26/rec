@@ -1,3 +1,6 @@
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
+
 interface ProjectSlideCardProps {
   company: string
   category: string
@@ -50,12 +53,14 @@ export default function ProjectSlideCard({
   logoAlt,
   tone,
 }: ProjectSlideCardProps) {
+  const locale = useLocale()
   const companyWordmark = splitCompanyName(company)
+  const caseLabel = locale === 'en' ? 'REC Case' : 'Caso REC'
 
   return (
     <article className="min-w-[82vw] sm:min-w-[28rem] lg:min-w-[31rem]">
       <a
-        href="/contactos"
+        href={localizeInternalHref('/contactos', locale)}
         className="group relative block h-[30rem] overflow-hidden rounded-[1.25rem] no-underline shadow-[0_22px_56px_rgba(7,35,34,0.16)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_70px_rgba(7,35,34,0.24)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
       >
         <div className={`absolute inset-0 ${toneClasses[tone]}`} />
@@ -64,7 +69,7 @@ export default function ProjectSlideCard({
         <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(130deg,rgba(13,107,101,0.1)_0%,transparent_34%,transparent_68%,rgba(18,137,130,0.12)_100%)]" />
 
         <div className="absolute left-6 top-6 rounded-full border border-white/70 bg-white/75 px-4 py-2 text-[0.65rem] font-semibold tracking-[0.18em] text-[var(--color-primary)] uppercase backdrop-blur-sm">
-          Caso REC
+          {caseLabel}
         </div>
         <div className="absolute right-6 top-6 h-12 w-12 rounded-full border border-white/45 bg-[rgba(255,255,255,0.35)]" />
         <div className="absolute right-20 top-12 h-2 w-14 rounded-full bg-white/50" />

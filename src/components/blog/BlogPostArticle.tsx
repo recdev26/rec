@@ -1,4 +1,6 @@
 import { Facebook, Instagram, Quote, Tag, Twitter, UserRound } from 'lucide-react'
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
 import type { BlogArticleData } from '../../types/wordpress'
 
 interface BlogPostArticleProps {
@@ -6,6 +8,10 @@ interface BlogPostArticleProps {
 }
 
 export default function BlogPostArticle({ post }: BlogPostArticleProps) {
+  const locale = useLocale()
+  const tagsLabel = 'Tags:'
+  const shareLabel = locale === 'en' ? 'Share:' : 'Partilhar:'
+
   return (
     <article className="min-w-0 w-full max-w-full overflow-hidden bg-white shadow-[0_20px_48px_rgba(11,46,44,0.1)]">
       <div className="relative aspect-[4/3] w-full max-w-full overflow-hidden sm:aspect-[16/11] lg:h-[26rem] lg:aspect-auto">
@@ -92,11 +98,11 @@ export default function BlogPostArticle({ post }: BlogPostArticleProps) {
         <div className="mt-8 flex flex-col gap-5 border-t border-[var(--color-gray-light)] pt-6 sm:mt-10 sm:gap-6 sm:pt-8 lg:flex-row lg:items-center lg:justify-between">
           {post.tags.length ? (
             <div className="flex flex-wrap items-center gap-3">
-              <span className="font-semibold text-[var(--color-text)]">Tags:</span>
+              <span className="font-semibold text-[var(--color-text)]">{tagsLabel}</span>
               {post.tags.map((tag) => (
                 <a
                   key={tag}
-                  href={`/blog?tag=${encodeURIComponent(tag)}`}
+                  href={localizeInternalHref(`/blog?tag=${encodeURIComponent(tag)}`, locale)}
                   className="inline-flex items-center justify-center bg-[var(--color-off-white)] px-4 py-2 text-sm font-medium !text-[var(--color-text)] no-underline transition hover:!text-[var(--color-accent)]"
                 >
                   {tag}
@@ -106,7 +112,7 @@ export default function BlogPostArticle({ post }: BlogPostArticleProps) {
           ) : null}
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-semibold text-[var(--color-text)]">Partilhar:</span>
+            <span className="font-semibold text-[var(--color-text)]">{shareLabel}</span>
             {[
               { label: 'Facebook', href: 'https://www.facebook.com', icon: Facebook },
               { label: 'X', href: 'https://www.x.com', icon: Twitter },

@@ -176,6 +176,8 @@ function mapBlogCard(post: WPPost): BlogCardData {
     slug: post.slug,
     title: stripHtml(post.title.rendered),
     excerpt: stripHtml(getRenderedExcerpt(post)),
+    publishedAt: post.date,
+    modifiedAt: post.modified,
     dateDay: day,
     dateMonth: month,
     fullDate: formatFullDate(post.date),

@@ -1,4 +1,6 @@
 import { ArrowRight } from 'lucide-react'
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
 
 interface BlogCardProps {
   dateDay: string
@@ -30,6 +32,9 @@ export default function BlogCard({
   imageAlt,
   tone,
 }: BlogCardProps) {
+  const locale = useLocale()
+  const readMoreLabel = locale === 'en' ? 'Read more' : 'Ler mais'
+
   return (
     <article className="flex h-full flex-col overflow-hidden bg-[var(--color-off-white)] shadow-[0_18px_44px_rgba(11,46,44,0.08)]">
       <div className={`relative h-48 overflow-hidden ${toneClasses[tone]}`}>
@@ -61,10 +66,10 @@ export default function BlogCard({
         </p>
         <div className="mt-8 border-t border-[var(--color-gray-light)] pt-7">
           <a
-            href={href}
+            href={localizeInternalHref(href, locale)}
             className="inline-flex items-center gap-2 text-base font-semibold !text-[var(--color-accent)] no-underline transition hover:gap-3 hover:!text-[var(--color-accent-hover)]"
           >
-            Ler mais
+            {readMoreLabel}
             <ArrowRight size={18} strokeWidth={2.2} />
           </a>
         </div>

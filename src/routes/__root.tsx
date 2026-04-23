@@ -20,7 +20,28 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'REC - Real Estate Consulting',
+        title: 'REC — Real Estate Consulting',
+      },
+      {
+        name: 'description',
+        content:
+          'Consultoria imobiliária em Moçambique: avaliação e consultoria imobiliária, gestão de projectos e peritagens técnicas.',
+      },
+      {
+        name: 'robots',
+        content: 'index, follow, max-image-preview:large',
+      },
+      {
+        property: 'og:site_name',
+        content: 'REC — Real Estate Consulting',
+      },
+      {
+        property: 'og:locale',
+        content: 'pt_PT',
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image',
       },
     ],
     links: [
@@ -48,6 +69,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="pt-PT">
       <head>
         <HeadContent />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="font-body antialiased [overflow-wrap:anywhere] selection:bg-[var(--color-accent-light)]">
         <Header />

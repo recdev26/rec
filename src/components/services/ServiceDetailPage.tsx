@@ -3,6 +3,7 @@ import PageBreadcrumb from '../layout/PageBreadcrumb'
 import StatsBand from '../sections/StatsBand'
 import ContactSidebar from '../ui/ContactSidebar'
 import { attachServiceIcons } from '../../lib/services'
+import { useLocale } from '../../lib/use-locale'
 import type { ServiceDetailData, ServiceMetric, ServiceNavItem } from '../../lib/services'
 import ServiceProcessSteps from './ServiceProcessSteps'
 
@@ -14,11 +15,31 @@ interface ServiceDetailPageProps {
 
 export default function ServiceDetailPage({ service, serviceLinks, metrics }: ServiceDetailPageProps) {
   const hydratedService = attachServiceIcons(service)
+  const locale = useLocale()
   const ServiceIcon = hydratedService.icon
+
+  const copy =
+    locale === 'en'
+      ? {
+          breadcrumb: 'Our Services',
+          overview: 'Overview',
+          services: 'Our Services',
+          servicesIntro:
+            'Each instruction is structured into clearly defined workstreams so clients understand the precise technical scope and outputs.',
+          whyRec: 'Why choose REC?',
+        }
+      : {
+          breadcrumb: 'Os Nossos Serviços',
+          overview: 'Visão Geral',
+          services: 'Os Nossos Serviços',
+          servicesIntro:
+            'Organizamos cada intervenção em frentes de trabalho claras, para que o cliente compreenda exactamente o alcance técnico do acompanhamento prestado.',
+          whyRec: 'Por que escolher a REC?',
+        }
 
   return (
     <>
-      <PageBreadcrumb label="Os Nossos Serviços" title={hydratedService.title} />
+      <PageBreadcrumb label={copy.breadcrumb} title={hydratedService.title} />
 
       <section className="bg-white py-14 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-14 lg:px-8">
@@ -43,7 +64,7 @@ export default function ServiceDetailPage({ service, serviceLinks, metrics }: Se
             </div>
 
             <section className="mt-14">
-              <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">Visão Geral</h3>
+              <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">{copy.overview}</h3>
               <div className="mt-5 space-y-5 text-[var(--color-gray-dark)]">
                 {hydratedService.overviewParagraphs.map((paragraph) => (
                   <p key={paragraph} className="leading-relaxed">
@@ -74,10 +95,10 @@ export default function ServiceDetailPage({ service, serviceLinks, metrics }: Se
 
             <section className="mt-16">
               <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">
-                Os Nossos Serviços
+                {copy.services}
               </h3>
               <p className="mt-5 max-w-3xl leading-relaxed text-[var(--color-gray-dark)]">
-                Organizamos cada intervenção em frentes de trabalho claras, para que o cliente compreenda exactamente o alcance técnico do acompanhamento prestado.
+                {copy.servicesIntro}
               </p>
 
               <div className="mt-8 space-y-6">
@@ -117,7 +138,7 @@ export default function ServiceDetailPage({ service, serviceLinks, metrics }: Se
 
             <section className="mt-16">
               <h3 className="font-heading text-3xl font-bold text-[var(--color-text)]">
-                Por que escolher a REC?
+                {copy.whyRec}
               </h3>
               <div className="mt-8 space-y-6">
                 {hydratedService.reasons.map(({ icon: Icon, title, description }) => (

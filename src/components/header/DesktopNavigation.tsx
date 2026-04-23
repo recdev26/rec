@@ -1,7 +1,14 @@
 import { ChevronDown } from 'lucide-react'
-import { isDropdownItem, navigationItems } from './header-data'
+import { localizeInternalHref, type Locale } from '../../lib/i18n'
+import { getNavigationItems, isDropdownItem } from './header-data'
 
-export default function DesktopNavigation() {
+interface DesktopNavigationProps {
+  locale: Locale
+}
+
+export default function DesktopNavigation({ locale }: DesktopNavigationProps) {
+  const navigationItems = getNavigationItems(locale)
+
   return (
     <ul className="hidden items-center gap-10 lg:flex">
       {navigationItems.map((item) => {
@@ -9,7 +16,7 @@ export default function DesktopNavigation() {
           return (
             <li key={item.label} className="group relative list-none">
               <a
-                href={item.href}
+                href={localizeInternalHref(item.href, locale)}
                 className="inline-flex items-center gap-1.5 py-8 font-semibold !text-[#1c2f35] no-underline transition hover:!text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
               >
                 {item.label}
@@ -19,7 +26,7 @@ export default function DesktopNavigation() {
                 {item.items.map((subItem) => (
                   <a
                     key={subItem.href}
-                    href={subItem.href}
+                    href={localizeInternalHref(subItem.href, locale)}
                     className="block px-4 py-3 text-base font-medium !text-[#1c2f35] no-underline transition hover:bg-[var(--color-accent-light)] hover:!text-[var(--color-accent)]"
                   >
                     {subItem.label}
@@ -33,7 +40,7 @@ export default function DesktopNavigation() {
         return (
           <li key={item.href} className="list-none">
             <a
-              href={item.href}
+              href={localizeInternalHref(item.href, locale)}
               className="inline-flex items-center py-8 font-semibold !text-[#1c2f35] no-underline transition hover:!text-[var(--color-accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
             >
               {item.label}

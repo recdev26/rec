@@ -1,6 +1,13 @@
-import { homeInfoItems } from './header-data'
+import type { Locale } from '../../lib/i18n'
+import { getHomeInfoItems } from './header-data'
 
-export default function HomeInfoBand() {
+interface HomeInfoBandProps {
+  locale: Locale
+}
+
+export default function HomeInfoBand({ locale }: HomeInfoBandProps) {
+  const homeInfoItems = getHomeInfoItems(locale)
+
   return (
     <div className="hidden bg-[#1c2f35] text-white lg:block">
       <div className="mx-auto grid max-w-7xl grid-cols-4 divide-x divide-white/10 border-x border-white/10 px-0">

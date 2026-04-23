@@ -1,4 +1,6 @@
 import { ArrowRight, Download, Mail, Phone } from 'lucide-react'
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
 import type { ServiceDetail, ServiceNavItem } from '../../lib/services'
 
 interface ContactSidebarProps {
@@ -20,12 +22,40 @@ export default function ContactSidebar({
   currentService,
   serviceLinks,
 }: ContactSidebarProps) {
+  const locale = useLocale()
   const hasBrochures = currentService.brochureDownloads.length > 0
+
+  const copy =
+    locale === 'en'
+      ? {
+          servicesTitle: 'Our Services',
+          brochureTitle: 'Download Brochure',
+          downloadFile: 'Download file',
+          hasQuestion: 'Need assistance?',
+          speakWithRec: 'Speak with REC',
+          supportText:
+            'We provide technical support with clear communication and responsive delivery at every stage of the assignment.',
+          phone: 'Phone',
+          email: 'Email',
+          contact: 'Contact us',
+        }
+      : {
+          servicesTitle: 'Os Nossos Serviços',
+          brochureTitle: 'Download Brochura',
+          downloadFile: 'Descarregar ficheiro',
+          hasQuestion: 'Tem alguma questão?',
+          speakWithRec: 'Fale com a REC',
+          supportText:
+            'Prestamos apoio técnico com proximidade, clareza e capacidade de resposta em todas as fases do processo.',
+          phone: 'Telefone',
+          email: 'E-mail',
+          contact: 'Contacte-nos',
+        }
 
   return (
     <aside className="space-y-8 lg:sticky lg:top-28">
       <section className="hidden border border-[var(--color-gray-light)] bg-[var(--color-off-white)] p-8 lg:block">
-        <SidebarHeading title="Os Nossos Serviços" />
+        <SidebarHeading title={copy.servicesTitle} />
         <div className="mt-8 space-y-4">
           {serviceLinks.map((serviceLink) => {
             const isActive = serviceLink.href === currentService.href
@@ -33,7 +63,7 @@ export default function ContactSidebar({
             return (
               <a
                 key={serviceLink.href}
-                href={serviceLink.href}
+                href={localizeInternalHref(serviceLink.href, locale)}
                 className={`flex items-center justify-between border px-5 py-4 text-base font-medium no-underline transition ${
                   isActive
                     ? 'border-[var(--color-accent)] bg-white !text-[var(--color-accent)] shadow-[0_12px_26px_rgba(11,46,44,0.08)]'
@@ -50,7 +80,7 @@ export default function ContactSidebar({
 
       {hasBrochures ? (
         <section className="border border-[var(--color-gray-light)] bg-[var(--color-off-white)] p-8">
-          <SidebarHeading title="Download Brochura" />
+          <SidebarHeading title={copy.brochureTitle} />
           <div className="mt-8 space-y-4">
             {currentService.brochureDownloads.map((downloadItem) => (
               <a
@@ -68,7 +98,7 @@ export default function ContactSidebar({
                       {downloadItem.label}
                     </span>
                     <span className="mt-1 block text-sm text-[var(--color-gray-dark)]">
-                      Descarregar ficheiro
+                      {copy.downloadFile}
                     </span>
                   </span>
                 </span>
@@ -81,13 +111,13 @@ export default function ContactSidebar({
 
       <section className="bg-[var(--color-accent)] p-8 text-white shadow-[0_18px_36px_rgba(11,46,44,0.16)]">
         <p className="text-sm font-semibold tracking-[0.2em] text-white/76 uppercase">
-          Tem alguma questão?
+          {copy.hasQuestion}
         </p>
         <h3 className="mt-4 font-heading text-2xl font-bold text-white">
-          Fale com a REC
+          {copy.speakWithRec}
         </h3>
         <p className="mt-4 leading-relaxed text-white/82">
-          Prestamos apoio técnico com proximidade, clareza e capacidade de resposta em todas as fases do processo.
+          {copy.supportText}
         </p>
 
         <div className="mt-8 space-y-4 border-t border-white/18 pt-6">
@@ -99,7 +129,7 @@ export default function ContactSidebar({
               <Phone size={20} strokeWidth={2.1} />
             </span>
             <span>
-              <span className="block text-sm text-white/72">Telefone</span>
+              <span className="block text-sm text-white/72">{copy.phone}</span>
               <span className="block text-xl font-bold">+258 21 505 000</span>
             </span>
           </a>
@@ -112,17 +142,17 @@ export default function ContactSidebar({
               <Mail size={20} strokeWidth={2.1} />
             </span>
             <span>
-              <span className="block text-sm text-white/72">E-mail</span>
+              <span className="block text-sm text-white/72">{copy.email}</span>
               <span className="block text-lg font-semibold">consulting@rec.co.mz</span>
             </span>
           </a>
         </div>
 
         <a
-          href="/contactos"
+          href={localizeInternalHref('/contactos', locale)}
           className="mt-8 inline-flex min-h-12 w-full items-center justify-center gap-3 bg-white px-6 text-base font-semibold !text-[var(--color-accent)] no-underline transition hover:bg-[var(--color-accent-light)]"
         >
-          Contacte-nos
+          {copy.contact}
           <ArrowRight size={18} strokeWidth={2.1} />
         </a>
       </section>

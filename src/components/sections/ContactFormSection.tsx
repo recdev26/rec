@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useServerFn } from '@tanstack/react-start'
 import { submitContactForm, type ContactFormErrors } from '../../server/contact'
+import { useLocale } from '../../lib/use-locale'
 import SectionLabel from '../ui/SectionLabel'
 import TurnstileWidget from '../ui/TurnstileWidget'
 
@@ -8,9 +9,45 @@ const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY
 
 export default function ContactFormSection() {
   const submitContact = useServerFn(submitContactForm)
+  const locale = useLocale()
   const [fieldErrors, setFieldErrors] = useState<ContactFormErrors>({})
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const copy =
+    locale === 'en'
+      ? {
+          label: 'Get in Touch',
+          title: 'Need support? Speak with our team',
+          intro:
+            'At REC, every client receives dedicated attention. Share your brief and we will respond promptly with clear professional guidance.',
+          fullName: 'Full name',
+          email: 'Email',
+          phone: 'Phone',
+          company: 'Company',
+          companyPlaceholder: 'Company (optional)',
+          subject: 'Subject',
+          message: 'Message',
+          messagePlaceholder: 'Write your message',
+          sending: 'Sending...',
+          submit: 'Send Message',
+        }
+      : {
+          label: 'Entre em Contacto',
+          title: 'Precisa de ajuda? Fale connosco',
+          intro:
+            'Na REC, acreditamos que cada cliente merece atenção personalizada. Partilhe connosco o seu pedido e responderemos com a máxima rapidez e profissionalismo.',
+          fullName: 'Nome completo',
+          email: 'E-mail',
+          phone: 'Telefone',
+          company: 'Empresa',
+          companyPlaceholder: 'Empresa (opcional)',
+          subject: 'Assunto',
+          message: 'Mensagem',
+          messagePlaceholder: 'Escreva a sua mensagem',
+          sending: 'A enviar...',
+          submit: 'Enviar Mensagem',
+        }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -51,14 +88,12 @@ export default function ContactFormSection() {
     <section className="bg-[var(--color-off-white)] py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-5xl text-center">
-          <SectionLabel align="center">Entre em Contacto</SectionLabel>
+          <SectionLabel align="center">{copy.label}</SectionLabel>
           <h2 className="font-heading text-2xl md:text-4xl leading-tight font-bold text-[var(--color-text)]">
-            Precisa de ajuda? Fale connosco
+            {copy.title}
           </h2>
           <p className="mx-auto mt-5 max-w-3xl leading-relaxed text-[var(--color-gray-dark)]">
-            Na REC, acreditamos que cada cliente merece atenção personalizada.
-            Partilhe connosco o seu pedido e responderemos com a máxima rapidez
-            e profissionalismo.
+            {copy.intro}
           </p>
         </div>
 
@@ -66,13 +101,13 @@ export default function ContactFormSection() {
           <div className="grid gap-6 md:grid-cols-2">
             <div>
               <label htmlFor="nome-completo" className="mb-2 block text-sm font-medium text-[var(--color-text)]">
-                Nome completo
+                {copy.fullName}
               </label>
               <input
                 id="nome-completo"
                 name="nomeCompleto"
                 type="text"
-                placeholder="Nome completo"
+                placeholder={copy.fullName}
                 aria-invalid={Boolean(fieldErrors.nomeCompleto)}
                 aria-describedby={fieldErrors.nomeCompleto ? 'nome-completo-error' : undefined}
                 className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
@@ -86,13 +121,13 @@ export default function ContactFormSection() {
 
             <div>
               <label htmlFor="email" className="mb-2 block text-sm font-medium text-[var(--color-text)]">
-                E-mail
+                {copy.email}
               </label>
               <input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="E-mail"
+                placeholder={copy.email}
                 aria-invalid={Boolean(fieldErrors.email)}
                 aria-describedby={fieldErrors.email ? 'email-error' : undefined}
                 className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
@@ -108,26 +143,26 @@ export default function ContactFormSection() {
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div>
               <label htmlFor="telefone" className="mb-2 block text-sm font-medium text-[var(--color-text)]">
-                Telefone
+                {copy.phone}
               </label>
               <input
                 id="telefone"
                 name="telefone"
                 type="tel"
-                placeholder="Telefone"
+                placeholder={copy.phone}
                 className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
               />
             </div>
 
             <div>
               <label htmlFor="empresa" className="mb-2 block text-sm font-medium text-[var(--color-text)]">
-                Empresa
+                {copy.company}
               </label>
               <input
                 id="empresa"
                 name="empresa"
                 type="text"
-                placeholder="Empresa (opcional)"
+                placeholder={copy.companyPlaceholder}
                 className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
               />
             </div>
@@ -135,13 +170,13 @@ export default function ContactFormSection() {
 
           <div className="mt-6">
             <label htmlFor="assunto" className="mb-2 block text-sm font-medium text-[var(--color-text)]">
-              Assunto
-            </label>
+               {copy.subject}
+             </label>
             <input
               id="assunto"
               name="assunto"
               type="text"
-              placeholder="Assunto"
+               placeholder={copy.subject}
               aria-invalid={Boolean(fieldErrors.assunto)}
               aria-describedby={fieldErrors.assunto ? 'assunto-error' : undefined}
               className="min-h-16 w-full border border-transparent bg-white px-6 text-[var(--color-text)] outline-none transition placeholder:text-[var(--color-gray-mid)] focus:border-[var(--color-accent)]"
@@ -155,12 +190,12 @@ export default function ContactFormSection() {
 
           <div className="mt-6">
             <label htmlFor="mensagem" className="mb-2 block text-sm font-medium text-[var(--color-text)]">
-              Mensagem
-            </label>
+               {copy.message}
+             </label>
             <textarea
               id="mensagem"
               name="mensagem"
-              placeholder="Escreva a sua mensagem"
+               placeholder={copy.messagePlaceholder}
               rows={8}
               aria-invalid={Boolean(fieldErrors.mensagem)}
               aria-describedby={fieldErrors.mensagem ? 'mensagem-error' : undefined}
@@ -195,7 +230,7 @@ export default function ContactFormSection() {
               disabled={isSubmitting}
               className="inline-flex min-h-14 items-center justify-center bg-[var(--color-accent)] px-6 font-semibold text-white transition hover:bg-[var(--color-accent-hover)]"
             >
-              {isSubmitting ? 'A enviar...' : 'Enviar Mensagem'}
+              {isSubmitting ? copy.sending : copy.submit}
             </button>
           </div>
         </form>

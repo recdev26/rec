@@ -1,4 +1,6 @@
 import SectionLabel from '../ui/SectionLabel'
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
 
 interface ClientLogo {
   name: string
@@ -56,16 +58,32 @@ function getInitials(name: string) {
 }
 
 export default function HomeClientsLogoSection() {
+  const locale = useLocale()
   const sliderItems = [...clients, ...clients]
+
+  const copy =
+    locale === 'en'
+      ? {
+          label: 'REC Clients',
+          titleLine1: 'Institutions and companies that have worked with REC',
+          titleLine2: 'Technical solutions for assets and projects',
+          clientAria: 'Client',
+        }
+      : {
+          label: 'Clientes REC',
+          titleLine1: 'Empresas que já trabalharam com a REC',
+          titleLine2: 'Soluções técnicas para activos e projectos',
+          clientAria: 'Cliente',
+        }
 
   return (
     <section className="overflow-hidden bg-[var(--bg-off-white)] py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <SectionLabel>Clientes REC</SectionLabel>
+        <SectionLabel>{copy.label}</SectionLabel>
         <h2 className="font-heading text-2xl leading-tight font-bold text-[var(--color-text)] md:text-4xl">
-          Empresas que já trabalharam com a REC
+          {copy.titleLine1}
           <span className="block text-[var(--color-accent)]">
-            Soluções técnicas para activos e projectos
+            {copy.titleLine2}
           </span>
         </h2>
       </div>
@@ -78,9 +96,9 @@ export default function HomeClientsLogoSection() {
           {sliderItems.map((client, index) => (
             <a
               key={`${client.name}-${index}`}
-              href="/contactos"
+              href={localizeInternalHref('/contactos', locale)}
               className="group relative block w-[16.5rem] shrink-0 overflow-hidden rounded-2xl border border-[var(--color-gray-light)] bg-white p-5 no-underline shadow-[0_14px_32px_rgba(11,46,44,0.08)] transition duration-300 hover:-translate-y-1 hover:border-[var(--color-accent)] hover:shadow-[0_20px_40px_rgba(11,46,44,0.12)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-accent)]"
-              aria-label={`Cliente ${client.name}`}
+              aria-label={`${copy.clientAria} ${client.name}`}
             >
               <div className="flex h-20 items-center justify-center px-4">
                 {client.logoSrc ? (

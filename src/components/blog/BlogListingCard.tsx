@@ -1,4 +1,6 @@
 import { ArrowRight, Clock3, Tag, UserRound } from 'lucide-react'
+import { localizeInternalHref } from '../../lib/i18n'
+import { useLocale } from '../../lib/use-locale'
 import type { BlogCardData } from '../../types/wordpress'
 
 interface BlogListingCardProps {
@@ -6,6 +8,9 @@ interface BlogListingCardProps {
 }
 
 export default function BlogListingCard({ post }: BlogListingCardProps) {
+  const locale = useLocale()
+  const detailsLabel = locale === 'en' ? 'Read details' : 'Ler detalhes'
+
   return (
     <article className="min-w-0 overflow-hidden bg-white shadow-[0_20px_48px_rgba(11,46,44,0.1)]">
       <div className="relative aspect-[5/4] overflow-hidden sm:aspect-[16/11] lg:h-[25rem] lg:aspect-auto">
@@ -55,10 +60,10 @@ export default function BlogListingCard({ post }: BlogListingCardProps) {
 
         <div className="mt-6 border-t border-[var(--color-gray-light)] pt-5 sm:mt-8 sm:pt-7">
           <a
-            href={`/blog/${post.slug}`}
+            href={localizeInternalHref(`/blog/${post.slug}`, locale)}
             className="inline-flex min-h-11 items-center justify-center gap-2 bg-[var(--color-accent)] px-5 text-sm font-semibold !text-white no-underline transition hover:bg-[var(--color-accent-hover)] hover:!text-white sm:min-h-12 sm:gap-3 sm:px-7 sm:text-base"
           >
-            Ler detalhes
+            {detailsLabel}
             <ArrowRight size={18} strokeWidth={2.1} />
           </a>
         </div>
