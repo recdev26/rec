@@ -4,12 +4,14 @@ import BlogReplyForm from '../../components/blog/BlogReplyForm'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import NotFoundPage from '../../components/layout/NotFoundPage'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
+import { resolveLocaleFromSearch } from '../../lib/i18n'
 import { useLocale } from '../../lib/use-locale'
 import { buildArticleSchema, buildSeoHead, resolveAbsoluteUrl } from '../../lib/seo'
 import { getBlogPostPageData } from '../../lib/wp-api'
 
 export const Route = createFileRoute('/blog/$slug')({
-  loader: async ({ params }) => getBlogPostPageData(params.slug),
+  loader: async ({ params, location }) =>
+    getBlogPostPageData(params.slug, resolveLocaleFromSearch(location.search)),
   head: ({ loaderData }) => {
     const post = loaderData?.post
 

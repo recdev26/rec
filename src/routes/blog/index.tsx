@@ -3,12 +3,13 @@ import BlogListingCard from '../../components/blog/BlogListingCard'
 import BlogPagination from '../../components/blog/BlogPagination'
 import BlogSidebar from '../../components/blog/BlogSidebar'
 import PageBreadcrumb from '../../components/layout/PageBreadcrumb'
+import { resolveLocaleFromSearch } from '../../lib/i18n'
 import { useLocale } from '../../lib/use-locale'
 import { buildSeoHead } from '../../lib/seo'
 import { getBlogPageData } from '../../lib/wp-api'
 
 export const Route = createFileRoute('/blog/')({
-  loader: async () => getBlogPageData(),
+  loader: async ({ location }) => getBlogPageData(resolveLocaleFromSearch(location.search)),
   head: () =>
     buildSeoHead({
       title: 'Blog',
