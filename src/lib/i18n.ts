@@ -1,5 +1,17 @@
 export type Locale = 'pt' | 'en'
 
+export function resolveLocaleFromSearch(search: unknown): Locale {
+  if (search && typeof search === 'object' && 'lang' in search) {
+    const lang = (search as { lang?: unknown }).lang
+
+    if (lang === 'en' || lang === 'pt') {
+      return lang
+    }
+  }
+
+  return 'pt'
+}
+
 function isExternalHref(href: string) {
   return (
     href.startsWith('http://') ||
@@ -22,10 +34,10 @@ function mapPathnameForLocale(pathname: string, locale: Locale) {
 }
 
 export function resolveLocale(pathname: string, search: Record<string, unknown>): Locale {
-  const lang = search.lang
+  const localeFromSearch = resolveLocaleFromSearch(search)
 
-  if (typeof lang === 'string' && (lang === 'pt' || lang === 'en')) {
-    return lang
+  if (localeFromSearch === 'en') {
+    return 'en'
   }
 
   if (pathname === '/about') {

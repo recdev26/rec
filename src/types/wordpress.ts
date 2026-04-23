@@ -110,6 +110,7 @@ export interface WPServiceAcf {
 export interface WPPostBase {
   id: number
   slug: string
+  link?: string
   menu_order?: number
   date: string
   modified: string

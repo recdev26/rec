@@ -16,6 +16,7 @@ import type {
   WordPressBlogData,
   WordPressBlogDetailData,
 } from '../types/wordpress'
+import type { Locale } from './i18n'
 import {
   getSerializableFallbackServices,
   serviceStats,
@@ -27,9 +28,15 @@ import type { ServiceDetailData, ServiceMetric, ServiceNavItem } from './service
 const serviceRouteSlugAliases = {
   'avaliacao-e-consultoria': 'avaliacao-e-consultoria',
   'avaliacao-e-consultoria-imobiliaria': 'avaliacao-e-consultoria',
+  'valuation-and-advisory': 'avaliacao-e-consultoria',
+  'valuation-and-real-estate-advisory': 'avaliacao-e-consultoria',
   'gestao-de-projectos': 'gestao-de-projectos',
   'gestao-de-projectos-e-fiscalizacao-de-obras': 'gestao-de-projectos',
+  'project-management-and-works-supervision': 'gestao-de-projectos',
+  'project-management': 'gestao-de-projectos',
   'peritagens-tecnicas': 'peritagens-tecnicas',
+  'technical-due-diligence': 'peritagens-tecnicas',
+  'building-surveys-and-technical-due-diligence': 'peritagens-tecnicas',
 } as const
 
 const WP_API_BASE =
@@ -56,6 +63,24 @@ const MONTH_NAMES = [
 ] as const
 
 const SHORT_MONTH_NAMES = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'] as const
+
+function toWordPressLang(locale?: Locale) {
+  return locale === 'en' ? 'en' : undefined
+}
+
+function filterByLocaleLink<T extends { link?: string }>(items: readonly T[], locale?: Locale) {
+  if (items.length === 0) {
+    return [...items]
+  }
+
+  if (locale === 'en') {
+    const englishItems = items.filter((item) => item.link?.includes('/en/'))
+    return englishItems.length > 0 ? englishItems : [...items]
+  }
+
+  const defaultLanguageItems = items.filter((item) => !item.link?.includes('/en/'))
+  return defaultLanguageItems.length > 0 ? defaultLanguageItems : [...items]
+}
 
 function decodeHtml(value: string) {
   return value
@@ -254,11 +279,23 @@ function normalizeServiceRouteSlug(slug: string, title: string) {
     return 'avaliacao-e-consultoria'
   }
 
+  if (normalizedTitle.includes('valuation') || normalizedTitle.includes('advisory')) {
+    return 'avaliacao-e-consultoria'
+  }
+
   if (normalizedTitle.includes('gestão') || normalizedTitle.includes('gestao')) {
     return 'gestao-de-projectos'
   }
 
+  if (normalizedTitle.includes('project management') || normalizedTitle.includes('works supervision')) {
+    return 'gestao-de-projectos'
+  }
+
   if (normalizedTitle.includes('peritagens')) {
+    return 'peritagens-tecnicas'
+  }
+
+  if (normalizedTitle.includes('due diligence') || normalizedTitle.includes('technical')) {
     return 'peritagens-tecnicas'
   }
 
@@ -446,37 +483,42 @@ export async function getPosts(params?: {
   page?: number
   perPage?: number
   category?: number
+  locale?: Locale
 }): Promise<BlogCardData[]> {
   const posts = await fetchWordPress<WPPost[]>('posts', {
     _embed: 1,
     page: params?.page ?? 1,
     per_page: params?.perPage ?? 9,
     categories: params?.category,
+    lang: toWordPressLang(params?.locale),
   })
 
-  return (posts ?? []).map(mapBlogCard)
+  return filterByLocaleLink(posts ?? [], params?.locale).map(mapBlogCard)
 }
 
 export async function getRawPosts(params?: {
   page?: number
   perPage?: number
   category?: number
+  locale?: Locale
 }): Promise<WPPost[]> {
   const posts = await fetchWordPress<WPPost[]>('posts', {
     _embed: 1,
     page: params?.page ?? 1,
     per_page: params?.perPage ?? 9,
     categories: params?.category,
+    lang: toWordPressLang(params?.locale),
   })
 
-  return posts ?? []
+  return filterByLocaleLink(posts ?? [], params?.locale)
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogArticleData | null> {
+export async function getPostBySlug(slug: string, locale?: Locale): Promise<BlogArticleData | null> {
   const posts = await fetchWordPress<WPPost[]>('posts', {
     _embed: 1,
     slug,
     per_page: 1,
+    lang: toWordPressLang(locale),
   })
 
   const post = posts?.[0]
@@ -484,30 +526,35 @@ export async function getPostBySlug(slug: string): Promise<BlogArticleData | nul
   return post ? mapBlogArticle(post) : null
 }
 
-export async function getCategories(): Promise<BlogCategory[]> {
+export async function getCategories(locale?: Locale): Promise<BlogCategory[]> {
   const categories = await fetchWordPress<Array<{ id: number; name: string; slug: string; count: number }>>(
     'categories',
-    { per_page: 100 }
+    { per_page: 100, lang: toWordPressLang(locale) }
   )
 
-  return (categories ?? []).map((category) => ({
-    label: category.name,
-    slug: category.slug,
-    count: category.count,
-  }))
+  return (categories ?? [])
+    .filter((category) => category.count > 0)
+    .map((category) => ({
+      label: category.name,
+      slug: category.slug,
+      count: category.count,
+    }))
 }
 
-export async function getServices(): Promise<ServiceDetailData[]> {
+export async function getServices(locale?: Locale): Promise<ServiceDetailData[]> {
   const posts = await fetchWordPress<WPServicePost[]>('servicos', {
     _embed: 1,
     per_page: 100,
+    lang: toWordPressLang(locale),
   })
 
-  if (!posts || posts.length === 0) {
+  const localizedPosts = filterByLocaleLink(posts ?? [], locale)
+
+  if (localizedPosts.length === 0) {
     return getSerializableFallbackServices()
   }
 
-  const brochureIds = posts.flatMap((post) => {
+  const brochureIds = localizedPosts.flatMap((post) => {
     const acf = (post.acf ?? {}) as WPServiceAcf
 
     return (acf.brochuras ?? [])
@@ -516,13 +563,14 @@ export async function getServices(): Promise<ServiceDetailData[]> {
   })
   const downloadsById = await getDownloadsByIds([...new Set(brochureIds)])
 
-  return mergeServicesWithFallback(posts.map((post) => mapService(post, downloadsById)))
+  return mergeServicesWithFallback(localizedPosts.map((post) => mapService(post, downloadsById)))
 }
 
-export async function getMetrics(): Promise<ServiceMetric[]> {
+export async function getMetrics(locale?: Locale): Promise<ServiceMetric[]> {
   const posts = await fetchWordPress<WPMetricPost[]>('metricas', {
     per_page: 100,
     _embed: '1',
+    lang: toWordPressLang(locale),
   })
 
   if (!posts || posts.length === 0) {
@@ -552,8 +600,8 @@ export async function getMetrics(): Promise<ServiceMetric[]> {
   return metrics.length > 0 ? metrics : [...serviceStats]
 }
 
-export async function getServiceBySlug(slug: string): Promise<ServiceDetailData | null> {
-  const services = await getServices()
+export async function getServiceBySlug(slug: string, locale?: Locale): Promise<ServiceDetailData | null> {
+  const services = await getServices(locale)
   const service = services.find((item) => item.slug === slug)
 
   return service ? service : (() => {
@@ -562,11 +610,11 @@ export async function getServiceBySlug(slug: string): Promise<ServiceDetailData 
   })()
 }
 
-export async function getBlogPageData(): Promise<WordPressBlogData> {
+export async function getBlogPageData(locale?: Locale): Promise<WordPressBlogData> {
   const [posts, categories, recentPosts] = await Promise.all([
-    getPosts({ perPage: 9, page: 1 }),
-    getCategories(),
-    getPosts({ perPage: 3, page: 1 }),
+    getPosts({ perPage: 9, page: 1, locale }),
+    getCategories(locale),
+    getPosts({ perPage: 3, page: 1, locale }),
   ])
 
   return {
@@ -576,11 +624,11 @@ export async function getBlogPageData(): Promise<WordPressBlogData> {
   }
 }
 
-export async function getBlogPostPageData(slug: string): Promise<WordPressBlogDetailData> {
+export async function getBlogPostPageData(slug: string, locale?: Locale): Promise<WordPressBlogDetailData> {
   const [post, categories, recentPosts] = await Promise.all([
-    getPostBySlug(slug),
-    getCategories(),
-    getPosts({ perPage: 3, page: 1 }),
+    getPostBySlug(slug, locale),
+    getCategories(locale),
+    getPosts({ perPage: 3, page: 1, locale }),
   ])
 
   return {
@@ -590,11 +638,11 @@ export async function getBlogPostPageData(slug: string): Promise<WordPressBlogDe
   }
 }
 
-export async function getHomePageData(): Promise<HomePageData> {
+export async function getHomePageData(locale?: Locale): Promise<HomePageData> {
   const [posts, services, metrics] = await Promise.all([
-    getPosts({ perPage: 3, page: 1 }),
-    getServices(),
-    getMetrics(),
+    getPosts({ perPage: 3, page: 1, locale }),
+    getServices(locale),
+    getMetrics(locale),
   ])
 
   return {
@@ -604,16 +652,20 @@ export async function getHomePageData(): Promise<HomePageData> {
   }
 }
 
-export async function getAboutPageData(): Promise<AboutPageData> {
-  const metrics = await getMetrics()
+export async function getAboutPageData(locale?: Locale): Promise<AboutPageData> {
+  const metrics = await getMetrics(locale)
 
   return {
     metrics,
   }
 }
 
-export async function getServicePageData(slug: string): Promise<ServicePageData> {
-  const [service, services, metrics] = await Promise.all([getServiceBySlug(slug), getServices(), getMetrics()])
+export async function getServicePageData(slug: string, locale?: Locale): Promise<ServicePageData> {
+  const [service, services, metrics] = await Promise.all([
+    getServiceBySlug(slug, locale),
+    getServices(locale),
+    getMetrics(locale),
+  ])
 
   return {
     service,

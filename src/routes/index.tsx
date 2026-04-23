@@ -8,11 +8,12 @@ import HomeProjectsSection from '../components/sections/HomeProjectsSection'
 import HomeServicesSection from '../components/sections/HomeServicesSection'
 import HomeStatsCardsSection from '../components/sections/HomeStatsCardsSection'
 import { FEATURES } from '../lib/constants'
+import { resolveLocaleFromSearch } from '../lib/i18n'
 import { buildOrganizationSchema, buildSeoHead } from '../lib/seo'
 import { getHomePageData } from '../lib/wp-api'
 
 export const Route = createFileRoute('/')({
-  loader: async () => getHomePageData(),
+  loader: async ({ location }) => getHomePageData(resolveLocaleFromSearch(location.search)),
   head: () => ({
     ...buildSeoHead({
       title: 'Início',
